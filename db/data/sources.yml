@@ -1,0 +1,9 @@
+# Seed sources. Everything here is a citation record — it does not assert facts itself.
+# key: internal lookup key used by other seed files, not persisted as a column.
+- key: moe_web_standard_designs
+  document_name: "Standard designs for school buildings and layouts (Ministry of Education website)"
+  ministry_source_url: "https://www.education.govt.nz/our-work/strategies-policies-and-programmes/property-and-infrastructure/standardising-school-property/standard-designs-school-buildings-and-layouts"
+  page:
+  section:
+  version_label: "Accessed 2026-09-20"
+  file_path:

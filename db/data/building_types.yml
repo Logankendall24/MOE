@@ -1,0 +1,99 @@
+# Every record here is status: prototype_placeholder until cross-checked against the
+# Ministry PDFs (see docs/source-pdfs/). Fields with no confirmed source are left blank —
+# the app must not present a blank as a documented Ministry fact.
+- code: S
+  name: "Type S — Single-depth building"
+  category: teaching
+  depth: single
+  storeys_supported:
+  teaching_space_min:
+  teaching_space_max:
+  admin_compatible:
+  hall_gym_compatible:
+  fixed_elements: []
+  configurable_elements: []
+  summary: >
+    [MOE-WEB] The Ministry identifies "Type S" as a single-depth building among its
+    standard building types, used for teaching, administration, gym, hall and library
+    spaces generally. [NEEDS CONFIRMATION] Which specific school types, teaching-space
+    counts, storey options, and fixed vs. configurable elements apply to Type S have not
+    yet been sourced from a Ministry PDF.
+  status: prototype_placeholder
+  school_type_codes: []
+  source_keys: [moe_web_standard_designs]
+
+- code: D
+  name: "Type D — Double-depth building"
+  category: teaching
+  depth: double
+  storeys_supported:
+  teaching_space_min:
+  teaching_space_max:
+  admin_compatible:
+  hall_gym_compatible:
+  fixed_elements: []
+  configurable_elements: []
+  summary: >
+    [MOE-WEB] The Ministry identifies "Type D" as a double-depth building among its
+    standard building types. [NEEDS CONFIRMATION] Specific applicability, capacities,
+    storey options, and fixed vs. configurable elements are not yet sourced.
+  status: prototype_placeholder
+  school_type_codes: []
+  source_keys: [moe_web_standard_designs]
+
+- code: H
+  name: "Type H — Hall (including whare wānanga)"
+  category: hall
+  depth:
+  storeys_supported:
+  teaching_space_min:
+  teaching_space_max:
+  admin_compatible:
+  hall_gym_compatible:
+  fixed_elements: []
+  configurable_elements: []
+  summary: >
+    [MOE-WEB] The Ministry identifies "Type H" as its standard hall building type,
+    including whare wānanga. [NEEDS CONFIRMATION] Capacity, dimensions, and configuration
+    options are not yet sourced.
+  status: prototype_placeholder
+  school_type_codes: []
+  source_keys: [moe_web_standard_designs]
+
+- code: G
+  name: "Type G — Gym (including whare hākinakina)"
+  category: gym
+  depth:
+  storeys_supported:
+  teaching_space_min:
+  teaching_space_max:
+  admin_compatible:
+  hall_gym_compatible:
+  fixed_elements: []
+  configurable_elements: []
+  summary: >
+    [MOE-WEB] The Ministry identifies "Type G" as its standard gym building type,
+    including whare hākinakina. [NEEDS CONFIRMATION] Capacity, dimensions, and
+    configuration options are not yet sourced.
+  status: prototype_placeholder
+  school_type_codes: []
+  source_keys: [moe_web_standard_designs]
+
+- code: K
+  name: "Type K — Kura Māori building"
+  category:
+  depth:
+  storeys_supported:
+  teaching_space_min:
+  teaching_space_max:
+  admin_compatible:
+  hall_gym_compatible:
+  fixed_elements: []
+  configurable_elements: []
+  summary: >
+    [MOE-WEB] The Ministry identifies "Type K — kura Māori buildings where applicable".
+    [NEEDS CONFIRMATION] Category classification, capacities, and configuration options
+    are not yet sourced.
+  status: prototype_placeholder
+  school_type_codes: [kura]
+  source_keys: [moe_web_standard_designs]

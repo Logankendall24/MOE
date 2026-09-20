@@ -1,0 +1,13 @@
+<div class="grid sm:grid-cols-2 gap-6">
+  <div>
+    <label class="block text-sm font-medium text-slate-700">Current roll</label>
+    <input type="number" min="0" name="draft[current_roll]" value="<%= draft["current_roll"] %>"
+           class="mt-2 block w-full border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:border-slate-900">
+  </div>
+  <div>
+    <label class="block text-sm font-medium text-slate-700">Projected roll</label>
+    <input type="number" min="0" name="draft[projected_roll]" value="<%= draft["projected_roll"] %>"
+           class="mt-2 block w-full border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:border-slate-900">
+  </div>
+</div>
+<p class="text-xs text-slate-400">Optional — leave blank if not yet known.</p>

@@ -1,0 +1,110 @@
+<% content_for :title, @building_type.name %>
+<% bt = @building_type %>
+
+<div class="max-w-5xl mx-auto px-6 py-16">
+  <%= link_to "← All building types", building_types_path, class: "text-sm text-slate-500 hover:text-slate-700" %>
+
+  <div class="mt-4 flex items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold tracking-widest uppercase text-slate-500">Type <%= bt.code %> · <%= bt.category_label %></p>
+      <h1 class="mt-2 text-3xl font-semibold text-slate-900"><%= bt.name %></h1>
+    </div>
+    <%= render "status_badge", building_type: bt %>
+  </div>
+
+  <p class="mt-6 max-w-3xl text-slate-700 leading-relaxed"><%= bt.summary %></p>
+
+  <div class="mt-12 grid md:grid-cols-2 gap-10">
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Applicable school types</h2>
+      <% if bt.school_types.any? %>
+        <ul class="mt-3 space-y-1 text-sm text-slate-700">
+          <% bt.school_types.each { |st| %><li>• <%= st.label %></li><% } %>
+        </ul>
+      <% else %>
+        <p class="mt-3 text-sm text-slate-400">Not yet confirmed against a Ministry PDF.</p>
+      <% end %>
+
+      <h2 class="mt-8 text-sm font-semibold uppercase tracking-wide text-slate-500">Depth / storeys</h2>
+      <p class="mt-3 text-sm text-slate-700">
+        Depth: <%= bt.depth || "not yet confirmed" %><br>
+        Storeys supported: <%= bt.storeys_supported.presence&.join(", ") || "not yet confirmed" %>
+      </p>
+
+      <h2 class="mt-8 text-sm font-semibold uppercase tracking-wide text-slate-500">Teaching-space capacity</h2>
+      <p class="mt-3 text-sm text-slate-700">
+        <% if bt.teaching_space_min || bt.teaching_space_max %>
+          <%= bt.teaching_space_min %>–<%= bt.teaching_space_max %> teaching spaces
+        <% else %>
+          Not yet confirmed against a Ministry PDF.
+        <% end %>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">What's fixed</h2>
+      <% if bt.fixed_elements.present? %>
+        <ul class="mt-3 space-y-1 text-sm text-slate-700">
+          <% bt.fixed_elements.each { |el| %><li>• <%= el %></li><% } %>
+        </ul>
+      <% else %>
+        <p class="mt-3 text-sm text-slate-400">Not yet documented in a supplied Ministry PDF.</p>
+      <% end %>
+
+      <h2 class="mt-8 text-sm font-semibold uppercase tracking-wide text-slate-500">What's configurable</h2>
+      <% if bt.configurable_elements.present? %>
+        <ul class="mt-3 space-y-1 text-sm text-slate-700">
+          <% bt.configurable_elements.each { |el| %><li>• <%= el %></li><% } %>
+        </ul>
+      <% else %>
+        <p class="mt-3 text-sm text-slate-400">Not yet documented in a supplied Ministry PDF.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <% if bt.layouts.any? %>
+    <div class="mt-12">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Relevant layouts</h2>
+      <div class="mt-4 space-y-4">
+        <% bt.layouts.each do |layout| %>
+          <div class="border border-slate-200 p-4">
+            <p class="font-medium text-slate-900"><%= layout.name %></p>
+            <% if layout.spaces.any? %>
+              <p class="mt-1 text-sm text-slate-500"><%= layout.spaces.map(&:name).join(", ") %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="mt-12">
+    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">3D model</h2>
+    <div class="mt-4 border border-dashed border-slate-300 bg-slate-50 h-56 flex flex-col items-center justify-center text-center px-6">
+      <p class="text-sm font-medium text-slate-500">Prototype representation only — not an official Ministry of Education model</p>
+      <p class="mt-1 text-xs text-slate-400">Interactive 3D viewer (glTF/GLB via Three.js) is planned for Phase 3, pending real SketchUp-derived exports.</p>
+    </div>
+  </div>
+
+  <div class="mt-12">
+    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Sources</h2>
+    <% if bt.sources.any? %>
+      <ul class="mt-4 space-y-2">
+        <% bt.sources.each do |source| %>
+          <li class="text-sm text-slate-700">
+            <% if source.ministry_source_url.present? %>
+              <%= link_to source.citation, source.ministry_source_url, class: "underline hover:text-slate-900", target: "_blank", rel: "noopener" %>
+            <% else %>
+              <%= source.citation %>
+            <% end %>
+            <% if source.version_label.present? %>
+              <span class="text-slate-400">— <%= source.version_label %></span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="mt-3 text-sm text-slate-400">No sources recorded yet.</p>
+    <% end %>
+  </div>
+</div>

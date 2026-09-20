@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  school_type: one
+  current_roll: 1
+  projected_roll: 1
+  teaching_spaces_required: 1
+  specialist_spaces_required: 1
+  facilities_requested: MyText
+  configuration_preference: MyString
+  site_notes: MyText
+  session_token: MyString
+
+two:
+  school_type: two
+  current_roll: 1
+  projected_roll: 1
+  teaching_spaces_required: 1
+  specialist_spaces_required: 1
+  facilities_requested: MyText
+  configuration_preference: MyString
+  site_notes: MyText
+  session_token: MyString

@@ -1,0 +1,23 @@
+- code: primary
+  label: Primary
+  notes: >
+    [MOE-WEB] MOE standard layouts exist for "primary and intermediate teaching spaces".
+- code: intermediate
+  label: Intermediate
+  notes: >
+    [MOE-WEB] MOE standard layouts exist for "primary and intermediate teaching spaces".
+- code: secondary
+  label: Secondary
+  notes: >
+    [MOE-WEB] MOE standard layouts exist for "secondary teaching spaces".
+- code: composite
+  label: "Composite (Years 1–13)"
+  notes: >
+    [ASSUMPTION] Not explicitly named in the MOE webpage's layout list (which covers
+    primary/intermediate and secondary separately). Whether composite schools draw on
+    both layout families, or have distinct guidance, needs confirmation from the
+    supplied PDFs or the Ministry property team. [NEEDS CONFIRMATION]
+- code: kura
+  label: "Kura / Māori-medium"
+  notes: >
+    [MOE-WEB] The Ministry identifies "Type K — kura Māori buildings where applicable".

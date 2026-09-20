@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) ? "#{content_for(:title)} — Standard Designs Navigator" : "Standard Designs Navigator" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Standard Designs Navigator">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-white text-slate-900 antialiased">
+    <header class="border-b border-slate-200">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <%= link_to root_path, class: "flex items-baseline gap-3" do %>
+          <span class="text-sm font-semibold tracking-wide uppercase text-slate-900">Standard Designs Navigator</span>
+          <span class="hidden sm:inline text-xs text-slate-500">Prototype · not an official Ministry of Education service</span>
+        <% end %>
+        <nav class="flex items-center gap-6 text-sm">
+          <%= link_to "Browse building types", building_types_path, class: "text-slate-600 hover:text-slate-900" %>
+          <%= link_to "Start questionnaire", questionnaire_start_path, class: "text-slate-600 hover:text-slate-900" %>
+        </nav>
+      </div>
+    </header>
+
+    <% if flash[:alert] %>
+      <div class="bg-amber-50 border-b border-amber-200 text-amber-900 text-sm">
+        <div class="max-w-6xl mx-auto px-6 py-3"><%= flash[:alert] %></div>
+      </div>
+    <% end %>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer class="border-t border-slate-200 mt-24">
+      <div class="max-w-6xl mx-auto px-6 py-10 text-sm text-slate-500 space-y-3">
+        <p class="max-w-3xl">
+          This tool is intended to assist with early consideration of Ministry of Education
+          standard design options. It does not replace Ministry of Education requirements,
+          project-specific advice, professional architectural design, engineering advice,
+          consent requirements or approval processes. Always confirm current Ministry
+          requirements and applicable project documentation before proceeding.
+        </p>
+        <p>
+          Building-type names sourced from the Ministry of Education's
+          <a href="https://www.education.govt.nz/our-work/strategies-policies-and-programmes/property-and-infrastructure/standardising-school-property/standard-designs-school-buildings-and-layouts" class="underline hover:text-slate-700" target="_blank" rel="noopener">standard designs webpage</a>.
+          Detailed figures shown in this prototype are placeholders pending verification
+          against Ministry source PDFs — see each building type's status badge.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

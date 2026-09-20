@@ -1,0 +1,27 @@
+<% ruled_out ||= false %>
+<% bt = result.building_type %>
+<div class="border <%= ruled_out ? 'border-slate-200 opacity-70' : 'border-slate-300' %> p-6">
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <h3 class="text-lg font-semibold text-slate-900"><%= bt.name %></h3>
+      <p class="text-sm text-slate-500 mt-1"><%= bt.category_label %></p>
+    </div>
+    <%= render "building_types/status_badge", building_type: bt %>
+  </div>
+
+  <div class="mt-4 space-y-1 text-sm">
+    <% result.reasons.each do |reason| %>
+      <p class="text-emerald-800">✓ <%= reason %></p>
+    <% end %>
+    <% result.violations.each do |violation| %>
+      <p class="text-red-700">✗ <%= violation %></p>
+    <% end %>
+    <% result.unknowns.each do |unknown| %>
+      <p class="text-slate-500">? <%= unknown %></p>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to "View building →", building_type_path(bt), class: "text-sm font-medium text-slate-900 hover:underline" %>
+  </div>
+</div>

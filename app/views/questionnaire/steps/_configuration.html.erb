@@ -1,0 +1,13 @@
+<div class="space-y-3">
+  <% [
+       ["single_storey", "Single storey"],
+       ["two_storey", "Two storey"],
+       ["no_preference", "No preference / not yet decided"]
+     ].each do |value, label| %>
+    <label class="flex items-center gap-3 border border-slate-300 p-4 cursor-pointer hover:border-slate-500 has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+      <input type="radio" name="draft[configuration_preference]" value="<%= value %>"
+             <%= "checked" if draft["configuration_preference"] == value %> class="">
+      <span class="font-medium text-slate-900"><%= label %></span>
+    </label>
+  <% end %>
+</div>

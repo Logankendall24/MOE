@@ -1,0 +1,39 @@
+<% content_for :title, "Results" %>
+
+<div class="max-w-4xl mx-auto px-6 py-16">
+  <p class="text-xs font-semibold tracking-widest uppercase text-slate-500">Relevant standard options</p>
+  <h1 class="mt-2 text-3xl font-semibold text-slate-900">
+    Based on your answers for a <%= @requirement.school_type.label %> school
+  </h1>
+  <p class="mt-4 text-sm text-slate-600 max-w-2xl">
+    Every reason below is a direct comparison between what you entered and a documented
+    attribute of the building type — nothing here is an AI guess. Where a building type's
+    Ministry data hasn't been sourced yet, that's shown as an open item, not hidden.
+  </p>
+
+  <% if @relevant.any? %>
+    <div class="mt-10 space-y-6">
+      <% @relevant.each do |result| %>
+        <%= render "result_card", result: result %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="mt-10 text-sm text-slate-500">No candidate building types matched without violating a documented constraint.</p>
+  <% end %>
+
+  <% if @ruled_out.any? %>
+    <div class="mt-16">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Not applicable, based on your answers</h2>
+      <div class="mt-4 space-y-4">
+        <% @ruled_out.each do |result| %>
+          <%= render "result_card", result: result, ruled_out: true %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="mt-16 pt-8 border-t border-slate-200 flex gap-4">
+    <%= link_to "← Adjust answers", questionnaire_start_path, class: "text-sm text-slate-500 hover:text-slate-700" %>
+    <%= link_to "Browse all building types", building_types_path, class: "text-sm text-slate-500 hover:text-slate-700" %>
+  </div>
+</div>

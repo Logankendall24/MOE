@@ -1,0 +1,13 @@
+<% steps = QuestionnaireController::STEPS %>
+<% current_index = steps.index(@step) %>
+<div>
+  <div class="flex items-center justify-between text-xs text-slate-500 mb-2">
+    <span>Step <%= current_index + 1 %> of <%= steps.size %></span>
+    <span><%= @step_info[:title] %></span>
+  </div>
+  <div class="h-1 w-full bg-slate-200 flex gap-1">
+    <% steps.each_with_index do |step, i| %>
+      <div class="h-1 flex-1 <%= i <= current_index ? 'bg-slate-900' : 'bg-slate-200' %>"></div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="space-y-3">
+  <% SchoolType.order(:label).each do |st| %>
+    <label class="flex items-start gap-3 border border-slate-300 p-4 cursor-pointer hover:border-slate-500 has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+      <input type="radio" name="draft[school_type_code]" value="<%= st.code %>"
+             <%= "checked" if draft["school_type_code"] == st.code %> required class="mt-1">
+      <span>
+        <span class="block font-medium text-slate-900"><%= st.label %></span>
+        <span class="block text-sm text-slate-500 mt-1"><%= st.notes %></span>
+      </span>
+    </label>
+  <% end %>
+</div>

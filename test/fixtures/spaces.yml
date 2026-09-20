@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category: MyString
+  typical_area_m2: 1.5
+  notes: MyText
+
+two:
+  name: MyString
+  category: MyString
+  typical_area_m2: 1.5
+  notes: MyText
