@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.3", ">= 8.1.3.1"
 # Pin below 3.0: json 3.0.2 breaks ActiveSupport::JSON.decode (ArgumentError on JSON.parse),
 # which breaks cookie-session serialization and any `serialize coder: JSON` column.
-gem "json", "~> 2.9"
+gem "json", "~> 3.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
