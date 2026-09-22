@@ -1,45 +1,78 @@
-# Every record here is status: prototype_placeholder until cross-checked against the
-# Ministry PDFs (see docs/source-pdfs/). Fields with no confirmed source are left blank —
-# the app must not present a blank as a documented Ministry fact.
+# Every record's `status` reflects how much of it is Ministry-sourced. Fields with no
+# confirmed source are left blank — the app must not present a blank as a documented fact.
+# Specific typology variants (S1/S2/S3, D1/D2/D3, OMB2.5, GS-S/GS-L/GD-S, hall size tiers)
+# are modelled as Layout records under each umbrella BuildingType — see layouts.yml.
 - code: S
   name: "Type S — Single-depth building"
   category: teaching
   depth: single
-  storeys_supported:
-  teaching_space_min:
-  teaching_space_max:
-  admin_compatible:
+  storeys_supported: [single, two, three]
+  teaching_space_min: 1
+  teaching_space_max: 18
+  admin_compatible: true
   hall_gym_compatible:
-  fixed_elements: []
-  configurable_elements: []
+  fixed_elements:
+    - "Structural systems"
+    - "Roofing (metal-clad warm roof)"
+    - "Acoustic design"
+    - "Ceiling heights"
+    - "Window dimensions"
+  configurable_elements:
+    - "Wall cladding (profiled metal / brick or masonry veneer / painted fibre cement)"
+    - "Balustrade style and finish (multi-storey only)"
+    - "Internal wall linings"
+    - "Teaching-space layout (open-plan tiered seating / shared wet breakout / integrated wet area / shared dry breakout)"
+    - "Building placement and site orientation"
+    - "Openings between teaching spaces — door or left fully open, school's choice"
   summary: >
     [MOE-WEB] The Ministry identifies "Type S" as a single-depth building among its
-    standard building types, used for teaching, administration, gym, hall and library
-    spaces generally. [NEEDS CONFIRMATION] Which specific school types, teaching-space
-    counts, storey options, and fixed vs. configurable elements apply to Type S have not
-    yet been sourced from a Ministry PDF.
-  status: prototype_placeholder
-  school_type_codes: []
-  source_keys: [moe_web_standard_designs]
+    standard building types. [MOE-PDF] Confirmed and detailed by both the primary/
+    intermediate and secondary catalogues: covers typologies S1 (single-storey, 2–6
+    teaching spaces), S2 (two-storey) and S3 (three-storey, 6–18 teaching spaces
+    combined for S2/S3), plus a relocatable OMB2.5 variant (1–4 teaching spaces) shown
+    alongside the S-family in both catalogues (Primary/Intermediate Catalogue p.7;
+    Secondary Catalogue p.7). Also used as the depth-typology for attached Resource &
+    Admin Modules (Primary Teaching Spaces p.15; Secondary Teaching Spaces p.34).
+    [NEEDS CONFIRMATION] Whether Type S applies to kura/Māori-medium or composite
+    schools is not stated in any supplied document.
+  status: verified
+  school_type_codes: [primary, intermediate, secondary]
+  source_keys: [moe_web_standard_designs, pdf_primary_catalogue, pdf_secondary_catalogue, pdf_primary_teaching, pdf_secondary_teaching]
 
 - code: D
   name: "Type D — Double-depth building"
   category: teaching
   depth: double
-  storeys_supported:
-  teaching_space_min:
-  teaching_space_max:
-  admin_compatible:
+  storeys_supported: [single, two, three]
+  teaching_space_min: 6
+  teaching_space_max: 33
+  admin_compatible: true
   hall_gym_compatible:
-  fixed_elements: []
-  configurable_elements: []
+  fixed_elements:
+    - "Structural systems"
+    - "Roofing (metal-clad warm roof)"
+    - "Acoustic design"
+    - "Ceiling heights"
+    - "Window dimensions"
+  configurable_elements:
+    - "Wall cladding (profiled metal / brick or masonry veneer / painted fibre cement)"
+    - "Balustrade style and finish (multi-storey only)"
+    - "Internal wall linings"
+    - "Building placement and site orientation"
+    - "Openings between teaching spaces — door or left fully open, school's choice"
   summary: >
     [MOE-WEB] The Ministry identifies "Type D" as a double-depth building among its
-    standard building types. [NEEDS CONFIRMATION] Specific applicability, capacities,
-    storey options, and fixed vs. configurable elements are not yet sourced.
-  status: prototype_placeholder
-  school_type_codes: []
-  source_keys: [moe_web_standard_designs]
+    standard building types. [MOE-PDF] Documented only in the Secondary Catalogue (p.7):
+    "a single-depth building (S-type) and a double-depth building (D-type)" — covers
+    D1 (single-storey, 6–10 teaching spaces), D2 (two-storey) and D3 (three-storey,
+    12–33 teaching spaces combined for D2/D3). Also appears as a Resource & Admin
+    Module depth-typology in the Secondary Teaching Spaces document (p.34).
+    [NEEDS CONFIRMATION] The Primary/Intermediate Catalogue explicitly contains no
+    Type D designation anywhere — Type D appears to be secondary-only, but this has not
+    been confirmed with the Ministry directly.
+  status: verified
+  school_type_codes: [secondary]
+  source_keys: [moe_web_standard_designs, pdf_secondary_catalogue, pdf_secondary_teaching]
 
 - code: H
   name: "Type H — Hall (including whare wānanga)"
@@ -50,15 +83,35 @@
   teaching_space_max:
   admin_compatible:
   hall_gym_compatible:
-  fixed_elements: []
-  configurable_elements: []
+  fixed_elements:
+    - "Structural systems"
+    - "Roofing (metal-clad warm roof)"
+    - "Acoustic design"
+    - "Ceiling heights"
+    - "Window dimensions"
+    - "Wet/dry floor finish base material (vinyl / carpet tile — finish colour selectable)"
+  configurable_elements:
+    - "Wall cladding (profiled metal / painted fibre cement)"
+    - "Wall linings (perforated plywood / plywood / acoustic panel)"
+    - "Amenity placement — short side or long side of the hall"
+    - "Layout — standard court, or performance seating with stage (transverse or longitudinal)"
+    - "Amenity modules (changing rooms, toilets, admin, storage, kitchen, foyer) depending on project scope"
   summary: >
     [MOE-WEB] The Ministry identifies "Type H" as its standard hall building type,
-    including whare wānanga. [NEEDS CONFIRMATION] Capacity, dimensions, and configuration
-    options are not yet sourced.
-  status: prototype_placeholder
-  school_type_codes: []
-  source_keys: [moe_web_standard_designs]
+    including whare wānanga. [MOE-PDF] The supplied "Standard designs for school gyms
+    and halls" document (Aug 2026 v1.0) covers halls in detail but never uses the terms
+    "Type H" or "whare wānanga" anywhere in its 23 pages — it uses its own typology
+    codes instead: small/medium/large primary halls (HS-S-P / HM-S-P / HL-S-P, amenities
+    on the short side) and small/medium/large secondary halls (HS-L-S / HM-L-S / HL-L-S,
+    amenities on the long side) (p.11–12). One worked example gives a large primary hall
+    net floor area of ~510m² (~19m × 25.6m) (p.6). No numeric roll-band thresholds are
+    given for the small/medium/large tiers. [NEEDS CONFIRMATION] Reconcile the "Type H"/
+    "whare wānanga" webpage terminology against this document's own HS/HM/HL-{P,S}
+    coding — flagged directly by the extraction pass as a genuine discrepancy, not
+    assumed to mean the same thing.
+  status: verified
+  school_type_codes: [primary, secondary]
+  source_keys: [moe_web_standard_designs, pdf_gyms_halls]
 
 - code: G
   name: "Type G — Gym (including whare hākinakina)"
@@ -69,15 +122,34 @@
   teaching_space_max:
   admin_compatible:
   hall_gym_compatible:
-  fixed_elements: []
-  configurable_elements: []
+  fixed_elements:
+    - "Structural systems"
+    - "Roofing (metal-clad warm roof)"
+    - "Acoustic design"
+    - "Ceiling heights"
+    - "Window dimensions"
+    - "Wet/dry floor finish base material (vinyl / carpet tile — finish colour selectable)"
+  configurable_elements:
+    - "Wall cladding (profiled metal / painted fibre cement)"
+    - "Wall linings (perforated plywood / plywood / acoustic panel)"
+    - "Amenity placement — short side or long side of the court"
+    - "Layout — standard court, or performance seating with stage (transverse or longitudinal)"
+    - "Amenity modules (changing rooms, toilets, admin, storage, kitchen, foyer) depending on project scope"
   summary: >
     [MOE-WEB] The Ministry identifies "Type G" as its standard gym building type,
-    including whare hākinakina. [NEEDS CONFIRMATION] Capacity, dimensions, and
-    configuration options are not yet sourced.
-  status: prototype_placeholder
+    including whare hākinakina. [MOE-PDF] The supplied "Standard designs for school
+    gyms and halls" document (Aug 2026 v1.0) covers gyms in detail but, like halls,
+    never uses the terms "Type G" or "whare hākinakina" anywhere in its 23 pages — it
+    uses its own typology codes: single-court gym with amenities on the short side
+    (GS-S), single-court with amenities on the long side (GS-L), and double-court with
+    amenities on the short side (GD-S) (p.8). Unlike halls, gyms are NOT split by
+    school type in this document. One worked example gives a single-court gym net floor
+    area of ~731m² (~20m × 35m) (p.6). No capacity (person/seat count) figures are
+    stated anywhere. [NEEDS CONFIRMATION] Reconcile the "Type G"/"whare hākinakina"
+    webpage terminology against this document's own GS/GD coding.
+  status: verified
   school_type_codes: []
-  source_keys: [moe_web_standard_designs]
+  source_keys: [moe_web_standard_designs, pdf_gyms_halls]
 
 - code: K
   name: "Type K — Kura Māori building"
@@ -92,8 +164,11 @@
   configurable_elements: []
   summary: >
     [MOE-WEB] The Ministry identifies "Type K — kura Māori buildings where applicable".
-    [NEEDS CONFIRMATION] Category classification, capacities, and configuration options
-    are not yet sourced.
+    [NEEDS CONFIRMATION] None of the 8 supplied Ministry PDFs (both school-catalogues,
+    both admin layouts, both teaching-space layouts, library, gyms and halls) mention
+    Type K, kura, or Māori-medium buildings at all — checked in full, page by page.
+    Category classification, capacities, and configuration options remain completely
+    unsourced beyond the one-line webpage mention.
   status: prototype_placeholder
   school_type_codes: [kura]
   source_keys: [moe_web_standard_designs]

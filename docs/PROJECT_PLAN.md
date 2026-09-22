@@ -1,9 +1,55 @@
 # MOE Standard Designs Navigator — Project Plan
 
-Status: **Phase 1 scaffold built** (landing page, questionnaire, structured database,
-transparent matcher, results page, building detail pages). Still running on placeholder
-data pending Ministry PDFs — see §11 Open items.
-Last updated: 2026-09-20
+Status: **Phase 1 data substantially verified.** All 8 supplied Ministry PDFs have been
+read in full and extracted into `db/data/*.yml` with page-level citations. Type S, D, H
+and G are now `status: verified` with real dimensions, typology codes, and fixed/
+configurable rules. Type K and the "composite" school type remain unsourced — see
+§11a below for what's still open.
+Last updated: 2026-09-22
+
+## 11a. What the 8 supplied PDFs actually confirmed (2026-09-22 update)
+
+Full extraction reports (with page citations) exist in this session's history; the
+headline findings now reflected in `db/data/`:
+
+- **Type S and Type D are umbrella labels; the PDFs use their own typology codes**
+  underneath: **S1/S2/S3** (single-depth, 1/2/3-storey) and a relocatable **OMB2.5**,
+  plus **D1/D2/D3** (double-depth, secondary-only — the primary/intermediate catalogue
+  contains no Type D designation anywhere). These are modelled as `Layout` records
+  under the `S`/`D` `BuildingType`.
+- **Type H and Type G's PDF never uses "Type H"/"Type G"/"whare wānanga"/
+  "whare hākinakina" at all** — a genuine discrepancy between the MOE webpage's
+  umbrella language and the technical document's own coding (halls: HS/HM/HL split by
+  amenity-side and by primary vs. secondary; gyms: GS-S/GS-L/GD-S, not split by school
+  type). Flagged in `BuildingType#S` summary; not silently reconciled.
+  hall example ~510m², single-court gym example ~731m² — both single worked examples,
+  not guaranteed sizes for every instance of that tier.
+- **Administration and library are not separate Ministry "Types"** — they're layout
+  categories that attach to a Type S/D teaching building via a "Resource & Admin
+  Module" system (explicitly keyed to S1/D/S2/S3 on p.15 of the primary teaching doc
+  and p.34 of the secondary teaching doc). The matcher now checks `admin_compatible`
+  as well as category for administration requests; library layouts are attached to
+  Type S as an editorial convenience (not a Ministry-stated linkage — flagged in each
+  library Layout's notes).
+- **No roll-size-to-classroom-count formula exists in any of the 8 documents.** Every
+  extraction agent checked explicitly and confirmed absence. Do not invent one.
+- **Accessibility is barely documented** — only a generic "Accessible WC door" (TJ-5)
+  appears across all documents, plus two callouts for an accessible bench/sink in one
+  secondary science room. No accessibility standard, clearance, or requirement is
+  named anywhere.
+- **Most room-level floor areas are not stated as m² figures** — only overall building
+  grid dimensions (mm) are given on plan sheets. Where `spaces.yml` shows an area, it
+  is either a Ministry-stated module dimension (e.g. general teaching 82m²/70m²/95m²,
+  explicitly given in the catalogues) or is clearly marked `[NEEDS CONFIRMATION]` as
+  calculated from grid dimensions, never invented.
+- The **full secondary specialist-teaching catalogue** (30+ named subject rooms —
+  science, technology, arts, food/hospitality, automotive, mechatronics, etc., each
+  with its own room data sheet) is documented in "Standard layouts for secondary
+  school teaching spaces" but not yet individually modelled as `Space` records —
+  only a generic "Specialist Teaching Space — Secondary" placeholder exists. Expanding
+  this is the natural next data-entry pass.
+- **Type K (kura) and the "composite" school type remain completely unsourced** —
+  none of the 8 PDFs mention kura, Māori-medium, or composite schools at all.
 
 This document is the required "structuring stage" output before any application code is
 written: document inventory, data model, user journey, and matching logic. Per the project

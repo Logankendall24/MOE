@@ -7,3 +7,67 @@
   section:
   version_label: "Accessed 2026-09-20"
   file_path:
+
+- key: pdf_primary_catalogue
+  document_name: "Great schools, great spaces — Standard designs for primary and intermediate schools"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "June 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Great schools great spaces - Primary and Int Schools Catalogue FINAL.pdf"
+
+- key: pdf_secondary_catalogue
+  document_name: "Great schools, great spaces — Standard designs for secondary schools"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "June 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Great schools great spaces - Secondary Schools Catalogue FINAL.pdf"
+
+- key: pdf_gyms_halls
+  document_name: "Great schools, great spaces — Standard designs for school gyms and halls"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "August 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Standard designs for school gyms and halls.pdf"
+
+- key: pdf_primary_admin
+  document_name: "Great schools, great spaces — Standard layouts for primary school administration spaces"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "August 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Standard layouts for primary school administration spaces.pdf"
+
+- key: pdf_primary_teaching
+  document_name: "Great schools, great spaces — Standard layouts for primary school teaching spaces"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "August 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Standard layouts for primary school teaching spaces.pdf"
+
+- key: pdf_secondary_admin
+  document_name: "Great schools, great spaces — Standard layouts for secondary school administration spaces"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "August 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Standard layouts for secondary school administration spaces.pdf"
+
+- key: pdf_secondary_teaching
+  document_name: "Great schools, great spaces — Standard layouts for secondary school teaching spaces"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "August 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Standard layouts for secondary school teaching spaces.pdf"
+
+- key: pdf_library
+  document_name: "Great schools, great spaces — Standard layouts for school library spaces"
+  ministry_source_url:
+  page:
+  section:
+  version_label: "August 2026, Version 1.0"
+  file_path: "docs/source-pdfs/Standard layouts for school library spaces.pdf"

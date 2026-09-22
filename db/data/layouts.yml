@@ -1,0 +1,263 @@
+# Specific typology/layout variants nested under an umbrella BuildingType (building_types.yml).
+# key: internal lookup key, used to attach spaces below — not persisted as a column.
+# building_type_code: links to building_types.yml's `code`.
+# space_keys: optional array of spaces.yml keys this layout is built from.
+
+# --- Type S variants (both primary/intermediate and secondary catalogues) ---
+- key: layout_s1
+  building_type_code: S
+  name: "S1 — Single-depth, single-storey"
+  notes: >
+    2–6 teaching spaces. [MOE-PDF] Primary/Intermediate Catalogue p.7; Secondary
+    Catalogue p.7. "For many [primary/secondary] schools, a single-storey teaching
+    block will be suitable if there is enough space."
+  space_keys: []
+
+- key: layout_s2
+  building_type_code: S
+  name: "S2 — Single-depth, two-storey"
+  notes: >
+    6–18 teaching spaces (combined figure given for S2/S3 together in the source).
+    [MOE-PDF] Primary/Intermediate Catalogue p.7; Secondary Catalogue p.7.
+  space_keys: []
+
+- key: layout_s3
+  building_type_code: S
+  name: "S3 — Single-depth, three-storey"
+  notes: >
+    6–18 teaching spaces (combined figure given for S2/S3 together in the source;
+    shown "dashed" in the typology diagram, i.e. a less common/optional variant).
+    [MOE-PDF] Primary/Intermediate Catalogue p.7; Secondary Catalogue p.7.
+  space_keys: []
+
+- key: layout_omb25
+  building_type_code: S
+  name: "OMB 2.5 — Relocatable, single-storey"
+  notes: >
+    1–4 teaching spaces. [MOE-PDF] Primary/Intermediate Catalogue p.7; Secondary
+    Catalogue p.7. "OMB" is not expanded/defined in either source document.
+    [NEEDS CONFIRMATION] Exact meaning of "OMB" abbreviation.
+  space_keys: []
+
+# --- Type D variants (secondary catalogue only) ---
+- key: layout_d1
+  building_type_code: D
+  name: "D1 — Double-depth, single-storey"
+  notes: >
+    6–10 teaching spaces. [MOE-PDF] Secondary Catalogue p.7. Not present in the
+    Primary/Intermediate Catalogue.
+  space_keys: []
+
+- key: layout_d2
+  building_type_code: D
+  name: "D2 — Double-depth, two-storey"
+  notes: >
+    12–33 teaching spaces (combined figure given for D2/D3 together in the source).
+    [MOE-PDF] Secondary Catalogue p.7.
+  space_keys: []
+
+- key: layout_d3
+  building_type_code: D
+  name: "D3 — Double-depth, three-storey"
+  notes: >
+    12–33 teaching spaces (combined figure given for D2/D3 together in the source;
+    shown "dashed" in the typology diagram). [MOE-PDF] Secondary Catalogue p.7.
+  space_keys: []
+
+# --- Type G variants (gyms and halls document) ---
+- key: layout_gs_s
+  building_type_code: G
+  name: "GS-S — Single Court Gymnasium, amenities on short side"
+  notes: >
+    [MOE-PDF] "Standard designs for school gyms and halls" p.8. "Single and double
+    court gyms are designed for school and community level sporting activities...
+    can be scaled up or down, depending on the school's site constraints." Not split
+    by school type in the source. Layout options (court / seating / alternative
+    seating) on p.9.
+  space_keys: []
+
+- key: layout_gs_l
+  building_type_code: G
+  name: "GS-L — Single Court Gymnasium, amenities on long side"
+  notes: >
+    [MOE-PDF] "Standard designs for school gyms and halls" p.8.
+  space_keys: []
+
+- key: layout_gd_s
+  building_type_code: G
+  name: "GD-S — Double Court Gymnasium, amenities on short side"
+  notes: >
+    [MOE-PDF] "Standard designs for school gyms and halls" p.8.
+  space_keys: []
+
+# --- Type H variants (gyms and halls document) ---
+- key: layout_hs_s_p
+  building_type_code: H
+  name: "HS-S-P — Small Primary School Hall, amenities on short side"
+  notes: >
+    [MOE-PDF] "Standard designs for school gyms and halls" p.11. "There are a range
+    of different hall options depending on the type of school and its particular
+    needs... can be scaled up or down depending on school site constraints." No
+    numeric roll-band threshold is stated for "Small" vs "Medium" vs "Large" — do
+    not infer one.
+  space_keys: []
+
+- key: layout_hm_s_p
+  building_type_code: H
+  name: "HM-S-P — Medium Primary School Hall, amenities on short side"
+  notes: "[MOE-PDF] \"Standard designs for school gyms and halls\" p.11."
+  space_keys: []
+
+- key: layout_hl_s_p
+  building_type_code: H
+  name: "HL-S-P — Large Primary School Hall, amenities on short side"
+  notes: >
+    [MOE-PDF] "Standard designs for school gyms and halls" p.11. A worked "Large Hall
+    Primary School" example gives net floor area ~510m² (~19m × 25.6m) — see the
+    "Hall — large primary (worked example)" space record. This is the only hall size
+    with a stated figure in the source.
+  space_keys: [hall_large_primary_example]
+
+- key: layout_hs_l_s
+  building_type_code: H
+  name: "HS-L-S — Small Secondary School Hall, amenities on long side"
+  notes: "[MOE-PDF] \"Standard designs for school gyms and halls\" p.12."
+  space_keys: []
+
+- key: layout_hm_l_s
+  building_type_code: H
+  name: "HM-L-S — Medium Secondary School Hall, amenities on long side"
+  notes: "[MOE-PDF] \"Standard designs for school gyms and halls\" p.12."
+  space_keys: []
+
+- key: layout_hl_l_s
+  building_type_code: H
+  name: "HL-L-S — Large Secondary School Hall, amenities on long side"
+  notes: "[MOE-PDF] \"Standard designs for school gyms and halls\" p.12."
+  space_keys: []
+
+# --- Administration layouts (attach to Type S, per the Resource & Admin Module system) ---
+- key: layout_admin_primary_a
+  building_type_code: S
+  name: "Admin 110 — Primary (A)"
+  notes: >
+    Occupancy "<200 Student Roll". Overall footprint ≈14.4m × 12.0m (calculated from
+    grid dimensions, not an explicit m² figure in the source). Rooms: Staffroom &
+    Workspace, Resource, Meeting, Reception, Public/Student Waiting, Sickbay
+    (+ Accessible WC), Leadership. [MOE-PDF] "Standard layouts for primary school
+    administration spaces" p.7.
+  space_keys: []
+
+- key: layout_admin_primary_b
+  building_type_code: S
+  name: "Admin 111 — Primary (B)"
+  notes: >
+    Occupancy "200 - 500 Student Roll". Overall footprint ≈28.8m × 12.0m (calculated).
+    Adds: Reprographics, Finance, larger Meeting rooms, Store/Utility.
+    [MOE-PDF] "Standard layouts for primary school administration spaces" p.9.
+  space_keys: []
+
+- key: layout_admin_primary_c
+  building_type_code: S
+  name: "Admin 112 — Primary (C)"
+  notes: >
+    Occupancy "500 - 800 Student Roll". Overall footprint ≈36.0m × 12.0m (calculated).
+    Adds: Server/Resource room, additional Meeting rooms, individual Staff WCs.
+    [MOE-PDF] "Standard layouts for primary school administration spaces" p.12.
+  space_keys: []
+
+- key: layout_admin_secondary_workroom_a
+  building_type_code: S
+  name: "Admin 120 — Workroom (A)"
+  notes: "Occupancy \"≤5 Staff\". ≈33.6m² (calculated from 4,200×8,000mm grid). [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.7."
+  space_keys: []
+
+- key: layout_admin_secondary_workroom_b
+  building_type_code: S
+  name: "Admin 121 — Workroom (B)"
+  notes: "Occupancy \"≤25 Staff\". ≈67.2m² (calculated). [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.8."
+  space_keys: []
+
+- key: layout_admin_secondary_staffroom_a
+  building_type_code: S
+  name: "Admin 122 — Staffroom (A)"
+  notes: "Occupancy \"≤40 Staff\". ≈75.6m² (calculated). Full kitchenette. [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.9."
+  space_keys: []
+
+- key: layout_admin_secondary_staffroom_b
+  building_type_code: S
+  name: "Admin 123 — Staffroom (B)"
+  notes: "Occupancy \"40 - 80 Staff\". ≈134.4m² (calculated). Double-bay with kitchenette at both ends. [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.10-11."
+  space_keys: []
+
+- key: layout_admin_secondary_counselling_a
+  building_type_code: S
+  name: "Admin 124 — Counselling (A)"
+  notes: "\"2 Staff\", 2 private counselling rooms + shared entry. ≈33.6m² (calculated). [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.12."
+  space_keys: []
+
+- key: layout_admin_secondary_counselling_b
+  building_type_code: S
+  name: "Admin 125 — Counselling (B)"
+  notes: "\"4 Staff\", 4 counselling rooms mirrored around a central corridor. ≈67.2m² (calculated). [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.13."
+  space_keys: []
+
+- key: layout_admin_secondary_leadership_a
+  building_type_code: S
+  name: "Admin 126 — Leadership (A)"
+  notes: "\"≤4 Staff\". ≈33.6m² (calculated). [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.14."
+  space_keys: []
+
+- key: layout_admin_secondary_leadership_b
+  building_type_code: S
+  name: "Admin 127 — Leadership (B)"
+  notes: >
+    "≤13 Staff". ≈168m² (calculated). Names individual roles: Deans (shared open
+    desks), Deputy ×2 (private offices), PA, Principal (with meeting table for ~6),
+    Resource, Meeting ×2, Reprographics. [MOE-PDF] "Standard layouts for secondary
+    school administration spaces" p.15-16.
+  space_keys: []
+
+- key: layout_admin_secondary_careers_a
+  building_type_code: S
+  name: "Admin 128 — Careers (A)"
+  notes: "\"≤2 Staff\". ≈33.6m² (calculated). [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.17."
+  space_keys: []
+
+- key: layout_admin_secondary_careers_b
+  building_type_code: S
+  name: "Admin 129 — Careers (B)"
+  notes: "\"3 - 4 Staff\". ≈67.2m² (calculated). [MOE-PDF] \"Standard layouts for secondary school administration spaces\" p.18."
+  space_keys: []
+
+# --- Library layouts (no stated building-type linkage in the source — attached to Type S
+#     here as the most likely host building, per the shared modular teaching-space system;
+#     this attachment is an editorial convenience, not a Ministry-stated fact). ---
+- key: layout_library_100
+  building_type_code: S
+  name: "Library 100 — Primary (A)"
+  notes: >
+    Occupancy "<500 Student Roll". ≈86.4m² (7.2m × 12.0m, calculated from grid
+    dimensions — no explicit m² figure in the source). Primary-only. [MOE-PDF]
+    "Standard layouts for school library spaces" p.7. [NEEDS CONFIRMATION] Whether
+    this attaches to a Type S building specifically — not stated in the source.
+  space_keys: [library_small]
+
+- key: layout_library_101
+  building_type_code: S
+  name: "Library 101 — Primary (B) / Secondary (A)"
+  notes: >
+    Occupancy "500 - 800 Student Roll". ≈172.8m² (14.4m × 12.0m, calculated). Shared
+    sheet: the same layout serves as the "B" (larger) option for primary schools and
+    the "A" (smaller/entry) option for secondary schools. [MOE-PDF] "Standard layouts
+    for school library spaces" p.8.
+  space_keys: [library_medium]
+
+- key: layout_library_102
+  building_type_code: S
+  name: "Library 102 — Secondary (B)"
+  notes: >
+    Occupancy "800 - 1400 Student Roll". ≈259.2m² (21.6m × 12.0m, calculated).
+    Secondary-only; the largest of the three library layouts. [MOE-PDF] "Standard
+    layouts for school library spaces" p.10.
+  space_keys: [library_large]

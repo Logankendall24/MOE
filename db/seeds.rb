@@ -30,6 +30,7 @@ YAML.load_file(data_dir.join("school_types.yml")).each do |row|
 end
 puts "Seeded #{school_types_by_code.size} school types"
 
+building_types_by_code = {}
 YAML.load_file(data_dir.join("building_types.yml")).each do |row|
   building_type = BuildingType.find_or_initialize_by(code: row["code"])
   building_type.assign_attributes(
@@ -50,5 +51,28 @@ YAML.load_file(data_dir.join("building_types.yml")).each do |row|
 
   building_type.school_types = Array(row["school_type_codes"]).map { |code| school_types_by_code.fetch(code) }
   building_type.sources = Array(row["source_keys"]).map { |key| sources_by_key.fetch(key) }
+  building_types_by_code[row["code"]] = building_type
 end
 puts "Seeded #{BuildingType.count} building types"
+
+spaces_by_key = {}
+YAML.load_file(data_dir.join("spaces.yml")).each do |row|
+  key = row.fetch("key")
+  space = Space.find_or_create_by!(name: row["name"]) do |s|
+    s.category = row["category"]
+    s.typical_area_m2 = row["typical_area_m2"]
+    s.notes = row["notes"]
+  end
+  space.update!(category: row["category"], typical_area_m2: row["typical_area_m2"], notes: row["notes"])
+  spaces_by_key[key] = space
+end
+puts "Seeded #{spaces_by_key.size} spaces"
+
+YAML.load_file(data_dir.join("layouts.yml")).each do |row|
+  building_type = building_types_by_code.fetch(row.fetch("building_type_code"))
+  layout = Layout.find_or_initialize_by(name: row["name"], building_type: building_type)
+  layout.notes = row["notes"]
+  layout.save!
+  layout.spaces = Array(row["space_keys"]).map { |key| spaces_by_key.fetch(key) }
+end
+puts "Seeded #{Layout.count} layouts"

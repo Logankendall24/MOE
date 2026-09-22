@@ -2,22 +2,41 @@
   label: Primary
   notes: >
     [MOE-WEB] MOE standard layouts exist for "primary and intermediate teaching spaces".
+    [MOE-PDF] Confirmed by "Great schools, great spaces — Standard designs for primary
+    and intermediate schools" (p.1) and the primary admin/teaching/library layout
+    documents, which document Type S (S1/S2/S3) and OMB2.5 buildings, and primary-specific
+    admin (110/111/112) and library (Layout 100, and shared Layout 101) layouts.
 - code: intermediate
   label: Intermediate
   notes: >
     [MOE-WEB] MOE standard layouts exist for "primary and intermediate teaching spaces".
+    [MOE-PDF] The primary/intermediate catalogue explicitly states "intermediate admin
+    examples are not included in this guide" (Primary/Intermediate Catalogue, p.12) —
+    intermediate schools share the primary teaching-space and Type S documentation but
+    have no dedicated administration layout guidance in the supplied PDFs.
+    [NEEDS CONFIRMATION] Whether intermediate schools should use the primary admin
+    layouts by default.
 - code: secondary
   label: Secondary
   notes: >
     [MOE-WEB] MOE standard layouts exist for "secondary teaching spaces".
+    [MOE-PDF] Confirmed by "Great schools, great spaces — Standard designs for secondary
+    schools" (p.1) and the secondary admin/teaching/library layout documents, which
+    document Type S (S1/S2/S3), Type D (D1/D2/D3), and OMB2.5 buildings, an extensive
+    specialist-teaching-space catalogue (science, technology, arts, etc.), and
+    secondary-specific admin (120–129) and library (shared Layout 101, and Layout 102)
+    layouts.
 - code: composite
   label: "Composite (Years 1–13)"
   notes: >
-    [ASSUMPTION] Not explicitly named in the MOE webpage's layout list (which covers
-    primary/intermediate and secondary separately). Whether composite schools draw on
-    both layout families, or have distinct guidance, needs confirmation from the
-    supplied PDFs or the Ministry property team. [NEEDS CONFIRMATION]
+    [ASSUMPTION] Not explicitly named in the MOE webpage's layout list, nor in any of the
+    8 supplied PDFs (checked in full). Whether composite schools draw on both the
+    primary/intermediate and secondary layout families, or have distinct guidance, still
+    needs confirmation from the Ministry property team. [NEEDS CONFIRMATION]
 - code: kura
   label: "Kura / Māori-medium"
   notes: >
     [MOE-WEB] The Ministry identifies "Type K — kura Māori buildings where applicable".
+    [NEEDS CONFIRMATION] None of the 8 supplied PDFs (primary/secondary catalogues,
+    admin/teaching/library layouts, gyms and halls) mention Type K, kura, or
+    Māori-medium buildings — this remains entirely unsourced beyond the webpage mention.

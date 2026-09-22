@@ -1,0 +1,86 @@
+# key: internal lookup key referenced from layouts.yml's space_keys — not persisted.
+- key: general_teaching_primary
+  name: "General Teaching Space — Primary"
+  category: teaching
+  typical_area_m2: 82
+  notes: >
+    7.2m × 12.0m module, ×2–6 per building. [MOE-PDF] Primary/Intermediate Catalogue
+    p.8. Occupancy guide: 32 students per space (Primary Teaching Spaces doc p.7) —
+    "an indicative upper occupancy number... not considered a target or a maximum."
+
+- key: general_teaching_secondary_s
+  name: "General Teaching Space — Secondary (Type S module)"
+  category: teaching
+  typical_area_m2: 70
+  notes: >
+    7.2m × 10.3m module. [MOE-PDF] Secondary Catalogue p.8. Occupancy guide: 32
+    students (Secondary Teaching Spaces doc, e.g. p.7) — "not considered a target or
+    a maximum."
+
+- key: general_teaching_secondary_d
+  name: "General Teaching Space — Secondary (Type D module)"
+  category: teaching
+  typical_area_m2: 70
+  notes: >
+    8.4m × 8.9m module (same 70m² area as the Type S module, different proportions
+    to fit the double-depth grid). [MOE-PDF] Secondary Catalogue p.8.
+
+- key: specialist_teaching_secondary
+  name: "Specialist Teaching Space — Secondary"
+  category: specialist
+  typical_area_m2: 95
+  notes: >
+    8.4m × 12.0m module. Generic specialist-space module dimension from the
+    catalogue; the detailed teaching-spaces document breaks this into 30+ named
+    subject rooms (science, technology, arts, food/hospitality, automotive, etc.),
+    each ~67–95m² with its own room data sheet — not individually modelled here, see
+    "Standard layouts for secondary school teaching spaces" (41pp) for the full
+    catalogue with page citations. [MOE-PDF] Secondary Catalogue p.8.
+
+- key: library_small
+  name: "Library — Small (<500 roll)"
+  category: library
+  typical_area_m2: 86.4
+  notes: >
+    [NEEDS CONFIRMATION] Area is CALCULATED from the drawing's grid dimensions
+    (7.2m × 12.0m) — the source PDF never states an explicit m² figure for any
+    library size tier. Roll band ("<500 Student Roll") is the only figure the
+    Ministry document states directly. [MOE-PDF] "Standard layouts for school
+    library spaces" p.7.
+
+- key: library_medium
+  name: "Library — Medium (500–800 roll)"
+  category: library
+  typical_area_m2: 172.8
+  notes: >
+    [NEEDS CONFIRMATION] Area CALCULATED from grid dimensions (14.4m × 12.0m), not
+    an explicit source figure. Roll band "500 - 800 Student Roll" is Ministry-stated.
+    [MOE-PDF] "Standard layouts for school library spaces" p.8.
+
+- key: library_large
+  name: "Library — Large (800–1400 roll)"
+  category: library
+  typical_area_m2: 259.2
+  notes: >
+    [NEEDS CONFIRMATION] Area CALCULATED from grid dimensions (21.6m × 12.0m), not
+    an explicit source figure. Roll band "800 - 1400 Student Roll" is Ministry-stated.
+    [MOE-PDF] "Standard layouts for school library spaces" p.10.
+
+- key: hall_large_primary_example
+  name: "Hall — large primary (worked example)"
+  category: hall
+  typical_area_m2: 510
+  notes: >
+    Net floor area ~510m² (~19m × 25.6m). This is a single worked example in the
+    source, not a stated fixed size for the "Large Primary Hall" (HL-S-P) tier
+    generally — treat as illustrative, not a guaranteed figure. [MOE-PDF] "Standard
+    designs for school gyms and halls" p.6.
+
+- key: gym_single_court_example
+  name: "Gym — single court (worked example)"
+  category: gym
+  typical_area_m2: 731
+  notes: >
+    Net floor area ~731m² (~20m × 35m). Worked example only, not a stated fixed size
+    for GS-S/GS-L generally. No capacity/seating figures given anywhere in the
+    source. [MOE-PDF] "Standard designs for school gyms and halls" p.6.

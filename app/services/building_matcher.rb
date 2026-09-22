@@ -24,7 +24,9 @@ class BuildingMatcher
 
   def candidates
     requested = Array(requirement.facilities_requested)
-    BuildingType.where(category: requested).or(BuildingType.where(category: nil))
+    scope = BuildingType.where(category: requested).or(BuildingType.where(category: nil))
+    scope = scope.or(BuildingType.where(admin_compatible: true)) if requested.include?("administration")
+    scope
   end
 
   def evaluate(building_type)
@@ -65,6 +67,14 @@ class BuildingMatcher
       unknowns << "Category (teaching, hall, gym, etc.) for Type #{bt.code} not yet confirmed"
     elsif requested.include?(bt.category)
       reasons << "Matches your requested #{bt.category_label.downcase} facilities"
+    end
+
+    if requested.include?("administration") && bt.category != "administration"
+      if bt.admin_compatible
+        reasons << "Documented as compatible with an attached administration module"
+      elsif bt.admin_compatible.nil?
+        unknowns << "Whether Type #{bt.code} can accommodate an administration module isn't yet confirmed"
+      end
     end
   end
 
