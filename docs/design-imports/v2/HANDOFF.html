@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Handoff — MOE Standard Designs Selector</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;family=Figtree:wght@700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
+<style>
+  :root { --ink:#2C112D; --mute:#5D5360; --line:#D8D2D9; --wash:#F7F6F7; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--wash); color:var(--ink);
+    font:400 16px/1.55 'Instrument Sans',Helvetica,Arial,sans-serif; }
+  main { max-width:940px; margin:0 auto; padding:clamp(28px,5vw,72px) clamp(20px,4vw,48px) 96px; }
+  h1 { font-family:'Figtree','Instrument Sans',sans-serif; font-weight:800;
+    font-size:clamp(32px,5vw,54px); line-height:1.04; letter-spacing:-0.03em; margin:0 0 10px; }
+  h2 { font-family:'Figtree','Instrument Sans',sans-serif; font-weight:700;
+    font-size:clamp(21px,2.6vw,28px); letter-spacing:-0.02em; margin:52px 0 14px;
+    padding-top:18px; border-top:1px solid var(--line); }
+  h3 { font-size:17px; font-weight:600; margin:26px 0 8px; }
+  p, li { color:var(--mute); text-wrap:pretty; }
+  p { margin:0 0 14px; }
+  ul { margin:0 0 14px; padding-left:20px; }
+  li { margin-bottom:6px; }
+  code, .mono { font-family:'IBM Plex Mono',monospace; font-size:0.9em; }
+  code { background:#EDE7EE; color:var(--ink); padding:1px 5px; }
+  pre { background:var(--ink); color:#F3E9F3; padding:18px 20px; overflow:auto;
+    font:400 13px/1.6 'IBM Plex Mono',monospace; margin:0 0 16px; }
+  .kicker { font:500 11px/1 'IBM Plex Mono',monospace; letter-spacing:0.16em;
+    text-transform:uppercase; color:#8A8189; margin-bottom:16px; }
+  .lede { font-size:19px; color:var(--ink); max-width:46em; margin-bottom:8px; }
+  table { border-collapse:collapse; width:100%; margin:0 0 18px; font-size:14.5px; }
+  th, td { text-align:left; vertical-align:top; padding:10px 14px 10px 0;
+    border-bottom:1px solid var(--line); }
+  th { font:500 10.5px/1.3 'IBM Plex Mono',monospace; letter-spacing:0.12em;
+    text-transform:uppercase; color:#8A8189; }
+  td { color:var(--mute); }
+  td:first-child { color:var(--ink); font-weight:500; white-space:nowrap; }
+  .note { background:#EDE7EE; border-left:4px solid var(--ink);
+    padding:16px 20px; margin:0 0 18px; }
+  .note p:last-child { margin-bottom:0; }
+  .flow { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; padding:0; list-style:none; }
+  .flow li { font:500 11px/1 'IBM Plex Mono',monospace; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink); border:1px solid var(--line);
+    background:#fff; padding:11px 13px; margin:0; }
+  a { color:var(--ink); }
+  a:hover { color:#7A3A78; }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Developer handoff · v2 · 24 September 2026</div>
+  <h1>MOE Standard Designs Selector</h1>
+  <p class="lede">A browser tool that takes a school through five questions and returns the Ministry of Education standard building configurations that meet its requirement. Built as a single Design Component with the data and matching rules split into plain JS modules.</p>
+
+  <h2>Changelog · v2 (24 Sep 2026)</h2>
+  <ul>
+    <li><strong>Cover</strong> — title on one line; bilingual chevron nav (About, Ministry of Education, Contact, Animation). Diagrams tab removed; example-school button removed.</li>
+    <li><strong>About panel</strong> — subtabs: About · Acknowledgements · How buildings are created (<code>PANELS.about.tabs</code>).</li>
+    <li><strong>Questions</strong> — Q1 is two options (Primary and intermediate / Secondary). Q3 adds Gymnasium and Learning support, drops Amenities. Q4 is two-stage: total specialist count → per-type counters.</li>
+    <li><strong>App header</strong> — MOE logo top-left; stage bar uses rotating chevrons (up → right → down) for next / current / done.</li>
+    <li><strong>Background</strong> — white with the animated page-5 chevron column (<code>arrowEl()</code>). Props: <code>appBackground</code>, <code>arrowSide</code>.</li>
+    <li><strong>Option cards</strong> — characteristics list removed.</li>
+    <li><strong>Building view</strong> — opens scrolled to top; title top-left, 3D window left, purple overview block right, Building information below, then expandable Further information sections (<code>INFO_SECTIONS</code>).</li>
+    <li><strong>PDF boxes</strong> — each section's <code>docs</code> list renders 4:3 boxes with the title beneath. Add <code>{ title, src: 'docs/x.pdf', thumb: 'docs/x.png' }</code> to link real files.</li>
+    <li><strong>Customise building</strong> — new flow (<code>screen: 'customise'</code>, <code>CUSTOM_STEPS</code>): Cladding → Teaching layout → Heating &amp; ventilation → Summary, each with its own docs grid.</li>
+    <li><strong>PDF report</strong> — <code>screen: 'report'</code>; print-styled A4 page (requirement, building + diagram, customisation, document list). “Save as PDF” calls <code>window.print()</code>.</li>
+  </ul>
+
+  <h2>Files</h2>
+  <table>
+    <tr><th>File</th><th>Role</th></tr>
+    <tr><td>School&nbsp;Building&nbsp;Selector.dc.html</td><td>The whole interface: cover, five-question flow, review, options grid, building view, comparison. Template + a <code>Component extends DCLogic</code> class.</td></tr>
+    <tr><td>moe-data.js</td><td>Building database. Typology families (S1 / S2 / S3 / Type R), modules on the 7.2 × 12.0 m bay, layouts A–D. Records only, no logic.</td></tr>
+    <tr><td>moe-rules.js</td><td>Matching algorithm — turns the answered requirement into a ranked set of viable standard configurations, with notes explaining each decision.</td></tr>
+    <tr><td>support.js</td><td>Runtime for the Design Component format. Generated — do not edit.</td></tr>
+    <tr><td>ref/moe-logo.png<br />ref/nz-govt.png</td><td>Transparent logo lockups extracted from the MOE graphics PDF.</td></tr>
+    <tr><td>ref/moe-pattern.png<br />ref/moe-pattern-light.png</td><td>Aubergine cover pattern and the light variant used behind the review screen.</td></tr>
+    <tr><td>ref/p01.png</td><td>Catalogue reference page — source of the visual language.</td></tr>
+    <tr><td>uploads/</td><td>Source PDFs supplied by the client.</td></tr>
+  </table>
+
+  <h2>Screen flow</h2>
+  <ul class="flow">
+    <li>Cover</li><li>Q1 School type</li><li>Q2 Roll growth / TS</li><li>Q3 Buildings</li>
+    <li>Q4 Specialist TS</li><li>Q5 Location</li><li>Review</li><li>Options</li><li>Building view</li><li>Compare</li>
+  </ul>
+  <p>Screen is held in <code>state.screen</code> (<span class="mono">cover · quiz · review · options · building · compare</span>). The question flow is driven by <code>state.qStep</code> against a <code>flow</code> array computed in <code>quizVals()</code> — the specialist question is inserted only when <em>Teaching spaces</em> is among the selected buildings, so the step count is 4 or 5.</p>
+
+  <h3>Question behaviour</h3>
+  <ul>
+    <li><strong>Q1 School type</strong> — two options. <em>Primary and intermediate</em> is covered by V1.0; <em>Secondary school</em> is recorded and flagged as out of scope, carried through to the review notes.</li>
+    <li><strong>Q2 Size</strong> — two modes. Enter roll growth, or switch to <em>Teaching spaces known</em>. The other figure is derived at <code>props.spaceRatio</code> students per space (default 25).</li>
+    <li><strong>Q3 Buildings</strong> — multi-select: teaching, administration, library, gymnasium, learning support. Gymnasium is outside V1.0 and carried into the brief.</li>
+    <li><strong>Q4 Specialist</strong> — two stages in one screen. Enter a total; a <em>Next step</em> button appears beneath the field, then the per-type counters (Technology, Science, Art, Music, Food) appear with a running “n of N allocated” readout. Plus buttons stop at the total. Back returns to stage one before leaving the question.</li>
+    <li><strong>Q5 Location</strong> — free text plus a region list that sets the NZBC climate zone on the requirement.</li>
+  </ul>
+
+  <h3>Cover navigation</h3>
+  <p>Top-right tab strip: About, Diagrams, Ministry of Education (opens <a href="https://www.education.govt.nz/">education.govt.nz</a>), Contact, Animation. About / Diagrams / Contact open a right-hand slide-over fed by the <code>PANELS</code> constant. Animation re-runs the cover entrance by bouncing through a transient <code>replay</code> screen.</p>
+
+  <h2>Architecture notes</h2>
+  <ul>
+    <li>All styling is inline. No stylesheets or CSS classes inside the component — the only global rules are the font links, <code>@keyframes</code> and body resets in the helmet.</li>
+    <li>Template holes are dotted lookups only. Anything conditional or computed is prepared in <code>renderVals()</code> (or the <code>quizVals()</code> helper it spreads in) and exposed by name.</li>
+    <li>Answers live in <code>state.wz</code> during the question flow, then <code>finishQuiz()</code> maps them onto the <code>input</code> object that <code>moe-rules.js</code> consumes. That mapping is the single seam between the interface and the rules.</li>
+    <li>Building diagrams are currently flat 2D axonometric projections drawn from the bay geometry.</li>
+  </ul>
+
+  <h2>Running it</h2>
+  <pre>python3 -m http.server 8080
+# then open http://localhost:8080/School%20Building%20Selector.dc.html</pre>
+  <p>Any static server works. It must be served over HTTP rather than opened from the filesystem, because the component fetches its sibling modules.</p>
+
+  <h2>Next steps</h2>
+  <ul>
+    <li>Swap the axonometric diagrams for a real 3D viewer once the SketchUp models export; add rotation and zoom.</li>
+    <li>Validate <code>moe-rules.js</code> against the full building dataset — the rules have been exercised on a subset only.</li>
+    <li>Polish the comparison view.</li>
+    <li>Gymnasium and learning support currently pass through as brief items; decide whether they get standard modules of their own.</li>
+    <li>Secondary school is out of scope for V1.0 and needs a proper path rather than the present warning note.</li>
+  </ul>
+
+  <div class="note">
+    <p><strong>Scope caution.</strong> The tool is indicative planning only. Provision, site fit and technical requirements are confirmed with the Ministry property advisor — keep that framing in any copy added to the interface.</p>
+  </div>
+</main>
+</body>
+</html>
