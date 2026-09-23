@@ -1,0 +1,32 @@
+/*
+ * Ported verbatim from the supplied design (docs/design-imports/).
+ * Base resets, type and the entry animations. Do not restyle these — the
+ * design's inline styles in the views depend on them matching exactly.
+ */
+
+*{box-sizing:border-box}
+/* Panels carry an inline display:flex, which would otherwise beat [hidden]. */
+[hidden]{display:none !important}
+html,body{margin:0;padding:0;background:#F1F3F2;color:#2C112D;font-family:'Instrument Sans',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2C112D;text-decoration:underline;text-underline-offset:3px}
+a:hover{color:#7A3A5E}
+button{font-family:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+::selection{background:#2C112D;color:#fff}
+@keyframes dcFade{from{opacity:0}to{opacity:1}}
+@keyframes dcRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dcSlide{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes dcChev{from{opacity:0;transform:translateY(45%)}to{opacity:1;transform:translateY(0)}}
+@keyframes dcWipe{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
+
+/* The design expressed hover states as a style-hover="" attribute; these are
+   those same declarations as real CSS. */
+.dc-navtab:hover{opacity:0.72}
+.dc-cta:hover{background:#F1D9E6;border-color:#F1D9E6}
+.dc-close:hover{border-color:#fff}
+
+/* Cover link tabs are <a> in the port (they navigate); strip the global
+   underline so they match the design's <button> tabs. */
+.dc-navtab{text-decoration:none;color:#fff}
+.dc-navtab:hover{color:#fff}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) ? "#{content_for(:title)} — Standard Designs Navigator" : "Standard Designs Navigator" %></title>
+    <title><%= content_for?(:title_exact) ? content_for(:title_exact) : (content_for?(:title) ? "#{content_for(:title)} — Standard Designs Navigator" : "Standard Designs Navigator") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Standard Designs Navigator">
@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "design", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 

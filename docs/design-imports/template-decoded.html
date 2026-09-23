@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -240,7 +240,7 @@
   <sc-if value="{{ isCover }}" hint-placeholder-val="{{ true }}">
     <div data-screen-label="Cover" style="position:relative;min-height:100vh;background:#2C112D url(&quot;1278eb3b-8e9a-4746-a147-8fbefabcff61&quot;) center center / cover no-repeat;color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(24px,4vw,48px);padding:clamp(28px,4.5vw,64px) clamp(28px,5vw,80px);animation:dcWipe 1.1s ease both">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:clamp(20px,4vw,48px);flex-wrap:wrap;animation:dcFade 0.9s ease 0.5s both">
-        <img src="3c68cb50-2e72-4854-bf69-d4d6d8cb5418" alt="Te TÄhuhu o te MÄtauranga â€” Ministry of Education" style="width:clamp(190px,18vw,281px);height:auto;display:block">
+        <img src="3c68cb50-2e72-4854-bf69-d4d6d8cb5418" alt="Te Tāhuhu o te Mātauranga — Ministry of Education" style="width:clamp(190px,18vw,281px);height:auto;display:block">
         <div style="display:flex;align-items:flex-start;justify-content:flex-end;flex-wrap:wrap;gap:14px clamp(20px,2.8vw,48px);padding-top:clamp(14px,2vw,30px)">
           <sc-for list="{{ navTabs }}" as="t" hint-placeholder-count="5">
             <button sc-camel-on-click="{{ t.onClick }}" style="display:flex;align-items:center;gap:12px;background:transparent;border:none;padding:0;color:#fff;cursor:pointer;transition:opacity 160ms ease" style-hover="opacity:0.72">
@@ -258,14 +258,14 @@
         <h1 style="margin:0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(28px,5.4vw,84px);font-weight:800;line-height:1.02;letter-spacing:-0.032em;white-space:nowrap;animation:dcRise 0.9s ease 1.6s both">Great schools, great spaces</h1>
         <p style="margin:clamp(18px,2.4vw,30px) 0 0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(20px,2.3vw,32px);font-weight:700;line-height:1.22;letter-spacing:-0.015em;max-width:16em;animation:dcRise 0.9s ease 1.85s both">Standard designs for primary and intermediate schools</p>
         <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:clamp(28px,3.6vw,46px);animation:dcRise 0.9s ease 2.2s both">
-          <button sc-camel-on-click="{{ onStart }}" style="background:#fff;color:#2C112D;border:1px solid #fff;padding:18px 28px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">Select building module here â†’</button>
+          <button sc-camel-on-click="{{ onStart }}" style="background:#fff;color:#2C112D;border:1px solid #fff;padding:18px 28px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">Select building module here →</button>
         </div>
       </div>
 
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
-        <img src="f5388e0e-54eb-4680-99dd-f9874eb8f26b" alt="Te KÄwanatanga o Aotearoa â€” New Zealand Government" style="width:clamp(150px,13vw,215px);height:auto;display:block;animation:dcFade 0.9s ease 0.95s both">
+        <img src="f5388e0e-54eb-4680-99dd-f9874eb8f26b" alt="Te Kāwanatanga o Aotearoa — New Zealand Government" style="width:clamp(150px,13vw,215px);height:auto;display:block;animation:dcFade 0.9s ease 0.95s both">
         <sc-if value="{{ showTeReo }}" hint-placeholder-val="{{ true }}">
-          <div style="font-size:13px;line-height:1.5;max-width:30em;color:rgba(255,255,255,0.5);text-align:right;animation:dcFade 0.9s ease 2.5s both">He mea tÄrai e mÄtou te mÄtauranga kia rangatira ai, kia mana taurite ai Åna huanga</div>
+          <div style="font-size:13px;line-height:1.5;max-width:30em;color:rgba(255,255,255,0.5);text-align:right;animation:dcFade 0.9s ease 2.5s both">He mea tārai e mātou te mātauranga kia rangatira ai, kia mana taurite ai ōna huanga</div>
         </sc-if>
       </div>
     </div>
@@ -313,7 +313,7 @@
 
         <sc-if value="{{ qIsNumber }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:clamp(20px,2.6vw,30px);display:flex;align-items:stretch;width:fit-content;border:1px solid rgba(255,255,255,0.5);background:rgba(255,255,255,0.05)">
-            <button sc-camel-on-click="{{ qOnMinus }}" style="width:58px;background:transparent;border:none;border-right:1px solid rgba(255,255,255,0.3);color:#fff;font-size:24px;line-height:1" style-hover="background:rgba(255,255,255,0.14)">âˆ’</button>
+            <button sc-camel-on-click="{{ qOnMinus }}" style="width:58px;background:transparent;border:none;border-right:1px solid rgba(255,255,255,0.3);color:#fff;font-size:24px;line-height:1" style-hover="background:rgba(255,255,255,0.14)">−</button>
             <input type="number" value="{{ qValue }}" sc-camel-on-change="{{ qOnChange }}" style="width:150px;background:transparent;border:none;color:#fff;text-align:center;font:500 30px/1 'IBM Plex Mono',monospace;padding:16px 6px">
             <span style="display:flex;align-items:center;padding:0 18px 0 4px;font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6)">{{ qUnit }}</span>
             <button sc-camel-on-click="{{ qOnPlus }}" style="width:58px;background:transparent;border:none;border-left:1px solid rgba(255,255,255,0.3);color:#fff;font-size:24px;line-height:1" style-hover="background:rgba(255,255,255,0.14)">+</button>
@@ -322,7 +322,7 @@
 
         <sc-if value="{{ qShowInlineNext }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
-            <button sc-camel-on-click="{{ qOnInlineNext }}" style="background:#fff;border:1px solid #fff;color:#2C112D;padding:15px 24px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">Next step â†“</button>
+            <button sc-camel-on-click="{{ qOnInlineNext }}" style="background:#fff;border:1px solid #fff;color:#2C112D;padding:15px 24px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">Next step ↓</button>
           </div>
         </sc-if>
 
@@ -335,7 +335,7 @@
                   <span style="{{ c.noteStyle }}">{{ c.note }}</span>
                 </div>
                 <div style="display:flex;align-items:stretch;flex:none;border:1px solid rgba(255,255,255,0.4)">
-                  <button sc-camel-on-click="{{ c.onMinus }}" style="width:40px;background:transparent;border:none;color:inherit;font-size:19px;line-height:1" style-hover="background:rgba(255,255,255,0.14)">âˆ’</button>
+                  <button sc-camel-on-click="{{ c.onMinus }}" style="width:40px;background:transparent;border:none;color:inherit;font-size:19px;line-height:1" style-hover="background:rgba(255,255,255,0.14)">−</button>
                   <span style="display:flex;align-items:center;justify-content:center;width:44px;font:500 18px/1 'IBM Plex Mono',monospace;border-left:1px solid rgba(255,255,255,0.28);border-right:1px solid rgba(255,255,255,0.28)">{{ c.count }}</span>
                   <button sc-camel-on-click="{{ c.onPlus }}" style="width:40px;background:transparent;border:none;color:inherit;font-size:19px;line-height:1" style-hover="background:rgba(255,255,255,0.14)">+</button>
                 </div>
@@ -364,8 +364,8 @@
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.22);padding-top:20px">
         <img src="f5388e0e-54eb-4680-99dd-f9874eb8f26b" alt="New Zealand Government" style="width:clamp(130px,11vw,175px);height:auto;display:block">
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button sc-camel-on-click="{{ qOnBack }}" style="background:transparent;border:1px solid rgba(255,255,255,0.45);color:#fff;padding:16px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="border-color:#fff">â† Back</button>
-          <button sc-camel-on-click="{{ qOnNext }}" style="background:#fff;border:1px solid #fff;color:#2C112D;padding:16px 26px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">{{ qNextLabel }} â†’</button>
+          <button sc-camel-on-click="{{ qOnBack }}" style="background:transparent;border:1px solid rgba(255,255,255,0.45);color:#fff;padding:16px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="border-color:#fff">← Back</button>
+          <button sc-camel-on-click="{{ qOnNext }}" style="background:#fff;border:1px solid #fff;color:#2C112D;padding:16px 26px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">{{ qNextLabel }} →</button>
         </div>
       </div>
     </div>
@@ -377,7 +377,7 @@
 
       <div style="position:sticky;top:0;z-index:40;background:#2C112D;color:#fff;display:flex;align-items:stretch;justify-content:space-between;gap:16px;flex-wrap:wrap">
         <button sc-camel-on-click="{{ onHome }}" style="display:flex;align-items:center;background:transparent;border:none;padding:0 clamp(18px,2.4vw,32px);height:76px;cursor:pointer" style-hover="opacity:0.82">
-          <img src="3c68cb50-2e72-4854-bf69-d4d6d8cb5418" alt="Te TÄhuhu o te MÄtauranga â€” Ministry of Education" style="height:44px;width:auto;display:block">
+          <img src="3c68cb50-2e72-4854-bf69-d4d6d8cb5418" alt="Te Tāhuhu o te Mātauranga — Ministry of Education" style="height:44px;width:auto;display:block">
         </button>
         <div style="display:flex;align-items:stretch;gap:clamp(4px,1.2vw,18px);overflow-x:auto;padding-right:clamp(10px,2vw,28px)">
           <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
@@ -420,7 +420,7 @@
 
                   <sc-if value="{{ f.isNumber }}" hint-placeholder-val="{{ true }}">
                     <div style="display:flex;align-items:stretch;gap:0;width:fit-content;border:1px solid #2C112D;background:#fff">
-                      <button sc-camel-on-click="{{ f.onMinus }}" style="width:42px;border:none;border-right:1px solid #D7DAD7;background:transparent;font-size:18px;line-height:1" style-hover="background:#F1F3F2">âˆ’</button>
+                      <button sc-camel-on-click="{{ f.onMinus }}" style="width:42px;border:none;border-right:1px solid #D7DAD7;background:transparent;font-size:18px;line-height:1" style-hover="background:#F1F3F2">−</button>
                       <input type="number" value="{{ f.value }}" sc-camel-on-change="{{ f.onChange }}" style="width:86px;border:none;text-align:center;font:500 17px/1 'IBM Plex Mono',monospace;padding:12px 4px;background:transparent;color:#2C112D">
                       <span style="display:flex;align-items:center;padding-right:12px;font:400 11px/1 'IBM Plex Mono',monospace;color:#8A8189;text-transform:uppercase;letter-spacing:0.08em">{{ f.unit }}</span>
                       <button sc-camel-on-click="{{ f.onPlus }}" style="width:42px;border:none;border-left:1px solid #D7DAD7;background:transparent;font-size:18px;line-height:1" style-hover="background:#F1F3F2">+</button>
@@ -451,8 +451,8 @@
             </div>
 
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px">
-              <button sc-camel-on-click="{{ onPrevSection }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#E4E0E2">â† Back</button>
-              <button sc-camel-on-click="{{ onNextSection }}" style="background:#2C112D;border:1px solid #2C112D;color:#fff;padding:15px 24px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#46203F">{{ nextLabel }} â†’</button>
+              <button sc-camel-on-click="{{ onPrevSection }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#E4E0E2">← Back</button>
+              <button sc-camel-on-click="{{ onNextSection }}" style="background:#2C112D;border:1px solid #2C112D;color:#fff;padding:15px 24px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#46203F">{{ nextLabel }} →</button>
             </div>
           </div>
         </div>
@@ -506,8 +506,8 @@
             </div>
 
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px">
-              <button sc-camel-on-click="{{ onBackToReq }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#E4E0E2">â† Amend requirements</button>
-              <button sc-camel-on-click="{{ onCalculate }}" style="background:#2C112D;border:1px solid #2C112D;color:#fff;padding:15px 24px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#46203F">Find building options â†’</button>
+              <button sc-camel-on-click="{{ onBackToReq }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#E4E0E2">← Amend requirements</button>
+              <button sc-camel-on-click="{{ onCalculate }}" style="background:#2C112D;border:1px solid #2C112D;color:#fff;padding:15px 24px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#46203F">Find building options →</button>
             </div>
           </div>
         </div>
@@ -563,12 +563,12 @@
 
                     <div style="margin-top:16px;display:grid;gap:7px">
                       <sc-for list="{{ o.characteristics }}" as="c" hint-placeholder-count="4">
-                        <div style="display:flex;gap:10px;font-size:13.5px;line-height:1.4;color:#3F3542"><span style="color:#A79FA5">â€º</span>{{ c }}</div>
+                        <div style="display:flex;gap:10px;font-size:13.5px;line-height:1.4;color:#3F3542"><span style="color:#A79FA5">›</span>{{ c }}</div>
                       </sc-for>
                     </div>
 
                     <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap">
-                      <button sc-camel-on-click="{{ o.onView }}" style="flex:1;min-width:150px;background:#2C112D;border:1px solid #2C112D;color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#46203F">View building â†’</button>
+                      <button sc-camel-on-click="{{ o.onView }}" style="flex:1;min-width:150px;background:#2C112D;border:1px solid #2C112D;color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#46203F">View building →</button>
                       <button sc-camel-on-click="{{ o.onToggleCompare }}" style="{{ o.compareStyle }}">{{ o.compareLabel }}</button>
                     </div>
                   </div>
@@ -591,7 +591,7 @@
           <div style="max-width:1320px;margin:0 auto">
             <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
               <div style="min-width:0">
-                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">Step 04 Â· {{ optLabel }}</div>
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">Step 04 · {{ optLabel }}</div>
                 <h2 style="margin:12px 0 0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(30px,3.6vw,50px);font-weight:800;line-height:1.04;letter-spacing:-0.028em;text-wrap:pretty">{{ infoBlockName }}</h2>
                 <div style="margin-top:10px;font:400 12.5px/1.5 'IBM Plex Mono',monospace;color:#7E7480">{{ infoBlockMeta }}</div>
               </div>
@@ -622,7 +622,7 @@
                 </div>
                 <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px 20px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid #D7DAD7;background:#fff">
                   <div style="min-width:0;flex:1 1 260px">
-                    <div style="font:500 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:#8A8189">Space categories Â· click to hide</div>
+                    <div style="font:500 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:#8A8189">Space categories · click to hide</div>
                     <div style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:9px">
                       <sc-for list="{{ legend }}" as="l" hint-placeholder-count="6">
                         <button sc-camel-on-click="{{ l.onClick }}" style="{{ l.style }}"><span style="{{ l.swatchStyle }}"></span>{{ l.label }}</button>
@@ -630,7 +630,7 @@
                     </div>
                   </div>
                   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right">
-                    <span style="font:400 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:#8A8189">ROTATE Â· DRAG &nbsp;|&nbsp; ZOOM Â· SCROLL</span>
+                    <span style="font:400 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;color:#8A8189">ROTATE · DRAG &nbsp;|&nbsp; ZOOM · SCROLL</span>
                     <span style="font:500 10px/1 'IBM Plex Mono',monospace;color:#2C112D">{{ viewReadout }}</span>
                   </div>
                 </div>
@@ -659,7 +659,7 @@
                 </div>
                 <div style="display:grid;gap:8px">
                   <sc-for list="{{ keyChars }}" as="c" hint-placeholder-count="4">
-                    <div style="display:flex;gap:10px;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,0.86)"><span style="color:rgba(255,255,255,0.45)">â€º</span>{{ c }}</div>
+                    <div style="display:flex;gap:10px;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,0.86)"><span style="color:rgba(255,255,255,0.45)">›</span>{{ c }}</div>
                   </sc-for>
                 </div>
 
@@ -684,7 +684,7 @@
                 </sc-if>
 
                 <div style="margin-top:auto;display:flex;gap:8px;flex-wrap:wrap">
-                  <button sc-camel-on-click="{{ onBackToOptions }}" style="flex:1;min-width:130px;background:transparent;border:1px solid rgba(255,255,255,0.5);color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="border-color:#fff">â† Options</button>
+                  <button sc-camel-on-click="{{ onBackToOptions }}" style="flex:1;min-width:130px;background:transparent;border:1px solid rgba(255,255,255,0.5);color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="border-color:#fff">← Options</button>
                   <button sc-camel-on-click="{{ onCompare }}" style="flex:1;min-width:130px;background:#fff;border:1px solid #fff;color:#2C112D;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">Compare</button>
                 </div>
               </div>
@@ -712,7 +712,7 @@
                       <button sc-camel-on-click="{{ m.onClick }}" style="{{ m.style }}">
                         <span style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;width:100%">
                           <span style="font-size:13.5px;text-align:left">{{ m.name }}</span>
-                          <span style="font:500 12px/1 'IBM Plex Mono',monospace;white-space:nowrap">Ã— {{ m.count }}</span>
+                          <span style="font:500 12px/1 'IBM Plex Mono',monospace;white-space:nowrap">× {{ m.count }}</span>
                         </span>
                         <span style="display:flex;justify-content:space-between;gap:12px;width:100%;margin-top:6px;font:400 10.5px/1 'IBM Plex Mono',monospace;color:#8A8189;letter-spacing:0.06em">
                           <span>{{ m.code }}</span><span>{{ m.dims }}</span>
@@ -782,7 +782,7 @@
                           </sc-for>
                         </div>
                       </sc-if>
-                      <div style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189">Source Â· {{ sct.source }}</div>
+                      <div style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189">Source · {{ sct.source }}</div>
                     </div>
                   </sc-if>
                 </div>
@@ -824,22 +824,22 @@
                     <div style="{{ cell.style }}">{{ cell.text }}</div>
                   </sc-for>
                   <div style="padding:14px">
-                    <button sc-camel-on-click="{{ c.onView }}" style="width:100%;background:#2C112D;border:1px solid #2C112D;color:#fff;padding:13px 14px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#46203F">View building â†’</button>
+                    <button sc-camel-on-click="{{ c.onView }}" style="width:100%;background:#2C112D;border:1px solid #2C112D;color:#fff;padding:13px 14px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#46203F">View building →</button>
                   </div>
                 </div>
               </sc-for>
             </div>
 
             <div style="margin-top:28px">
-              <button sc-camel-on-click="{{ onBackToOptions }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#E4E0E2">â† All options</button>
+              <button sc-camel-on-click="{{ onBackToOptions }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#E4E0E2">← All options</button>
             </div>
           </div>
         </div>
       </sc-if>
 
       <div style="position:relative;z-index:1;border-top:1px solid #D7DAD7;background:#EAEDEA;padding:18px clamp(22px,4vw,56px);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font:400 11px/1.6 'IBM Plex Mono',monospace;color:#8A8189">
-        <span>Standard designs for primary and intermediate schools Â· V1.0</span>
-        <span>Indicative planning tool Â· confirm all provision with your project team</span>
+        <span>Standard designs for primary and intermediate schools · V1.0</span>
+        <span>Indicative planning tool · confirm all provision with your project team</span>
       </div>
     </div>
   </sc-if>
@@ -862,7 +862,7 @@ const SECTIONS = [
     { key: 'tsExisting', label: 'Existing teaching spaces retained', kind: 'number', step: 1, min: 0, max: 80, unit: 'spaces', hint: 'Deducted from the entitlement' },
     { key: 'specialist', label: 'Specialist teaching spaces required', kind: 'number', step: 1, min: 0, max: 12, unit: 'spaces', hint: 'Teaching module with specialist fit-out' },
     { key: 'specialistTypes', label: 'Specialist type', kind: 'chips', options: ['Technology', 'Science', 'Art', 'Music', 'Food'], hint: 'Select all that apply' },
-    { key: 'layout', label: 'Teaching space layout', kind: 'choice', options: ['A', 'B', 'C', 'D'], labelsFrom: 'layout', hint: 'Standard layouts Aâ€“D' }
+    { key: 'layout', label: 'Teaching space layout', kind: 'choice', options: ['A', 'B', 'C', 'D'], labelsFrom: 'layout', hint: 'Standard layouts A–D' }
   ] },
   { title: 'Library & administration', intro: 'Standard library and administration layouts are sized to the school roll.', fields: [
     { key: 'library', label: 'Library / learning commons in scope', kind: 'choice', options: ['Yes', 'No'], hint: '1 module to 300 students, 2 above' },
@@ -878,16 +878,16 @@ const SECTIONS = [
     { key: 'hall', label: 'Hall required', kind: 'choice', options: ['Yes', 'No'], hint: 'Outside catalogue V1.0', note: 'Halls are not covered by standard designs V1.0. The requirement is carried into the brief for separate development with your property advisor.' },
     { key: 'gym', label: 'Gym / PE space required', kind: 'choice', options: ['Yes', 'No'], hint: 'Outside catalogue V1.0' }
   ] },
-  { title: 'Site & constraints', intro: 'Site capacity determines how the same provision can be massed â€” single-storey, or stacked to release ground.', fields: [
+  { title: 'Site & constraints', intro: 'Site capacity determines how the same provision can be massed — single-storey, or stacked to release ground.', fields: [
     { key: 'siteArea', label: 'Site area available', kind: 'choice', options: ['Generous', 'Moderate', 'Tight'], hint: 'Relative to the new footprint' },
     { key: 'maxStoreys', label: 'Maximum storeys', kind: 'choice', options: ['1', '2', '3', 'No preference'], hint: 'Planning or site limit' },
     { key: 'relocatable', label: 'Relocatable buildings acceptable', kind: 'choice', options: ['Yes', 'No'], hint: 'Type R, OMB 2.5' },
-    { key: 'climate', label: 'NZBC climate zone', kind: 'choice', options: ['1', '2', '3', '4', '5', '6'], hint: 'Zones 1â€“3 temperate, 4â€“6 colder' },
+    { key: 'climate', label: 'NZBC climate zone', kind: 'choice', options: ['1', '2', '3', '4', '5', '6'], hint: 'Zones 1–3 temperate, 4–6 colder' },
     { key: 'cladding', label: 'Cladding preference', kind: 'choice', options: ['A', 'B', 'C'], labelsFrom: 'cladding', hint: 'Confirmed later in design' }
   ] },
   { title: 'Existing buildings', intro: 'Buildings retained on site, and anything else the project team should know.', fields: [
     { key: 'existingRetained', label: 'Existing buildings retained', kind: 'number', step: 1, min: 0, max: 40, unit: 'buildings', hint: 'Blocks remaining on site' },
-    { key: 'notes', label: 'Site notes and constraints', kind: 'textarea', placeholder: 'Drainage, heritage features, trees, ground conditions, stagingâ€¦', hint: 'Carried into the brief' }
+    { key: 'notes', label: 'Site notes and constraints', kind: 'textarea', placeholder: 'Drainage, heritage features, trees, ground conditions, staging…', hint: 'Carried into the brief' }
   ] }
 ];
 
@@ -902,12 +902,12 @@ const DEFAULTS = {
 };
 
 const REGIONS = [
-  { label: 'Te Tai Tokerau / TÄmaki Makaurau', note: 'Northland, Auckland', zone: '1' },
-  { label: 'Waikato / Bay of Plenty / TairÄwhiti', note: 'Hamilton, Tauranga, Gisborne', zone: '2' },
-  { label: 'Taranaki / Hawkeâ€™s Bay / ManawatÅ«', note: 'New Plymouth, Napier, Palmerston North', zone: '3' },
+  { label: 'Te Tai Tokerau / Tāmaki Makaurau', note: 'Northland, Auckland', zone: '1' },
+  { label: 'Waikato / Bay of Plenty / Tairāwhiti', note: 'Hamilton, Tauranga, Gisborne', zone: '2' },
+  { label: 'Taranaki / Hawke’s Bay / Manawatū', note: 'New Plymouth, Napier, Palmerston North', zone: '3' },
   { label: 'Te Whanganui-a-Tara / Te Tauihu', note: 'Wellington, Nelson, Marlborough', zone: '3' },
   { label: 'West Coast / Waitaha', note: 'Greymouth, Christchurch', zone: '4' },
-  { label: 'ÅŒtÄkou', note: 'Dunedin, coastal Otago', zone: '5' },
+  { label: 'Ōtākou', note: 'Dunedin, coastal Otago', zone: '5' },
   { label: 'Murihiku / Central Otago', note: 'Invercargill, Queenstown, Alexandra', zone: '6' }
 ];
 
@@ -915,26 +915,26 @@ const BUILD_OPTS = [
   { key: 'teaching', label: 'Teaching spaces', note: 'General and specialist teaching modules, admin, storage and toilets' },
   { key: 'admin', label: 'Administration', note: 'Reception, sick bay, meeting, staff and leadership' },
   { key: 'library', label: 'Library', note: 'Library or learning commons module' },
-  { key: 'gym', label: 'Gymnasium', note: 'Outside standard designs V1.0 â€” carried into the brief' },
+  { key: 'gym', label: 'Gymnasium', note: 'Outside standard designs V1.0 — carried into the brief' },
   { key: 'support', label: 'Learning support', note: 'Withdrawal, therapy and sensory spaces' }
 ];
 
 const SPEC_OPTS = [
-  { key: 'Technology', note: 'A1.specialist Â· hard and soft materials' },
-  { key: 'Science', note: 'A1.specialist Â· wet benches and services' },
-  { key: 'Art', note: 'A1.specialist Â· wet area and drying' },
-  { key: 'Music', note: 'A1.specialist Â· acoustic separation' },
-  { key: 'Food', note: 'A1.specialist Â· food technology fit-out' }
+  { key: 'Technology', note: 'A1.specialist · hard and soft materials' },
+  { key: 'Science', note: 'A1.specialist · wet benches and services' },
+  { key: 'Art', note: 'A1.specialist · wet area and drying' },
+  { key: 'Music', note: 'A1.specialist · acoustic separation' },
+  { key: 'Food', note: 'A1.specialist · food technology fit-out' }
 ];
 
 const PANELS = {
   about: { title: 'About this tool', blocks: [
     { label: 'Purpose', text: 'A selector for the Ministry of Education standard designs for primary and intermediate schools. Answer five questions about the school and the tool returns the standard configurations that meet the requirement.' },
-    { label: 'Catalogue', text: 'Standard designs for primary and intermediate schools, Version 1.0, June 2026. Every building is composed from standard modules on a 7.2 m Ã— 12.0 m bay.' },
+    { label: 'Catalogue', text: 'Standard designs for primary and intermediate schools, Version 1.0, June 2026. Every building is composed from standard modules on a 7.2 m × 12.0 m bay.' },
     { label: 'Status', text: 'An indicative planning tool. Provision, site fit and technical requirements must be confirmed with your Ministry property advisor and project team.' }
   ] },
   diagrams: { title: 'Standard diagrams', blocks: [
-    { label: 'Teaching modules', text: 'A1.p teaching space, 7.2 m Ã— 12.0 m, 82 mÂ² net. Layouts A to D cover tiered seating, shared enclosed wet space, integrated wet area, and shared dry breakout.' },
+    { label: 'Teaching modules', text: 'A1.p teaching space, 7.2 m × 12.0 m, 82 m² net. Layouts A to D cover tiered seating, shared enclosed wet space, integrated wet area, and shared dry breakout.' },
     { label: 'Support modules', text: 'B1 amenities and resource full bay, B1.h half bay, L1 library module, C1 administration module, S.st stair and lift module.' },
     { label: 'Building types', text: 'Type R relocatable, S1 single-depth single-storey, S2 two-storey, S3 three-storey, plus standard library and administration layouts.' }
   ] },
@@ -948,19 +948,19 @@ const PANELS = {
 // Expandable sections under the building model. Replace body / slots / rows with content from the MOE PDFs.
 const INFO_SECTIONS = [
   { id: 'diagrams', title: 'Diagrams', sub: 'Floor plans, sections and elevations for this building type',
-    body: 'Placeholder â€” drawings for this building type to be added from the standard designs catalogue.',
-    slots: ['Floor plan', 'Cross section', 'Elevations', 'Module layout'], source: 'Standard designs catalogue Â· building type sheets' },
+    body: 'Placeholder — drawings for this building type to be added from the standard designs catalogue.',
+    slots: ['Floor plan', 'Cross section', 'Elevations', 'Module layout'], source: 'Standard designs catalogue · building type sheets' },
   { id: 'climate', title: 'Climate information', sub: 'NZBC climate zone, heating and ventilation',
     body: 'Services are provided to suit the climate zone of the site. Zone-specific requirements to be added from the MOE documentation.',
-    rows: 'climate', source: 'MOE standard designs Â· services and climate zones' },
+    rows: 'climate', source: 'MOE standard designs · services and climate zones' },
   { id: 'principles', title: 'Design principles', sub: 'Teaching, wellbeing and site principles behind the design',
-    body: 'Placeholder â€” design principles to be extracted from the MOE documentation.', source: 'Great schools, great spaces Â· to be confirmed' },
+    body: 'Placeholder — design principles to be extracted from the MOE documentation.', source: 'Great schools, great spaces · to be confirmed' },
   { id: 'environment', title: 'Environmental information', sub: 'Daylight, acoustics, thermal comfort and sustainability',
-    body: 'Placeholder â€” environmental performance information to be extracted from the MOE documentation.', source: 'MOE documentation Â· to be confirmed' },
+    body: 'Placeholder — environmental performance information to be extracted from the MOE documentation.', source: 'MOE documentation · to be confirmed' },
   { id: 'standard', title: 'Standardised design information', sub: 'Module grid, components and classification',
-    body: 'The building is assembled from standard modules on the 7.2 m Ã— 12.0 m bay.', rows: 'standard', source: 'Standard designs catalogue V1.0' },
+    body: 'The building is assembled from standard modules on the 7.2 m × 12.0 m bay.', rows: 'standard', source: 'Standard designs catalogue V1.0' },
   { id: 'other', title: 'Other MOE documentation', sub: 'Related guidance and references',
-    body: 'Placeholder â€” further references to be added.', source: 'To be confirmed' }
+    body: 'Placeholder — further references to be added.', source: 'To be confirmed' }
 ];
 
 const WZ_DEFAULT = {
@@ -1127,7 +1127,7 @@ class Component extends DCLogic {
       position: 'fixed', [side]: 'clamp(12px,1.8vw,36px)', top: '26vh', width: 'clamp(40px,4.6vw,76px)',
       zIndex: 0, pointerEvents: 'none', display: 'flex', flexDirection: 'column' } }, chevs);
   }
-  // Thin chevron. Rotation steps clockwise in 90Â° increments: 225 up Â· 315 right Â· 405 down.
+  // Thin chevron. Rotation steps clockwise in 90° increments: 225 up · 315 right · 405 down.
   chev(deg, colour, size) {
     return 'display:block;flex:none;width:' + size + 'px;height:' + size + 'px;border-right:1.3px solid ' + colour + ';border-bottom:1.3px solid ' + colour + ';' +
       'transform:rotate(' + deg + 'deg);transition:transform 700ms cubic-bezier(.3,.7,.2,1),opacity 400ms ease;';
@@ -1215,8 +1215,8 @@ class Component extends DCLogic {
       q = { label: 'School type', title: 'What type of school is this?',
         intro: 'Standard designs V1.0 cover primary and intermediate schools. Secondary is recorded for the brief and developed separately.',
         options: single('schoolType', [
-          { label: 'Primary and intermediate', note: 'Years 1â€“8 Â· covered by standard designs V1.0' },
-          { label: 'Secondary school', note: 'Years 9â€“13 Â· outside standard designs V1.0' }
+          { label: 'Primary and intermediate', note: 'Years 1–8 · covered by standard designs V1.0' },
+          { label: 'Secondary school', note: 'Years 9–13 · outside standard designs V1.0' }
         ]) };
     } else if (id === 'size') {
       const derived = w.mode === 'ts'
@@ -1233,13 +1233,13 @@ class Component extends DCLogic {
           : { key: 'rollGrowth', value: Number(w.rollGrowth) || 0, unit: 'students', step: 10, min: 0, max: 1500 } };
     } else if (id === 'buildings') {
       q = { label: 'Buildings required', title: 'Which buildings do you need?',
-        intro: 'Select everything in scope. Each is built from standard modules on the same 7.2 m Ã— 12 m bay.',
+        intro: 'Select everything in scope. Each is built from standard modules on the same 7.2 m × 12 m bay.',
         options: multi('buildings', BUILD_OPTS) };
     } else if (id === 'specialist') {
       const stage2 = w.specStage === 1 && specTarget > 0;
       q = { label: 'Specialist teaching', title: 'How many specialist teaching spaces are required?',
         intro: stage2
-          ? 'Allocate the ' + specTarget + ' specialist space' + (specTarget === 1 ? '' : 's') + ' across the standard specialist fit-outs. Each uses the A1.specialist module, 7.2 m Ã— 12.0 m.'
+          ? 'Allocate the ' + specTarget + ' specialist space' + (specTarget === 1 ? '' : 's') + ' across the standard specialist fit-outs. Each uses the A1.specialist module, 7.2 m × 12.0 m.'
           : 'A specialist space is a standard teaching module with a specialist fit-out. Enter the total required, then set the mix. Leave at zero if none are required.',
         number: { key: 'specCount', value: specTarget, unit: 'spaces', step: 1, min: 0, max: 12 },
         inlineNext: specTarget > 0 && !stage2,
@@ -1256,7 +1256,7 @@ class Component extends DCLogic {
             onPlus: () => allocated < specTarget && setMix(o.key, count + 1)
           };
         }) : null,
-        allocated: stage2 ? allocated + ' of ' + specTarget + ' allocated' + (allocated === specTarget ? ' Â· complete' : '') : '' };
+        allocated: stage2 ? allocated + ' of ' + specTarget + ' allocated' + (allocated === specTarget ? ' · complete' : '') : '' };
     } else {
       q = { label: 'School location', title: 'Where is the school?',
         intro: 'Location sets the NZBC climate zone, which determines the heating and ventilation provided with the standard design.',
@@ -1297,11 +1297,11 @@ class Component extends DCLogic {
       showTeReo: this.props.showTeReo !== false,
       onStart: () => this.go('quiz', { qStep: 0 }),
       navTabs: [
-        { reo: 'MÅ tÄ“nei', label: 'About', onClick: () => this.setState({ panel: 'about' }) },
-        { reo: 'NgÄ hoahoa', label: 'Diagrams', onClick: () => this.setState({ panel: 'diagrams' }) },
-        { reo: 'Te TÄhuhu o te MÄtauranga', label: 'Ministry of Education', onClick: () => window.open('https://www.education.govt.nz/', '_blank', 'noopener') },
-        { reo: 'WhakapÄ mai', label: 'Contact', onClick: () => this.setState({ panel: 'contact' }) },
-        { reo: 'HÄkoritanga', label: 'Animation', onClick: () => { this.setState({ screen: 'replay', panel: null }); setTimeout(() => this.setState({ screen: 'cover' }), 60); } }
+        { reo: 'Mō tēnei', label: 'About', onClick: () => this.setState({ panel: 'about' }) },
+        { reo: 'Ngā hoahoa', label: 'Diagrams', onClick: () => this.setState({ panel: 'diagrams' }) },
+        { reo: 'Te Tāhuhu o te Mātauranga', label: 'Ministry of Education', onClick: () => window.open('https://www.education.govt.nz/', '_blank', 'noopener') },
+        { reo: 'Whakapā mai', label: 'Contact', onClick: () => this.setState({ panel: 'contact' }) },
+        { reo: 'Hākoritanga', label: 'Animation', onClick: () => { this.setState({ screen: 'replay', panel: null }); setTimeout(() => this.setState({ screen: 'cover' }), 60); } }
       ],
       appBg: whiteBg ? '#FFFFFF' : '#F1F3F2',
       reviewBg: whiteBg ? 'transparent' : "linear-gradient(rgba(249,248,249,0.74),rgba(249,248,249,0.86)),#F7F6F7 url('../ref/moe-pattern-light.png') left top / cover no-repeat",
@@ -1317,9 +1317,9 @@ class Component extends DCLogic {
       onCalculate: () => this.go('options'),
       onCompare: () => this.go('compare'),
       steps: [
-        { reo: 'NgÄ hiahia', label: 'Requirements', key: 'requirements' },
+        { reo: 'Ngā hiahia', label: 'Requirements', key: 'requirements' },
         { reo: 'Arotake', label: 'Review', key: 'review' },
-        { reo: 'NgÄ kÅwhiringa', label: 'Options', key: 'options' },
+        { reo: 'Ngā kōwhiringa', label: 'Options', key: 'options' },
         { reo: 'Te whare', label: 'Building', key: 'building' }
       ].map((st, i, all) => {
         const cur = screen === 'compare' ? 2 : all.findIndex((x) => x.key === screen);
@@ -1337,7 +1337,7 @@ class Component extends DCLogic {
     /* ---------- requirements ---------- */
     const sec = SECTIONS[s.section];
     const labelFor = (fieldKey, v) => {
-      if (fieldKey === 'layout') return `${v} Â· ${D.TEACHING_LAYOUTS[v].name.replace(/^Layout . â€” /, '')}`;
+      if (fieldKey === 'layout') return `${v} · ${D.TEACHING_LAYOUTS[v].name.replace(/^Layout . — /, '')}`;
       if (fieldKey === 'cladding') return D.CLADDING[v].name.replace('Option ', '');
       return v;
     };
@@ -1370,7 +1370,7 @@ class Component extends DCLogic {
     const layoutName = req.layout.name;
     const reviewGroups = [
       { title: 'School', section: 0, rows: [
-        { label: 'School', value: s.input.schoolName || 'â€”' },
+        { label: 'School', value: s.input.schoolName || '—' },
         { label: 'Type', value: s.input.schoolTypeLabel || s.input.schoolType },
         ...(s.input.schoolTypeLabel === 'Secondary school'
           ? [{ label: 'Scope', value: 'Outside V1.0' }] : []),
@@ -1379,8 +1379,8 @@ class Component extends DCLogic {
       { title: 'Teaching', section: 1, rows: [
         { label: 'Existing retained', value: `${s.input.tsExisting} spaces` },
         { label: 'Specialist required', value: `${s.input.specialist} space${s.input.specialist === 1 ? '' : 's'}` },
-        { label: 'Specialist type', value: (s.input.specialistTypes || []).join(', ') || 'â€”' },
-        { label: 'Layout', value: layoutName.replace('Layout ', '').split(' â€” ')[0] } ] },
+        { label: 'Specialist type', value: (s.input.specialistTypes || []).join(', ') || '—' },
+        { label: 'Layout', value: layoutName.replace('Layout ', '').split(' — ')[0] } ] },
       { title: 'Support spaces', section: 2, rows: [
         { label: 'Library', value: s.input.library },
         { label: 'Administration', value: s.input.admin },
@@ -1399,13 +1399,13 @@ class Component extends DCLogic {
       { label: 'Roll sized against', value: `${n0(req.roll)} students` },
       { label: 'Students per teaching space', value: String(req.ratio) },
       { label: 'Teaching space entitlement', value: `${req.tsEntitlement} spaces` },
-      { label: 'Less existing retained', value: `âˆ’ ${req.tsExisting} spaces` },
+      { label: 'Less existing retained', value: `− ${req.tsExisting} spaces` },
       { label: 'New general teaching', value: `${req.tsNew} spaces` },
       { label: 'New specialist teaching', value: `${req.specialist} spaces` },
       { label: 'Amenity bays', value: req.amenityBays ? `${req.amenityBays} bay` : 'Not in scope' },
-      { label: 'Library modules', value: req.libraryModules ? `${req.libraryModules} Â· ${req.libraryLayout.name}` : 'Not in scope' },
-      { label: 'Admin modules', value: req.adminModules ? `${req.adminModules} Â· ${req.adminLayout.name}` : 'Not in scope' },
-      { label: 'Services', value: `Climate zone ${req.climateZone} Â· default` }
+      { label: 'Library modules', value: req.libraryModules ? `${req.libraryModules} · ${req.libraryLayout.name}` : 'Not in scope' },
+      { label: 'Admin modules', value: req.adminModules ? `${req.adminModules} · ${req.adminLayout.name}` : 'Not in scope' },
+      { label: 'Services', value: `Climate zone ${req.climateZone} · default` }
     ];
 
     /* ---------- options ---------- */
@@ -1427,8 +1427,8 @@ class Component extends DCLogic {
         stats: [
           { label: 'Teaching spaces', value: String(o.totals.teachingSpaces) },
           { label: 'Capacity', value: `${n0(o.totals.capacity)}` },
-          { label: 'Gross floor area', value: `${n0(o.totals.gfa)} mÂ²` },
-          { label: 'Footprint', value: `${n0(o.totals.footprint)} mÂ²` }
+          { label: 'Gross floor area', value: `${n0(o.totals.gfa)} m²` },
+          { label: 'Footprint', value: `${n0(o.totals.footprint)} m²` }
         ],
         onView: () => this.setState({ screen: 'building', optionId: o.id, blockId: null, bayId: null, zoneId: null, panX: 0, panY: 0, zoom: 1 }),
         onToggleCompare: () => this.setState((st) => ({ compare: st.compare.includes(o.id) ? st.compare.filter((x) => x !== o.id) : [...st.compare, o.id] })),
@@ -1456,7 +1456,7 @@ class Component extends DCLogic {
       const bays = blk.levels.flat();
       const byCode = {};
       bays.forEach((b) => {
-        byCode[b.code] = byCode[b.code] || { code: b.code, name: b.name, count: 0, id: b.id, dims: `${b.w}m Ã— ${b.d}m` };
+        byCode[b.code] = byCode[b.code] || { code: b.code, name: b.name, count: 0, id: b.id, dims: `${b.w}m × ${b.d}m` };
         byCode[b.code].count++;
       });
       const detail = this.props.matchDetail || 'Requirement breakdown';
@@ -1475,7 +1475,7 @@ class Component extends DCLogic {
         onViewerDown: this.startDrag, onViewerWheel: this.wheel, viewerRef: this.viewerRef,
         stageStyle: this.stage(s.rx, s.rz, baseZoom * s.zoom, s.panX, s.panY + 18),
         sceneStyle: this.scene(g), faces: g.faces,
-        viewReadout: `AZ ${Math.round(((s.rz % 360) + 360) % 360)}Â° Â· EL ${Math.round(90 - s.rx)}Â° Â· ${Math.round(baseZoom * s.zoom * 100)}%`,
+        viewReadout: `AZ ${Math.round(((s.rz % 360) + 360) % 360)}° · EL ${Math.round(90 - s.rx)}° · ${Math.round(baseZoom * s.zoom * 100)}%`,
         legend: cats.map((c) => {
           const cat = D.SPACE_CATS[c]; const hidden = s.hiddenCats.includes(c);
           return {
@@ -1491,8 +1491,8 @@ class Component extends DCLogic {
         keyStats: [
           { label: 'Teaching spaces', value: String(opt.totals.teachingSpaces) },
           { label: 'Capacity', value: n0(opt.totals.capacity) },
-          { label: 'Gross floor area', value: `${n0(opt.totals.gfa)} mÂ²` },
-          { label: 'Footprint', value: `${n0(opt.totals.footprint)} mÂ²` },
+          { label: 'Gross floor area', value: `${n0(opt.totals.gfa)} m²` },
+          { label: 'Footprint', value: `${n0(opt.totals.footprint)} m²` },
           { label: 'Storeys', value: String(opt.totals.storeys) },
           { label: 'Fit', value: `${opt.fit.score}%` }
         ],
@@ -1504,11 +1504,11 @@ class Component extends DCLogic {
             { label: 'Cladding', value: D.CLADDING[req.cladding].name.replace('Option ', '') },
             { label: 'Roof', value: blk.roof }
           ] : sc.rows === 'standard' ? [
-            { label: 'Bay grid', value: '7.2 m Ã— 12.0 m' },
+            { label: 'Bay grid', value: '7.2 m × 12.0 m' },
             { label: 'Building type', value: blk.typeId },
             { label: 'MOE classification', value: blk.moe },
             { label: 'Modules', value: String(bays.length) },
-            { label: 'Teaching layout', value: req.layout.name.replace('Layout ', '').split(' â€” ')[0] }
+            { label: 'Teaching layout', value: req.layout.name.replace('Layout ', '').split(' — ')[0] }
           ] : [];
           return {
             id: sc.id, n: String(i + 1).padStart(2, '0'), title: sc.title, sub: sc.sub, body: sc.body, source: sc.source,
@@ -1520,22 +1520,22 @@ class Component extends DCLogic {
         blockTabs: opt.blocks.map((b) => ({ label: b.typeId,
           style: `background:${b.id === blk.id ? '#fff' : 'transparent'};color:${b.id === blk.id ? INK : '#fff'};border:1px solid ${b.id === blk.id ? '#fff' : 'rgba(255,255,255,0.45)'};padding:8px 12px;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;`, onClick: () => this.setState({ blockId: b.id, bayId: null, zoneId: null, level: 'all' }) })),
         infoBlockName: blk.name,
-        infoBlockMeta: `${blk.moe} Â· Option ${opt.id}`,
+        infoBlockMeta: `${blk.moe} · Option ${opt.id}`,
         infoRows: [
           { label: 'Building type', value: blk.typeId },
           { label: 'Form', value: blk.form },
-          { label: 'Gross floor area', value: `${n0(blk.gfa)} mÂ²` },
-          { label: 'Net floor area', value: `${n0(blk.nfa)} mÂ²` },
-          { label: 'Footprint', value: `${n0(blk.footprint)} mÂ²` },
+          { label: 'Gross floor area', value: `${n0(blk.gfa)} m²` },
+          { label: 'Net floor area', value: `${n0(blk.nfa)} m²` },
+          { label: 'Footprint', value: `${n0(blk.footprint)} m²` },
           { label: 'Dimensions', value: blk.dims },
           { label: 'Storeys', value: String(blk.storeys) },
           { label: 'Modules', value: String(bays.length) },
           { label: 'Teaching spaces', value: String(bays.filter((b) => b.cat === 'teaching').length) },
-          { label: 'Teaching layout', value: req.layout.name.replace('Layout ', '').split(' â€” ')[0] },
+          { label: 'Teaching layout', value: req.layout.name.replace('Layout ', '').split(' — ')[0] },
           { label: 'Capacity', value: `${n0(bays.filter((b) => b.cat === 'teaching').length * req.ratio)} students` },
           { label: 'Roof', value: blk.roof },
           { label: 'Cladding', value: D.CLADDING[req.cladding].name.replace('Option ', '') },
-          { label: 'Services', value: `Zone ${req.climateZone} Â· default` },
+          { label: 'Services', value: `Zone ${req.climateZone} · default` },
           { label: 'MOE classification', value: blk.moe }
         ],
         schedule: Object.values(byCode).map((m) => ({
@@ -1545,13 +1545,13 @@ class Component extends DCLogic {
         })),
         hasSelection: !!sel,
         selectionName: selZone ? selZone.label : sel ? sel.bay.name : '',
-        selectionNote: selZone ? `${D.SPACE_CATS[selZone.cat].label} Â· within ${sel.bay.name}` : sel ? sel.bay.note : '',
+        selectionNote: selZone ? `${D.SPACE_CATS[selZone.cat].label} · within ${sel.bay.name}` : sel ? sel.bay.note : '',
         selectionRows: sel ? [
           { label: 'Module code', value: sel.bay.code },
-          { label: 'Module size', value: `${sel.bay.w}m Ã— ${sel.bay.d}m` },
-          { label: 'Net floor area', value: `${sel.bay.nfa} mÂ²` },
+          { label: 'Module size', value: `${sel.bay.w}m × ${sel.bay.d}m` },
+          { label: 'Net floor area', value: `${sel.bay.nfa} m²` },
           { label: 'Level', value: `L${sel.bay.level + 1}` },
-          ...(selZone ? [{ label: 'Zone area', value: `${Math.round(selZone.fw * sel.bay.w * selZone.fh * sel.bay.d)} mÂ²` }] : [])
+          ...(selZone ? [{ label: 'Zone area', value: `${Math.round(selZone.fw * sel.bay.w * selZone.fh * sel.bay.d)} m²` }] : [])
         ] : [],
         onClearSelection: () => this.setState({ bayId: null, zoneId: null, isolate: false }),
         onToggleIsolate: () => this.setState((st) => ({ isolate: !st.isolate })),
@@ -1559,7 +1559,7 @@ class Component extends DCLogic {
         isolateStyle: `margin-top:14px;width:100%;background:${s.isolate ? '#fff' : 'transparent'};color:${s.isolate ? INK : '#fff'};` +
           `border:1px solid ${s.isolate ? '#fff' : 'rgba(255,255,255,0.45)'};padding:12px;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;`,
         showFit: detail !== 'Badge only',
-        fitSummary: `${opt.fit.met} of ${opt.fit.total} met Â· ${opt.fit.score}%`,
+        fitSummary: `${opt.fit.met} of ${opt.fit.total} met · ${opt.fit.score}%`,
         fitLines: opt.fit.lines.map((l) => {
           const pct = l.required ? clamp((l.provided / l.required) * 100, 0, 100) : 100;
           const col = l.status === 'short' ? '#9A3B32' : l.status === 'surplus' ? '#5A6E7A' : INK;
@@ -1577,15 +1577,15 @@ class Component extends DCLogic {
     const cmpOptions = s.compare.length >= 2 ? options.filter((o) => s.compare.includes(o.id)) : options;
     const rows = [
       ['Configuration', (o) => o.title],
-      ['Fit against requirement', (o) => `${o.fit.score}% Â· ${o.fit.met}/${o.fit.total}`],
+      ['Fit against requirement', (o) => `${o.fit.score}% · ${o.fit.met}/${o.fit.total}`],
       ['Buildings', (o) => String(o.totals.blocks)],
       ['Storeys', (o) => String(o.totals.storeys)],
       ['Modules', (o) => String(o.totals.modules)],
       ['Teaching spaces', (o) => String(o.totals.teachingSpaces)],
       ['Capacity', (o) => `${n0(o.totals.capacity)} students`],
-      ['Gross floor area', (o) => `${n0(o.totals.gfa)} mÂ²`],
-      ['Net floor area', (o) => `${n0(o.totals.nfa)} mÂ²`],
-      ['Site footprint', (o) => `${n0(o.totals.footprint)} mÂ²`],
+      ['Gross floor area', (o) => `${n0(o.totals.gfa)} m²`],
+      ['Net floor area', (o) => `${n0(o.totals.nfa)} m²`],
+      ['Site footprint', (o) => `${n0(o.totals.footprint)} m²`],
       ['Key characteristic', (o) => o.characteristics[0]]
     ];
     const cellStyle = (i, strong) => `padding:13px 14px;border-bottom:1px solid #EDEFEC;font:${strong ? '500' : '400'} 13px/1.4 ${strong ? "'IBM Plex Mono',monospace" : "'Instrument Sans',sans-serif"};background:${i % 2 ? '#FBFBFA' : '#fff'};min-height:46px;`;

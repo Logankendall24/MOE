@@ -1,91 +1,66 @@
-<% content_for :title, "Home" %>
+<% content_for :title_exact, "Standard designs selector" %>
 <% content_for :full_bleed, true %>
 
-<section class="relative min-h-screen flex flex-col justify-between gap-10 px-7 py-8 sm:px-10 sm:py-12 text-white bg-ink bg-cover bg-center" style="background-image:url('<%= asset_path("cover-background.png") %>')">
-  <div class="flex flex-wrap items-start justify-between gap-8">
-    <%= image_tag "moe-logo.png", alt: "Te Tāhuhu o te Mātauranga — Ministry of Education", class: "w-[190px] sm:w-[230px] h-auto" %>
+<%# Ported verbatim from the supplied design (docs/design-imports/template-decoded.html,
+    "Cover" screen). Inline styles, animation timings and copy are the design's own —
+    only the data bindings have been swapped for ERB. %>
 
-    <nav class="flex items-center gap-6 sm:gap-10 font-mono text-xs tracking-[0.12em] uppercase">
-      <%= link_to building_types_path, class: "flex items-center gap-3 hover:opacity-70 transition-opacity" do %>
-        <span>Browse building types</span>
-        <span class="w-[11px] h-[11px] border-r border-b border-white rotate-45 -mr-1"></span>
-      <% end %>
-      <%= link_to questionnaire_start_path, class: "flex items-center gap-3 hover:opacity-70 transition-opacity" do %>
-        <span>Start questionnaire</span>
-        <span class="w-[11px] h-[11px] border-r border-b border-white rotate-45 -mr-1"></span>
-      <% end %>
-    </nav>
-  </div>
+<div data-controller="cover" style="min-height:100vh;display:flex;flex-direction:column;background:#F1F3F2">
+  <div data-screen-label="Cover" style="position:relative;min-height:100vh;background:#2C112D url('<%= asset_path "cover-background.png" %>') center center / cover no-repeat;color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(24px,4vw,48px);padding:clamp(28px,4.5vw,64px) clamp(28px,5vw,80px);animation:dcWipe 1.1s ease both">
 
-  <div class="max-w-4xl">
-    <p class="font-mono text-xs tracking-[0.14em] uppercase text-white/60 mb-5">
-      Standard Designs Navigator · Prototype
-    </p>
-    <h1 class="font-heading font-extrabold leading-[1.02] tracking-tight text-[clamp(2rem,6vw,4.75rem)]">
-      Great schools, great spaces
-    </h1>
-    <p class="mt-6 font-heading font-bold text-[clamp(1.15rem,2vw,1.65rem)] leading-snug max-w-2xl">
-      A guided way through the Ministry of Education's standard designs — for
-      primary, intermediate and secondary schools.
-    </p>
-    <div class="mt-9">
-      <%= link_to questionnaire_start_path,
-            class: "inline-flex items-center gap-3 bg-white text-ink px-7 py-[18px] font-mono text-xs font-medium tracking-[0.14em] uppercase hover:bg-blush transition-colors" do %>
-        Start the questionnaire →
-      <% end %>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:clamp(20px,4vw,48px);flex-wrap:wrap;animation:dcFade 0.9s ease 0.5s both">
+      <%= image_tag "moe-logo.png", alt: "Te Tāhuhu o te Mātauranga — Ministry of Education", style: "width:clamp(190px,18vw,281px);height:auto;display:block" %>
+      <div style="display:flex;align-items:flex-start;justify-content:flex-end;flex-wrap:wrap;gap:14px clamp(20px,2.8vw,48px);padding-top:clamp(14px,2vw,30px)">
+        <% HomeController::NAV_TABS.each do |tab| %>
+          <% common = 'display:flex;align-items:center;gap:12px;background:transparent;border:none;padding:0;color:#fff;cursor:pointer;transition:opacity 160ms ease' %>
+          <% inner = capture do %>
+            <span style="display:flex;flex-direction:column;align-items:flex-end;text-align:right;font:400 15px/1.2 Helvetica,Arial,sans-serif;white-space:nowrap">
+              <span><%= tab[:reo] %></span>
+              <span><%= tab[:label] %></span>
+            </span>
+            <span style="width:11px;height:11px;flex:none;border-right:1.3px solid #fff;border-bottom:1.3px solid #fff;transform:rotate(45deg);margin:-7px 4px 0 2px"></span>
+          <% end %>
+
+          <% case tab[:action] %>
+          <% when :panel %>
+            <button type="button" class="dc-navtab" style="<%= common %>" data-action="cover#openPanel" data-panel="<%= tab[:panel] %>"><%= inner %></button>
+          <% when :external %>
+            <%= link_to tab[:href], class: "dc-navtab", style: common, target: "_blank", rel: "noopener" do %><%= inner %><% end %>
+          <% when :replay %>
+            <%= link_to root_path, class: "dc-navtab", style: common, data: { turbo: false } do %><%= inner %><% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div style="max-width:100%;padding:clamp(12px,2vw,28px) 0">
+      <h1 style="margin:0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(28px,5.4vw,84px);font-weight:800;line-height:1.02;letter-spacing:-0.032em;white-space:nowrap;animation:dcRise 0.9s ease 1.6s both">Great schools, great spaces</h1>
+      <p style="margin:clamp(18px,2.4vw,30px) 0 0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(20px,2.3vw,32px);font-weight:700;line-height:1.22;letter-spacing:-0.015em;max-width:16em;animation:dcRise 0.9s ease 1.85s both">Standard designs for primary and intermediate schools</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:clamp(28px,3.6vw,46px);animation:dcRise 0.9s ease 2.2s both">
+        <%= link_to "Select building module here →", questionnaire_start_path, class: "dc-cta", style: "display:inline-block;text-decoration:none;background:#fff;color:#2C112D;border:1px solid #fff;padding:18px 28px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" %>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+      <%= image_tag "nz-govt-logo.png", alt: "Te Kāwanatanga o Aotearoa — New Zealand Government", style: "width:clamp(150px,13vw,215px);height:auto;display:block;animation:dcFade 0.9s ease 0.95s both" %>
+      <div style="font-size:13px;line-height:1.5;max-width:30em;color:rgba(255,255,255,0.5);text-align:right;animation:dcFade 0.9s ease 2.5s both">He mea tārai e mātou te mātauranga kia rangatira ai, kia mana taurite ai ōna huanga</div>
     </div>
   </div>
 
-  <div class="flex flex-wrap items-end justify-between gap-6">
-    <%= image_tag "nz-govt-logo.png", alt: "Te Kāwanatanga o Aotearoa — New Zealand Government", class: "w-[150px] sm:w-[190px] h-auto" %>
-    <p class="text-xs leading-relaxed max-w-[30em] text-right text-white/50">
-      He mea tārai e mātou te mātauranga kia rangatira ai, kia mana taurite ai ōna huanga
-    </p>
-  </div>
-</section>
-
-<section class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-5 gap-12 items-start">
-  <div class="md:col-span-3">
-    <p class="font-mono text-xs tracking-[0.14em] uppercase text-ink/50 mb-4">What this tool does</p>
-    <p class="text-lg text-ink/70 leading-relaxed max-w-xl">
-      Instead of reading through multiple Ministry PDFs, answer a short set of questions
-      about your school and get a transparent, explainable shortlist of the standard
-      building types and layouts that may be relevant — with every reason traced back to
-      a documented source.
-    </p>
-  </div>
-
-  <div class="md:col-span-2 border border-ink/15 bg-white p-6">
-    <h2 class="font-mono text-xs font-medium tracking-[0.12em] uppercase text-ink">How it works</h2>
-    <ul class="mt-4 space-y-3 text-sm text-ink/70">
-      <li>— Turns the Ministry's standard-design PDFs into a structured, searchable format</li>
-      <li>— Asks about your school type, roll, spaces, and facilities</li>
-      <li>— Shows which standard building types (Type S, D, H, G, K) may be relevant, and why</li>
-      <li>— Links every claim back to its Ministry source document and page, where available</li>
-      <li>— Clearly labels anything not yet confirmed against a Ministry PDF</li>
-    </ul>
-  </div>
-</section>
-
-<section class="max-w-6xl mx-auto px-6 pb-20">
-  <div class="border border-mauve/30 bg-blush/40 p-6 max-w-3xl">
-    <h2 class="font-mono text-xs font-medium tracking-[0.12em] uppercase text-mauve">Disclaimer</h2>
-    <p class="mt-3 text-sm text-ink/80 leading-relaxed">
-      This tool is intended to assist with early consideration of Ministry of Education
-      standard design options. It does not replace Ministry of Education requirements,
-      project-specific advice, professional architectural design, engineering advice,
-      consent requirements or approval processes. It does not grant, imply, or represent
-      Ministry of Education approval of any kind. Always confirm current Ministry
-      requirements and applicable project documentation directly with the Ministry before
-      proceeding.
-    </p>
-  </div>
-
-  <div class="mt-8 max-w-3xl text-sm text-ink/50 leading-relaxed">
-    <p>
-      Built for use by school principals, property managers, boards of trustees,
-      architects, and Ministry property teams during early consideration of a property
-      project — not as a replacement for any of those roles.
-    </p>
-  </div>
-</section>
+  <% HomeController::PANELS.each do |key, panel| %>
+    <div data-cover-target="panel" data-panel="<%= key %>" hidden style="position:fixed;inset:0;z-index:60;background:rgba(19,6,20,0.7);display:flex;justify-content:flex-end">
+      <div style="width:min(580px,100%);height:100%;overflow:auto;background:#2C112D;border-left:1px solid rgba(255,255,255,0.25);padding:clamp(26px,4vw,52px);animation:dcSlide 0.35s ease both">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
+          <h3 style="margin:0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(26px,3vw,38px);font-weight:800;line-height:1.08;letter-spacing:-0.022em;color:#fff"><%= panel[:title] %></h3>
+          <button type="button" class="dc-close" data-action="cover#closePanel" style="flex:none;background:transparent;border:1px solid rgba(255,255,255,0.4);color:#fff;padding:11px 14px;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase">Close</button>
+        </div>
+        <% panel[:blocks].each do |block| %>
+          <div style="margin-top:26px;border-top:1px solid rgba(255,255,255,0.2);padding-top:16px">
+            <div style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55)"><%= block[:label] %></div>
+            <p style="margin:11px 0 0;font-size:16px;line-height:1.55;color:rgba(255,255,255,0.86);text-wrap:pretty"><%= block[:text] %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
