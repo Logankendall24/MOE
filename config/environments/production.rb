@@ -1,7 +1,12 @@
 require "active_support/core_ext/integer/time"
+require_relative "../../lib/site_lock"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+
+  # Private while unfinished: every request needs the SITE_USERNAME /
+  # SITE_PASSWORD login. Delete this line to make the site public.
+  config.middleware.insert_before 0, SiteLock
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
@@ -16,7 +21,8 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # Cache assets for far-future expiry since they are all digest stamped.
-  config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
+  # "private" so no shared cache (Thruster's included) serves them past SiteLock.
+  config.public_file_server.headers = { "cache-control" => "private, max-age=#{1.year.to_i}" }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"

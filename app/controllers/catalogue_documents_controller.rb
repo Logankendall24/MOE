@@ -5,7 +5,7 @@ class CatalogueDocumentsController < ApplicationController
     return head(:not_found) unless Catalogue.sources.key?(params[:source])
 
     source = Catalogue.sources.fetch(params[:source])
-    expires_in 1.day, public: true
+    expires_in 1.day # private: the site is behind SiteLock
     send_file Catalogue.pdf_path(params[:source]), type: "application/pdf",
               disposition: "inline", filename: source.fetch("file")
   end

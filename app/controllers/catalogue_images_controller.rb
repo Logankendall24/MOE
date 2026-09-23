@@ -39,7 +39,7 @@ class CatalogueImagesController < ApplicationController
   end
 
   def send_rendered(path, type)
-    expires_in 1.year, public: true
+    expires_in 1.year # private: the site is behind SiteLock
     send_file path, type:, disposition: "inline"
   rescue SheetRenderer::RenderError => e
     Rails.logger.error(e.message)
