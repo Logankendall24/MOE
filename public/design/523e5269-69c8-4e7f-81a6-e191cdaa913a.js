@@ -1,4 +1,4 @@
-// Generated for the standalone export: globals build of moe-data.js + moe-rules.js. Edit the source modules instead.
+// Generated for the standalone export. Edit moe-data.js / moe-rules.js instead.
 (function(){
 // Standard designs — building database.
 // Structured records only. No interface logic here, so new standard designs
