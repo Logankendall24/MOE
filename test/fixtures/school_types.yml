@@ -1,11 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  code: MyString
-  label: MyString
-  notes: MyText
+  code: primary
+  label: Primary
 
 two:
-  code: MyString
-  label: MyString
-  notes: MyText
+  code: secondary
+  label: Secondary

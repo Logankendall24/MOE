@@ -1,0 +1,693 @@
+# Every standard layout sheet in the source PDFs, as structured data.
+#
+#   id          Sheet number as printed on the sheet (unique across all documents).
+#   title       Verbatim from the top-left of the sheet.
+#   source      Key in sources.yml.
+#   pages       PDF page numbers. The first is the general arrangement; any
+#               following pages are continuation sheets of the same layout.
+#   sheets      Drawing numbers from the title block, one per page.
+#   categories  School categories the sheet applies to (from its own title or
+#               its document).
+#   space       teaching | support | specialist | admin | library | gym | hall
+#   variant     Layout letter from the sheet title, where it has one.
+#   module      Teaching-module class (categories.yml), matched on grid_mm.
+#   grid_mm     Structural grid printed on the sheet [width, depth].
+#   occupancy   Verbatim occupancy text from the sheet's Details panel.
+#   roll_band   School-roll range the sheet is designed for, parsed from its
+#               occupancy text. Only sheets that state a student roll have one.
+#
+# Nothing here is inferred: where a sheet doesn't state something, the field is
+# absent.
+
+# --- Standard layouts for primary school teaching spaces -------------------
+- id: "001"
+  title: "Layouts - 001 General Teaching Primary (A)"
+  source: primary_teaching
+  pages: [7, 8]
+  sheets: ["A.L.001.1 - B", "A.L.001.2 - B"]
+  categories: [primary_intermediate]
+  space: teaching
+  variant: A
+  module: A
+  grid_mm: [7200, 12000]
+  occupancy: "32 Students"
+
+- id: "002"
+  title: "Layouts - 002 General Teaching Primary (B)"
+  source: primary_teaching
+  pages: [9, 10]
+  sheets: ["A.L.002.1 - B", "A.L.002.2 - B"]
+  categories: [primary_intermediate]
+  space: teaching
+  variant: B
+  module: A
+  grid_mm: [7200, 12000]
+  occupancy: "32 Students"
+
+- id: "003"
+  title: "Layouts - 003 General Teaching Primary (C)"
+  source: primary_teaching
+  pages: [11, 12]
+  sheets: ["A.L.003.1 - B", "A.L.003.2 - B"]
+  categories: [primary_intermediate]
+  space: teaching
+  variant: C
+  module: A
+  grid_mm: [7200, 12000]
+  occupancy: "32 Students"
+
+- id: "004"
+  title: "Layouts - 004 General Teaching Primary (D)"
+  source: primary_teaching
+  pages: [13, 14]
+  sheets: ["A.L.004.1 - B", "A.L.004.2 - B"]
+  categories: [primary_intermediate]
+  space: teaching
+  variant: D
+  module: A
+  grid_mm: [7200, 12000]
+  occupancy: "32 Students"
+
+- id: "005"
+  title: "Layouts - 005 Resource & Admin Module"
+  source: primary_teaching
+  pages: [15]
+  sheets: ["A.L.005 - B"]
+  categories: [primary_intermediate]
+  space: support
+
+# --- Standard layouts for secondary school teaching spaces -----------------
+- id: "010"
+  title: "Layouts - 010 General Teaching Secondary (A)"
+  source: secondary_teaching
+  pages: [7]
+  sheets: ["A.L.010 - B"]
+  categories: [secondary]
+  space: teaching
+  variant: A
+  module: B
+  grid_mm: [7200, 10500]
+  occupancy: "32 Students"
+
+- id: "011"
+  title: "Layouts - 011 General Teaching Secondary (B)"
+  source: secondary_teaching
+  pages: [8]
+  sheets: ["A.L.011 - B"]
+  categories: [secondary]
+  space: teaching
+  variant: B
+  module: B
+  grid_mm: [7200, 10500]
+  occupancy: "32 Students"
+
+- id: "012"
+  title: "Layouts - 012 General Teaching Secondary (C)"
+  source: secondary_teaching
+  pages: [9]
+  sheets: ["A.L.012 - B"]
+  categories: [secondary]
+  space: teaching
+  variant: C
+  module: B
+  grid_mm: [7200, 10500]
+  occupancy: "32 Students"
+
+- id: "020"
+  title: "Layouts - 020 General Teaching Secondary (A)"
+  source: secondary_teaching
+  pages: [10]
+  sheets: ["A.L.020 - B"]
+  categories: [secondary]
+  space: teaching
+  variant: A
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students"
+
+- id: "021"
+  title: "Layouts - 021 General Teaching Secondary (B)"
+  source: secondary_teaching
+  pages: [11]
+  sheets: ["A.L.021 - B"]
+  categories: [secondary]
+  space: teaching
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students"
+
+- id: "022"
+  title: "Layouts - 022 General Teaching Secondary (C)"
+  source: secondary_teaching
+  pages: [12]
+  sheets: ["A.L.022 - B"]
+  categories: [secondary]
+  space: teaching
+  variant: C
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students"
+
+- id: "030"
+  title: "Layouts - 030 Digital Technologies / Computer Science / Media Studies (A)"
+  source: secondary_teaching
+  pages: [13]
+  sheets: ["A.L.030 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: A
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students [15 Desktops]"
+
+- id: "031"
+  title: "Layouts - 031 Digital Technologies / Computer Science / Media Studies (B)"
+  source: secondary_teaching
+  pages: [14]
+  sheets: ["A.L.031 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "31 Students [31 Desktops]"
+
+- id: "040"
+  title: "Layouts - 040 Dance"
+  source: secondary_teaching
+  pages: [15]
+  sheets: ["A.L.040 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "20 Students [Staggered Formation]"
+
+- id: "041"
+  title: "Layouts - 041 Drama"
+  source: secondary_teaching
+  pages: [16]
+  sheets: ["A.L.041 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students"
+
+- id: "042"
+  title: "Layouts - 042 Music"
+  source: secondary_teaching
+  pages: [17]
+  sheets: ["A.L.042 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students"
+
+- id: "050"
+  title: "Layouts - 050 Science General / Primary Industry"
+  source: secondary_teaching
+  pages: [18]
+  sheets: ["A.L.050 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students"
+
+- id: "051"
+  title: "Layouts - 051 Science Specialist (Chemistry / Biology / Physics)"
+  source: secondary_teaching
+  pages: [19]
+  sheets: ["A.L.051 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "33 Students"
+
+- id: "060"
+  title: "Layouts - 060 Automotive"
+  source: secondary_teaching
+  pages: [20]
+  sheets: ["A.L.060 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "20 Students"
+
+- id: "061"
+  title: "Layouts - 061 Health Education (Food Technology)"
+  source: secondary_teaching
+  pages: [21]
+  sheets: ["A.L.061 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "28 Students [7 Groups of 4]"
+
+- id: "062"
+  title: "Layouts - 062 Hospitality"
+  source: secondary_teaching
+  pages: [22]
+  sheets: ["A.L.062 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "24 Students [8 Groups of 3]"
+
+- id: "063"
+  title: "Layouts - 063 Materials & Processing (Hard Materials / Building & Construction)"
+  source: secondary_teaching
+  pages: [23]
+  sheets: ["A.L.063 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "28 Students"
+
+- id: "064"
+  title: "Layouts - 064 Materials & Processing (Textiles / Fabrics / Fashion)"
+  source: secondary_teaching
+  pages: [24]
+  sheets: ["A.L.064 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  # "Sowing" is as printed on the sheet.
+  occupancy: "32 Students [12 Sowing Stations]"
+
+- id: "065"
+  title: "Layouts - 065 Mechatronics / Engineering"
+  source: secondary_teaching
+  pages: [25]
+  sheets: ["A.L.065 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students [6 Desktops]"
+
+- id: "070"
+  title: "Layouts - 070 Visual Arts (Painting / Creative Arts / Design / Photography)"
+  source: secondary_teaching
+  pages: [26]
+  sheets: ["A.L.070 - B"]
+  categories: [secondary]
+  space: specialist
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "32 Students"
+
+- id: "080"
+  title: "Layouts - 080 Computer Room (A)"
+  source: secondary_teaching
+  pages: [27]
+  sheets: ["A.L.080 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: A
+  grid_mm: [4200, 8000]
+  occupancy: "12 Students [12 Desktops]"
+
+- id: "081"
+  title: "Layouts - 081 Computer Room (B)"
+  source: secondary_teaching
+  pages: [28]
+  sheets: ["A.L.081 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: B
+  grid_mm: [4200, 8000]
+  occupancy: "12 Students [8 Desktops]"
+
+- id: "082"
+  title: "Layouts - 082 Changing Room"
+  source: secondary_teaching
+  pages: [29]
+  sheets: ["A.L.082 - B"]
+  categories: [secondary]
+  space: specialist
+  grid_mm: [4200, 8000]
+  occupancy: "10 Students"
+
+- id: "083"
+  title: "Layouts - 083 Practice Rooms (A)"
+  source: secondary_teaching
+  pages: [30]
+  sheets: ["A.L.083 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: A
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "≤15 Students"
+
+- id: "084"
+  title: "Layouts - 084 Practice Rooms (B)"
+  source: secondary_teaching
+  pages: [31]
+  sheets: ["A.L.084 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "≤25 Students"
+
+- id: "085"
+  title: "Layouts - 085 Science Technician (A)"
+  source: secondary_teaching
+  pages: [32]
+  sheets: ["A.L.085 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: A
+  grid_mm: [4200, 8000]
+  occupancy: "1 Staff Member [Serving 1-2 Specialist Labs]"
+
+- id: "086"
+  title: "Layouts - 086 Science Technician (B)"
+  source: secondary_teaching
+  pages: [33]
+  sheets: ["A.L.086 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "2-3 Staff Member(s) [Serving 2+ Specialist Labs]"
+
+- id: "087"
+  title: "Layouts - 087 Resource & Admin Module"
+  source: secondary_teaching
+  pages: [34]
+  sheets: ["A.L.087 - B"]
+  categories: [secondary]
+  space: support
+
+- id: "088"
+  title: "Layouts - 088 Arts Store"
+  source: secondary_teaching
+  pages: [35]
+  sheets: ["A.L.088 - B"]
+  categories: [secondary]
+  space: specialist
+
+- id: "089"
+  title: "Layouts - 089 Machine & Equipment (A)"
+  source: secondary_teaching
+  pages: [36]
+  sheets: ["A.L.089 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: A
+  grid_mm: [4200, 8000]
+  occupancy: "≤4 Students"
+
+- id: "090"
+  title: "Layouts - 090 Machine & Equipment (B)"
+  source: secondary_teaching
+  pages: [37]
+  sheets: ["A.L.090 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "≤8 Students"
+
+- id: "091"
+  title: "Layouts - 091 Pantry / Equipment / Laundry (A)"
+  source: secondary_teaching
+  pages: [38]
+  sheets: ["A.L.091 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: A
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "[Serving 2-3 Technology Classrooms]"
+
+- id: "092"
+  title: "Layouts - 092 Pantry / Equipment / Laundry (B)"
+  source: secondary_teaching
+  pages: [39]
+  sheets: ["A.L.092 - B"]
+  categories: [secondary]
+  space: specialist
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "[Serving 2-3 Technology Classrooms]"
+
+# --- Standard layouts for school library spaces ----------------------------
+# Libraries 101 and 102 are titled "Secondary" but sit on the 7,200 × 12,000
+# grid, so libraries are filtered on category and roll, never on module.
+- id: "100"
+  title: "Layouts - 100 Library Primary (A)"
+  source: library
+  pages: [7]
+  sheets: ["A.L.100 - B"]
+  categories: [primary_intermediate]
+  space: library
+  variant: A
+  grid_mm: [7200, 12000]
+  occupancy: "<500 Student Roll"
+  roll_band: { min: 0, max: 499 }
+
+- id: "101"
+  title: "Layouts - 101 Library Primary (B) / Secondary (A)"
+  source: library
+  pages: [8, 9]
+  sheets: ["A.L.101.1 - C", "A.L.101.2 - C"]
+  categories: [primary_intermediate, secondary]
+  space: library
+  grid_mm: [7200, 12000]
+  occupancy: "500 - 800 Student Roll"
+  roll_band: { min: 500, max: 800 }
+
+- id: "102"
+  title: "Layouts - 102 Library Secondary (B)"
+  source: library
+  pages: [10, 11]
+  sheets: ["A.L.102.1 - C", "A.L.102.2 - C"]
+  categories: [secondary]
+  space: library
+  variant: B
+  grid_mm: [7200, 12000]
+  occupancy: "800 - 1400 Student Roll"
+  roll_band: { min: 800, max: 1400 }
+
+# --- Standard layouts for primary school administration spaces -------------
+- id: "110"
+  title: "Layouts - 110 Admin Primary (A)"
+  source: primary_admin
+  pages: [7, 8]
+  sheets: ["A.L.110.1 - C", "A.L.110.2 - C"]
+  categories: [primary_intermediate]
+  space: admin
+  variant: A
+  grid_mm: [7200, 12000]
+  occupancy: "<200 Student Roll"
+  roll_band: { min: 0, max: 199 }
+
+- id: "111"
+  title: "Layouts - 111 Admin Primary (B)"
+  source: primary_admin
+  pages: [9, 10, 11]
+  sheets: ["A.L.111.1 - C", "A.L.111.2 - B", "A.L.111.3 - C"]
+  categories: [primary_intermediate]
+  space: admin
+  variant: B
+  grid_mm: [7200, 12000]
+  occupancy: "200 - 500 Student Roll"
+  roll_band: { min: 200, max: 500 }
+
+- id: "112"
+  title: "Layouts - 112 Admin Primary (C)"
+  source: primary_admin
+  pages: [12, 13, 14]
+  sheets: ["A.L.112.1 - C", "A.L.112.2 - B", "A.L.112.3 - C"]
+  categories: [primary_intermediate]
+  space: admin
+  variant: C
+  grid_mm: [7200, 12000]
+  occupancy: "500 - 800 Student Roll"
+  roll_band: { min: 500, max: 800 }
+
+# --- Standard layouts for secondary school administration spaces -----------
+# These state staff numbers, not a student roll, so they have no roll_band.
+- id: "120"
+  title: "Layouts - 120 Workroom (A)"
+  source: secondary_admin
+  pages: [7]
+  sheets: ["A.L.120 - B"]
+  categories: [secondary]
+  space: admin
+  variant: A
+  grid_mm: [4200, 8000]
+  occupancy: "≤5 Staff"
+
+- id: "121"
+  title: "Layouts - 121 Workroom (B)"
+  source: secondary_admin
+  pages: [8]
+  sheets: ["A.L.121 - B"]
+  categories: [secondary]
+  space: admin
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "≤25 Staff"
+
+- id: "122"
+  title: "Layouts - 122 Staffroom (A)"
+  source: secondary_admin
+  pages: [9]
+  sheets: ["A.L.122 - B"]
+  categories: [secondary]
+  space: admin
+  variant: A
+  module: B
+  grid_mm: [7200, 10500]
+  occupancy: "≤40 Staff"
+
+- id: "123"
+  title: "Layouts - 123 Staffroom (B)"
+  source: secondary_admin
+  pages: [10, 11]
+  sheets: ["A.L.123.1 - B", "A.L.123.2 - B"]
+  categories: [secondary]
+  space: admin
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "40 - 80 Staff"
+
+- id: "124"
+  title: "Layouts - 124 Counselling (A)"
+  source: secondary_admin
+  pages: [12]
+  sheets: ["A.L.124 - B"]
+  categories: [secondary]
+  space: admin
+  variant: A
+  grid_mm: [4200, 8000]
+  occupancy: "2 Staff"
+
+- id: "125"
+  title: "Layouts - 125 Counselling (B)"
+  source: secondary_admin
+  pages: [13]
+  sheets: ["A.L.125 - B"]
+  categories: [secondary]
+  space: admin
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "4 Staff"
+
+- id: "126"
+  title: "Layouts - 126 Leadership (A)"
+  source: secondary_admin
+  pages: [14]
+  sheets: ["A.L.126 - B"]
+  categories: [secondary]
+  space: admin
+  variant: A
+  grid_mm: [4200, 8000]
+  occupancy: "≤4 Staff"
+
+- id: "127"
+  title: "Layouts - 127 Leadership (B)"
+  source: secondary_admin
+  pages: [15, 16]
+  sheets: ["A.L.127.1 - B", "A.L.127.2 - B"]
+  categories: [secondary]
+  space: admin
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "≤13 Staff"
+
+- id: "128"
+  title: "Layouts - 128 Careers (A)"
+  source: secondary_admin
+  pages: [17]
+  sheets: ["A.L.128 - B"]
+  categories: [secondary]
+  space: admin
+  variant: A
+  grid_mm: [4200, 8000]
+  occupancy: "≤2 Staff"
+
+- id: "129"
+  title: "Layouts - 129 Careers (B)"
+  source: secondary_admin
+  pages: [18]
+  sheets: ["A.L.129 - B"]
+  categories: [secondary]
+  space: admin
+  variant: B
+  module: C
+  grid_mm: [8400, 8000]
+  occupancy: "3 - 4 Staff"
+
+# --- Standard designs for school gyms and halls ----------------------------
+# These are catalogue pages, not numbered layout sheets, so ids are descriptive
+# and titles are the page headings. The document states no occupancy or roll
+# figure for any gym or hall, so none has a roll_band.
+- id: "gyms-typologies"
+  title: "Choosing the right building - gyms"
+  source: gyms_halls
+  pages: [8]
+  categories: [primary_intermediate, secondary]
+  space: gym
+
+- id: "gyms-layouts"
+  title: "Choosing gym layouts"
+  source: gyms_halls
+  pages: [9]
+  categories: [primary_intermediate, secondary]
+  space: gym
+
+- id: "gyms-examples"
+  title: "Examples: Gym spaces"
+  source: gyms_halls
+  pages: [10]
+  categories: [primary_intermediate, secondary]
+  space: gym
+
+- id: "halls-primary"
+  title: "Choosing the right building - primary school halls"
+  source: gyms_halls
+  pages: [11]
+  categories: [primary_intermediate]
+  space: hall
+
+- id: "halls-secondary"
+  title: "Choosing the right building - secondary school halls"
+  source: gyms_halls
+  pages: [12]
+  categories: [secondary]
+  space: hall
+
+# Illustrated with the large primary hall (HL-P) only.
+- id: "halls-layouts"
+  title: "Choosing hall layouts"
+  source: gyms_halls
+  pages: [13]
+  categories: [primary_intermediate]
+  space: hall
+
+# Page 14 ("Examples: Hall spaces") is deliberately omitted: it shows a primary
+# example and two secondary examples on one page, so it can't be placed in a
+# single category without mixing them.

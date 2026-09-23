@@ -1,0 +1,893 @@
+Great schools, great spaces
+Standard layouts for
+school library spaces
+
+August 2026
+Version 1.0
+Great schools need great spaces. Warm, dry, safe and light-filled classrooms.
+Areas that flex to how your teachers like to teach. Buildings and spaces that
+feel good and belong to your school and your community. Buildings that are
+easy to maintain.
+
+
+We have collaborated closely with architects, engineers, builders, and
+educators to develop designs that achieve all this — consistently and
+affordably. We have called these standard designs. They meet all New
+Zealand building requirements, make sense for most schools, and respond to
+your school’s identity, your site, and the way your students learn.
+
+
+Our plan is to keep improving these standard designs. As we gather feedback
+from schools, builders, and designers, we will review and update our standard
+designs to ensure they work for everyone.
+Introduction
+
+
+         Purpose                                          What this document includes                 Bracing walls and openings between
+                                                                                                      teaching spaces
+         This document is part of our standard            This document includes examples of small,
+         design guidance suite. It provides detailed      medium and large school library spaces.     In some of our single-storey standard
+         technical information for schools to support     Each layout includes:                       designs, bracing walls are needed to
+         discussions about their library needs. It also                                               support the structure. The amount of
+                                                          › a general arrangement plan and 3D
+         provides a clear and consistent starting                                                     bracing wall needed is indicated by red
+                                                            views of each layout
+         point for schools, designers and builders                                                    coloured measurements annotated with a
+                                                          › indicative furniture arrangements,        ‘BR’ on the relevant drawings.
+         undertaking school projects.
+                                                            including items that are expected to be
+         These standard layouts for primary and             school-supplied*                          Provided that a building has the total
+         secondary library spaces bring together                                                      amount of bracing wall required in metres,
+                                                          › elements provided as part of the build,
+         insights from educators, principals, and                                                     the walls can be placed where they best suit
+                                                            such as finishes, fixtures and joinery*
+         designers to create libraries that are                                                       a school’s layout preferences.
+         functional and flexible.                         › a room data sheet showing the details
+                                                            and quantity of items included in the
+                                                            drawings.
+         How to use this document
+                                                          *Note: Elements expected to be school-
+         We recommend using this document                 supplied are marked in blue on the
+         early in the design process to support           isometric drawings and room sheets.
+         conversations about designing the right
+                                                          Items supplied as part of the build are
+                                                          marked in black.
+         library layout, and to confirm who is
+         supplying which elements in your design
+         project.
+         These layout examples should be
+         considered as starting points for discussion
+         about your school’s needs.
+         Each module, such as a breakout area or
+         office space, is a standalone design
+         element that can be placed where it makes
+         the most sense for a school.
+Contents
+Library Layouts
+
+
+ No.          Sheet Name                                                    Rev
+ 000.1        Cover                                                         C
+ 000.2        Contents                                                      C
+ 000.3        Door & Window Schedule                                        B
+ 000.4        Wall Finishes Schedule                                        B
+ 100          Layouts - 100 Library Primary (A)                             B
+ 101.1        Layouts - 101 Library Primary (B) / Secondary (A)             C
+ 101.2        Layouts - 101 Library Primary (B) / Secondary (A)             C
+ 102.1        Layouts - 102 Library Secondary (B)                           C
+ 102.2        Layouts - 102 Library Secondary (B)                           C
+
+
+
+
+                                                                                                    No.           Description            Date
+GENERAL NOTES:                                                                    SPECIFIC NOTES:                                                  Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                                    No.          Description            Date
+                                                                                                                                                   Layouts
+                                                                                                    A      100% Developed Design      1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                                    B     100% Developed Design II    5/06/2026
+                                                                                                                                                   A - Architecture
+of each brief, school, environmental conditions and context.
+                                                                                                    C     100% Developed Design III   26/06/2026
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                                   Contents
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                      A.L.000.2 - C
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                              @ A1
+Building Code.
+Layouts - Door & Window Schedule
+Standard Range Of Interior Doors & Windows
+
+
+
+
+                                                                                                                                                                                     1,500                                                                          2,100                                                                                 2,400                                                                               3,600                                                                                        2,400
+
+                                                   860                                                     910                                                                              910                                                                               910                                                               EQ                      EQ                                                      EQ                            EQ                  900                                               EQ                 EQ
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    1,005
+                                    2,200
+
+
+
+
+                                                                                            2,200
+
+
+
+
+                                                                                                                                                             2,200
+
+
+
+
+                                                                                                                                                                                                                                         2,200
+
+
+
+
+                                                                                                                                                                                                                                                                                                                          2,200
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                     2,200
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                     2,205
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    1,200
+                                            AJ-1                                                    AJ-2                                                                   AJ-3                                                                      AJ-4                                                                               AJ-5                                                                     AJ-6                                                        AJ-7                                           AJ-8
+
+                                            Description:   Small room door                          Description:   Standard door                                           Description:        Standard door                                         Description:     Large door                                                        Description:      Small room door                                        Description:        Classroom divider door                  Description:   Tall window                     Description:   Observation window
+                                            Door Type:     Aluminium glazed hinged door             Door Type:     Aluminium glazed hinged door                            Door Type:          Aluminium glazed hinged door                          Door Type:       Aluminium glazed hinged door                                      Door Type:        Aluminium glazed sliding door                          Door Type:          Aluminium glazed sliding door           Window Type    Interior Fixed Window           Window Type    Interior Fixed Window
+                                                                                                                                                                                               with sidelight                                                         with sidelight                                                                      with sidelight                                                             with sidelight
+                                            Frame Type:    Aluminium                                Frame Type:    Aluminium                                                                                                                                                                                                                                                                                                                                                 Frame Type:    Aluminium                       Frame Type:    Aluminium
+                                                                                                                                                                           Frame Type:         Aluminium                                             Frame Type:      Aluminium                                                         Frame Type:       Aluminium                                              Frame Type:         Aluminium
+
+
+
+
+                                                                                                                                                                             1,400                                                                   1,800
+
+                                                   860                                                     910                                                       410          910                                                        860             860                                                                  960
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                 1,200
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                600
+                                    2,200
+
+
+
+
+                                                                                            2,200
+
+
+
+
+                                                                                                                                                     2,200
+
+
+
+
+                                                                                                                                                                                                                              2,200
+
+
+
+
+                                                                                                                                                                                                                                                                                              2,205
+                                                                                                                                                                                                                                                                                                      25 undercut
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                900
+                                            TJ-1                                                    TJ-2                                                         TJ-3                                                                 TJ-4                                                                            TJ-5                                                                TJ-6
+
+                                            Description:   Small room door                          Description:   Standard door                                 Description:           Utility / access door                         Description:       Large utility / access door                                  Description:          Accessible WC door                            Description:        Observation window, acoustic
+                                            Door Type:     Solid core, single hinged door           Door Type:     Solid core, single hinged door                Door Type:             Solid core, double hinged doors               Door Type:         Solid core, double hinged doors                              Door Type:            Solid core, cavity slider                     Window Type         Interior Fixed Window
+                                                                                                                   with vision panel                                                    with vision panel
+                                            Frame Type:    Timber frame                                                                                                                                                               Frame Type:        Timber frame                                                 Frame Type:           Timber frame                                  Frame Type:         Timber frame
+                                                                                                    Frame Type:    Timber frame                                  Frame Type:            Timber frame
+
+
+
+
+                                                                                                                                                                                                                                                                                                                    No.                                        Description                                      Date
+GENERAL NOTES:                                                                                                                           SPECIFIC NOTES:                                                                                                                                                                                                                                                                                                                                                                    Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                                                                                                                                                                                                                                                    No.                                       Description                                      Date
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Layouts
+                                                                                                                                                                                                                                                                                                                    A                                   100% Developed Design                                1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                                                                                                                                                                                                                                                    B                                  100% Developed Design III                             26/06/2026
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            A - Architecture
+of each brief, school, environmental conditions and context.
+
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Door & Window Schedule
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   A.L.000.3 - B
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                                                                                                                                                                                                                                                                                                                                                                                                       1:50 @ A1
+Building Code.
+Layouts - Wall Finishes Schedule
+Standard Range Of Interior Wall Finishes
+
+
+
+
+                   3,000
+
+                   2,700
+
+
+
+
+                                                                                                                                                                                                                                                                                           WF01
+
+
+                   2,100
+
+
+
+
+                                                                            WF01                                              WF10                                             WF01                                                          WF10                                          WF10
+                              1,200
+
+
+
+
+                   1,200
+
+
+
+                   900                             Whiteboard                                               Whiteboard                                   Whiteboard                                                            Whiteboard                               Whiteboard
+
+                   700                                                             Window                                            Window                                                     Window                                              Window                                                   Window
+
+                                                                                   Architrave                                        Architrave                                                 Architrave                                          Architrave                                               Architrave
+
+                                                                                                                                                                               WF22                                                          WF22                                          WF22
+
+
+
+                                                                                   Skirting                                          Skirting                                                   Skirting                                            Skirting                                                 Skirting
+                   0
+                              90
+
+
+
+
+                                         Full Height - Paint                                         Full Height - Pinboard                       Durable Dado - Paint Above                                        Durable Dado - Pinboard Above                Durable Dado - Pinboard + Paint Above
+
+
+
+
+             WALL FINISHES LEGEND
+
+  WF01       L4 STOP AND PAINT FINISH TO PLASTERBOARD - GENERAL
+
+  WF02       L4 STOP AND PAINT FINISH TO PLASTERBOARD - SPECIALTY
+
+  WF10       ACOUSTIC PINBOARD NRC 0.4 MINIMUM
+
+                  VELOUR OR SMOOTH FACING
+
+                  SMOOTH FACING
+
+  WF22       MANUFACTURED TIMBER BOARD LINING
+
+  WF30       WALL VINYL WITH WELDED SEAMS
+
+
+                                                                                                                                                                        No.                   Description            Date
+GENERAL NOTES:                                                                                  SPECIFIC NOTES:                                                                                                                                                                Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                                                                                                        No.                  Description            Date
+                                                                                                                                                                                                                                                                               Layouts
+                                                                                                                                                                        A              100% Developed Design      1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                                                                                                         B            100% Developed Design III   26/06/2026
+                                                                                                                                                                                                                                                                               A - Architecture
+of each brief, school, environmental conditions and context.
+
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                                                                                                                                                               Wall Finishes Schedule
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                                                                                                                                                         A.L.000.4 - B
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                                                                                                                                                          1:20 @ A1
+Building Code.
+Layouts - 100 Library Primary (A)
+General Arrangement                                                                                                                                                                                      Room Isometric                                                  Room Data Sheet
+
+                                    A                                                                                                        B                                                                                                                                                  100 Room Data - Library - Layout A
+                                                                                        7,200
+                                                                                                                                                                                                                                                                         Supply    Code         Group       Description                               Image   Qty
+
+
+                                                                                                                                                                                                                                                                         Build     BL-700      FURNITURE    Benchtop, Laminate - 2700x700                      1
+                                         1,200 BR                                                                       1,200 BR
+
+
+
+       1
+                                                                                                                                                                                                                                                                         Build     BL-700      FURNITURE    Benchtop, Laminate - 1000x700                      2
+
+
+
+                                                                 W
+                                                                  HI
+                                                                    TE
+                                                                      BO                                                                                                                                                                                                 Build      BR-C        JOINERY     Bracket - Cantilever                               4
+                                                                        AR
+
+
+
+
+                                                                                                                         BINS
+                                                                          D
+                                               INBUILT SEATING
+
+
+
+
+                                                                                                                                                                                                                                                                                                            In-built Seating with Squab - 1800
+                                                                                                                                                                                                                                                                         Build    IS-1-1800B    JOINERY                                                        2
+                                                                                                                                                                                                                                                                                                            Module with Backrest
+
+
+
+                                                                                                                                                                                                                                                                                                            In-built Seating with Sqaub - Two Tiers
+                                                                                                                                                                                                                                                                         Build    IS-2-1800     JOINERY                                                        2
+                                                                                                                                                                                                                                                                                                            - 1800 Module
+
+
+
+
+                                                                                                                                                                                                                                                                         Build      LG-1        JOINERY     Joinery Leg                                        2
+
+
+
+
+                                                                                                                                                                                                                                                                         Build    LU-D-450      JOINERY     Low Unit - Drawer, 450x600                         1
+            12,000
+
+
+
+
+                                                                                                                                                                                                                                                                                                            Whiteboard - Wall Mounted,
+                                                                                                                                                                                                                                                                         Build     WB-1500       FITTING                                                       1
+                                                                                                                                                                                                                                                                                                            1500x1200
+
+
+
+
+                                                                                                                                                                                                                                                                         Build    WU-S-900      JOINERY     Wall Unit - Shelving, 900x350                      3
+
+
+
+                                                                              PRINTER
+                                                                                                                                                                                                                                                                                                            Shelving - Wall Mounted, Channel
+                                                                                                                                                                                                                                                                         Build    WU-S-2000     JOINERY                                                        3
+                                                                                                                                                                                                                                                                                                            System, 2000x350
+
+
+
+
+                                                                                                                                                                                                                                                                         School      BI-O      FURNITURE    Bin - Organic                                      1
+                                                                                                     INBUILT SEATING
+
+
+
+
+                                                                                                                                WHITEBOARD
+
+
+
+
+                                                                                                                                                                                                                                                                         School      BI-P      FURNITURE    Bin - Paper                                        1
+
+
+
+
+                                                                                                                                                                                                                                                                         School   BS-450-900   FURNITURE    Bookshelving - 450x900 Module                      8
+
+
+
+       2
+                                                                                                                                                                                                                                                                         School     CH-1       FURNITURE    Chair - General Purpose                            8
+                                             1,800 BR
+
+
+
+                                                                                                                                                                                                                                                                         School     CH-2       FURNITURE    Chair - Office, Wheeled                            2
+Details
+                                                                                                                                                                                                                                                                         School      CM        ELECTRICAL Computer - Desktop                                   2
+
+
+                                                                     Occupancy
+                                                                     <500 Student Roll                                                                                                                                                                                   School   L-450-1200   FURNITURE    Lundia - 450x1200                                  5
+
+
+
+
+                                                                                                                                                                                                                                                                         School    OD-500      FURNITURE    Office Mobile Cabinet - 500x500                    1
+
+
+
+
+                                                                                                                                                                                                                                                                         School     PR-1       ELECTRICAL Printer - Copier                                     1
+
+
+
+
+Flooring                                                         Ceiling                                                                             Wall Finish                                                                                                         School    SD-1200     FURNITURE    Sitting Desk - Small, 1200x600                     2
+
+☐
+X          F01       Carpet Tile General Purpose                 ☐       Ceiling Tile (NRC 0.70 minimum / CAC 20 min)                                ☐
+                                                                                                                                                     X      WF01/02 Painted Plasterboard
+☐          F05       Vinyl General Purpose                       ☐
+                                                                 X       Ceiling Tile (NRC 0.85 minimum / CAC 20 min)                                ☐
+                                                                                                                                                     X      WF10 Acoustic Pinboard (NRC 0.4 min)
+☐          F08       Vinyl Sports/Dance (with Underlay)          ☐       Gypsum Sheet                                                                ☐      WF30 Wall Vinyl                                                                                              School      TR        FURNITURE    Trolley                                            1
+☐          F10       Sealer Coating (Exposed Concrete)                                                                                               ☐      WF22 Manufactured Timber Board Lining (Plywood)
+                                                                                                                                                     ☐
+                                                                                                                                                     X      WF22 Manufactured Timber Board Lining (OSB)
+Typology Dependent Considerations                                Typology Dependent Considerations                                                   Typology Dependent Considerations
+                                                                                                                                                                                                                                                                         School    WB-1200     FURNITURE    Whiteboard - Movable, 1200x1000                    1
+☐
+X     F03  Carpet Tile General (Entrance Matting)                ☐     Upgrade CAC 30 min + Insulation (High-Noise Classroom Above)                  ☐
+                                                                                                                                                     X     Pinboard Located On Perpendicular Faces
+☐     F07  Vinyl (with Acoustic Backing)                         ☐     Upgrade CAC 30 min (Hard-Surfaced Classroom Above)                            ☐     Pinboard Located At High-Level On All Faces
+☐     F20  Timber Sprung Floor                                   ☐
+                                                                 X     Upgrade CAC 30 min (Roof Above)                                               ☐     Pinboard Face Polyester (Smooth)
+                                                                 ☐     Wipeable Tile                                                                 ☐     Durable Lining As Dado
+                                                                 ☐     Specialist Acoustic Design Required                                           ☐
+                                                                                                                                                     X     Durable Lining As Dado (Small Rooms Only)
+                                                                                                                                                     ☐     Specialist Acoustic Design Required
+                                                                                                                                                                                                                          No.           Description            Date
+GENERAL NOTES:                                                                                                                                   SPECIFIC NOTES:                                                                                                                               Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                                                                                                                                                          No.          Description            Date
+                                                                                                                                                                                                                                                                                               Layouts
+                                                                                                                                                                                                                          A      100% Developed Design      1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                                                                                                                                                          B     100% Developed Design III   26/06/2026
+                                                                                                                                                                                                                                                                                               A - Architecture
+of each brief, school, environmental conditions and context.
+
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                                                                                                                                                                               Layouts - 100 Library Primary (A)
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                                                                                                                                                                                      A.L.100 - B
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                                                                                                                                                                          1:50, 1:65 @ A1
+Building Code.
+Layouts - 101 Library Primary (B) / Secondary (A)
+General Arrangement                                                                                                                                                                                                                                                            Room Data Sheet
+
+                                          A                                                                                                  B                                                                                           C                                                              101 Room Data - Library - Layout B                                                       101 Room Data - Library - Layout B
+                                                                                                   7,200                                                                                           7,200
+                                                                                                                                                                                                                                                                               Supply       Code        Group      Description                               Image   Qty Supply     Code         Group       Description                       Image   Qty
+
+
+                                                                                                                                                                                                                                                                               Build        BL-700     FURNITURE   Benchtop, Laminate - 2700x700                      1   School     CH-1       FURNITURE    Chair - General Purpose                   28
+                                                           1,800 BR                                                                                                                                                         1,800 BR
+
+
+
+       1
+                                                                                                                                                                                                                                                                               Build        BL-700     FURNITURE   Benchtop, Laminate - 1000x700                      8   School     CH-2       FURNITURE    Chair - Office, Wheeled                   10
+
+
+
+
+                                                                                                                                                   FEATURE BOOKS
+                                                                                                                                                                                                                                                                               Build        BL-700     FURNITURE   Benchtop, Laminate - 2200x700                      2   School     CH-6       FURNITURE    Chair - Social Seat                        2
+                                                                      INBUILT SEATING
+                                              WHITEBOARD
+
+
+
+
+                                                                                                                                                                                      WHITEBOARD
+                           4,800 BR OPT
+
+
+
+
+                                                                                                                                                                                                                                                                               Build         BR-C       JOINERY    Bracket - Cantilever                               4   School     CH-7       FURNITURE    Chair - Social Seat, Backrest              2
+
+
+
+
+                                                                                                                                                                                                                                                                                                                   In-built Seating with Squab - 1800
+                                                                                                                                                                                                                                                                               Build      IS-1-1800B    JOINERY                                                       2   School      CM        ELECTRICAL Computer - Desktop                           2
+                                                           BINS
+
+
+
+
+                                                                                                                                                                                                                                                                                                                   Module with Backrest
+
+
+
+                                                                                                           PRINTER
+
+
+
+
+                                                                                                                                                                                                                                  BINS
+                                                                                                                                                                                                                                                                                                                   In-built Seating with Sqaub - One Tier
+                                                                                                                                                                                                                                                                               Build       IS-1-2100    JOINERY                                                       1   School   L-450-1200   FURNITURE    Lundia - 450x1200                          5
+                                                                                                                                                                                                                                                                                                                   - 2100 Module
+
+
+
+                                                                                                                                                                                                                                                                                                                   In-built Seating with Sqaub - Two Tiers
+                                                                                                                                                                                                                                                                               Build       IS-2-1800    JOINERY                                                       2   School    LD-1400     FURNITURE    Leaner Desk - Modular, 1400x600            2
+                                                                                                                                                                                                                                                                                                                   - 1800 Module
+            12,000
+
+
+
+
+                                                                                                                                                                                                                                                                               Build         LG-1       JOINERY    Joinery Leg                                       11   School    OD-500      FURNITURE    Office Mobile Cabinet - 500x500            1
+
+
+
+
+                                                                                                                                                                                                                                                                               Build       LU-D-450     JOINERY    Low Unit - Drawer, 450x600                         1   School     PR-1       ELECTRICAL Printer - Copier                             1
+
+
+
+
+                                                                                                                                                                                                                                                                                                                   Whiteboard - Wall Mounted,
+                                                                                                                                                                                                                                                                               Build       WB-1500      FITTING                                                       2   School    SD-1200     FURNITURE    Sitting Desk - Small, 1200x600            13
+                                                                                                                                                                                                                                                                                                                   1500x1200
+
+
+
+
+                                                                                                                                                                                                                                                                               Build       WU-S-900     JOINERY    Wall Unit - Shelving, 900x350                      3   School     ST-1       FURNITURE    Stool - General Purpose                    4
+
+
+
+
+                                                                                                                                                                                                                                                                                                                   Shelving - Wall Mounted, Channel
+                                                                                                                                                                                                                                                                               Build      WU-S-2000     JOINERY                                                       6   School     ST-3       FURNITURE    Stool - Low                                4
+                                                                                                                                                                                                                                                                                                                   System, 2000x350
+
+
+
+
+                                                                                                                                                                                                                                                                               School         BI-O     FURNITURE   Bin - Organic                                      2   School    TB-900      FURNITURE    Table - Small, 900 Round                   2
+
+
+
+       2
+                                                                                                                                                                                                                                                                               School         BI-P     FURNITURE   Bin - Paper                                        2   School    TB-1000     FURNITURE    Table - Small, 1000 Round                  2
+                                                                                                                                  1,800 BR                 1,800 BR
+
+
+                                                                                                                                                                                                                                                                               School     BS-450-900   FURNITURE   Bookshelving - 450x900 Module                     18   School      TR        FURNITURE    Trolley                                    2
+Details
+
+
+                                                                                    Occupancy
+                                                                                    500 - 800 Student Roll
+
+
+
+
+Flooring                                                              Ceiling                                                                                      Wall Finish
+☐
+X          F01       Carpet Tile General Purpose                      ☐                  Ceiling Tile (NRC 0.70 minimum / CAC 20 min)                              ☐
+                                                                                                                                                                   X      WF01/02 Painted Plasterboard
+☐          F05       Vinyl General Purpose                            ☐
+                                                                      X                  Ceiling Tile (NRC 0.85 minimum / CAC 20 min)                              ☐
+                                                                                                                                                                   X      WF10 Acoustic Pinboard (NRC 0.4 min)
+☐          F08       Vinyl Sports/Dance (with Underlay)               ☐                  Gypsum Sheet                                                              ☐      WF30 Wall Vinyl
+☐          F10       Sealer Coating (Exposed Concrete)                                                                                                             ☐      WF22 Manufactured Timber Board Lining (Plywood)
+                                                                                                                                                                   ☐
+                                                                                                                                                                   X      WF22 Manufactured Timber Board Lining (OSB)
+Typology Dependent Considerations                                     Typology Dependent Considerations                                                            Typology Dependent Considerations
+☐
+X     F03  Carpet Tile General (Entrance Matting)                     ☐
+                                                                      X     Upgrade CAC 30 min + Insulation (High-Noise Classroom Above)                           ☐
+                                                                                                                                                                   X     Pinboard Located On Perpendicular Faces
+☐     F07  Vinyl (with Acoustic Backing)                              ☐
+                                                                      X     Upgrade CAC 30 min (Hard-Surfaced Classroom Above)                                     ☐     Pinboard Located At High-Level On All Faces
+☐     F20  Timber Sprung Floor                                        ☐
+                                                                      X     Upgrade CAC 30 min (Roof Above)                                                        ☐     Pinboard Face Polyester (Smooth)
+                                                                      ☐     Wipeable Tile                                                                          ☐     Durable Lining As Dado
+                                                                      ☐     Specialist Acoustic Design Required                                                    ☐
+                                                                                                                                                                   X     Durable Lining As Dado (Small Rooms Only)
+                                                                                                                                                                   ☐     Specialist Acoustic Design Required
+                                                                                                                                                                                                                                             No.           Description                     Date
+GENERAL NOTES:                                                                                                                                   SPECIFIC NOTES:                                                                                                                                                                                                                                Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                                                                                                                                                                             No.          Description                     Date
+                                                                                                                                                                                                                                                                                                                                                                                                Layouts
+                                                                                                                                                                                                                                             A      100% Developed Design               1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                                                                                                                                                                             B     100% Developed Design II             5/06/2026
+                                                                                                                                                                                                                                                                                                                                                                                                A - Architecture
+of each brief, school, environmental conditions and context.
+                                                                                                                                                                                                                                             C     100% Developed Design III            26/06/2026
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                                                                                                                                                                                                                                                                                Layouts - 101 Library Primary (B) / Secondary (A)
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                       A.L.101.1 - C
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                                                                                                                                                                                                                                                                           1:50 @ A1
+Building Code.
+Layouts - 101 Library Primary (B) / Secondary (A)
+Room Isometric
+
+
+
+
+                                                                                              No.           Description            Date
+GENERAL NOTES:                                                              SPECIFIC NOTES:                                                  Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                              No.          Description            Date
+                                                                                                                                             Layouts
+                                                                                              A      100% Developed Design      1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                              B     100% Developed Design II    5/06/2026
+                                                                                                                                             A - Architecture
+of each brief, school, environmental conditions and context.
+                                                                                              C     100% Developed Design III   26/06/2026
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                             Layouts - 101 Library Primary (B) / Secondary (A)
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                    A.L.101.2 - C
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                        1:65 @ A1
+Building Code.
+Layouts - 102 Library Secondary (B)
+General Arrangement                                                                                                                                                                                                                                                                                                                   Room Data Sheet
+
+                                                 A                                                                            B                                                                                           C                                                                    D                                                             102 Room Data - Library - Layout B
+                                                                                    7,200                                                                                             7,200                                                  7,200
+                                                                                                                                                                                                                                                                                                                                      Supply    Code         Group       Description                          Image   Qty
+
+                                                                                                                                                                                                                                                                                                                                      Build     BL-700      FURNITURE    Benchtop, Laminate - 2200x700                 2
+
+                                                      1,800 BR                                                                                                                                                 1,800 BR                                              1,800 BR
+                                                                                                                                                                                                                                                                                                                                      Build     BL-700      FURNITURE    Benchtop, Laminate - 1000x700                12
+
+       1
+                                                                                                                                                                                                                                                                                                                                      Build     BL-700      FURNITURE    Benchtop, Laminate - 2700x700                 1
+
+
+                                                                                                                                                                                                                                                                                                                                      Build      BR-C        JOINERY     Bracket - Cantilever                          4
+
+
+
+
+                                                                                                                                      FEATURE BOOKS
+
+
+
+
+                                                                                                                                                                         WHITEBOARD
+                                                                                                                                                                                                                                                                                                                                                                         In-built Seating with Squab - 1800
+                                                                                                                                                                                                                                                                                                                                      Build    IS-1-1800B    JOINERY                                                   4
+                           4,800 Braced Option
+
+
+
+
+                                                                                                                                                                                                                                                                                                   4,800 Braced Option
+                                                                                                                                                                                                                                                                                                                                                                         Module with Backrest
+
+
+
+
+                                                                                                                                                                                                                                                                                  WHITEBOARD
+                                                                                                                                                                                                                                                                                                                                      Build      LG-1        JOINERY     Joinery Leg                                  15
+
+
+                                                                                                                                                                                                                                                                                                                                      Build    LU-D-450      JOINERY     Low Unit - Drawer, 450x600                    1
+
+
+                                                                                                                                                                                                                                                                                                                                                                         Whiteboard - Wall Mounted,
+                                                                                                                                                                                                                                                                                                                                      Build     WB-1500       FITTING                                                  2
+                                                                                                                                                                                                                                                                                                                                                                         1500x1200
+                                                                                            PRINTER
+
+
+
+
+                                                                                                                                                                                                                                                                           BINS
+                                                                                                                                                                                                                                                                                                                                      Build    WU-S-900      JOINERY     Wall Unit - Shelving, 900x350                 3
+
+
+                                                                                                                                                                                                                                                                                                                                                                         Shelving - Wall Mounted, Channel
+                                                                                                                                                                                                                                                                                                                                      Build    WU-S-2000     JOINERY                                                   6
+                                                                                                                                                                                                                                                                                                                                                                         System, 2000x350
+            12,000
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School      BI-O      FURNITURE    Bin - Organic                                 2
+
+
+                                                                                                                                                                                                                                                                                                                                      School      BI-P      FURNITURE    Bin - Paper                                   2
+                                                     BINS
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School   BS-450-900   FURNITURE    Bookshelving - 450x900 Module                46
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School     CH-1       FURNITURE    Chair - General Purpose                      37
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School     CH-2       FURNITURE    Chair - Office, Wheeled                      14
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School     CH-6       FURNITURE    Chair - Social Seat                           2
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School     CH-7       FURNITURE    Chair - Social Seat, Backrest                 6
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School      CM        ELECTRICAL Computer - Desktop                              2
+
+
+       2
+                                                                                                                                                                                                                                                                                                                                      School   L-450-1200   FURNITURE    Lundia - 450x1200                             5
+                                                                                                                   1,800 BR                  1,800 BR                                                          1,800 BR       1,800 BR
+
+
+
+
+Details                                                                                                                                                                                                                                                                                                                               School    LD-1400     FURNITURE    Leaner Desk - Modular, 1400x600               2
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School    OD-500      FURNITURE    Office Mobile Cabinet - 500x500               1
+
+
+
+                                                                     Occupancy                                                                                                                                                                                                                                                        School     PR-1       ELECTRICAL Printer - Copier                                1
+                                                                     800 - 1400 Student Roll
+
+                                                                                                                                                                                                                                                                                                                                      School    SC-800      FURNITURE    Study Carrel - Small, 800x600                 8
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School    SD-1200     FURNITURE    Sitting Desk - Small, 1200x600                5
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School    SD-1500     FURNITURE    Sitting Desk - Medium, 1500x600               8
+
+
+
+                                                                                                                                                                                                                                                                                                                                      School     ST-1       FURNITURE    Stool - General Purpose                       4
+Flooring                                                         Ceiling                                                                              Wall Finish
+☐
+X          F01       Carpet Tile General Purpose                 ☐        Ceiling Tile (NRC 0.70 minimum / CAC 20 min)                                ☐
+                                                                                                                                                      X      WF01/02 Painted Plasterboard
+☐          F05       Vinyl General Purpose                       ☐
+                                                                 X        Ceiling Tile (NRC 0.85 minimum / CAC 20 min)                                ☐
+                                                                                                                                                      X      WF10 Acoustic Pinboard (NRC 0.4 min)                                                                                                                                     School     ST-3       FURNITURE    Stool - Low                                   9
+☐          F08       Vinyl Sports/Dance (with Underlay)          ☐        Gypsum Sheet                                                                ☐      WF30 Wall Vinyl
+☐          F10       Sealer Coating (Exposed Concrete)                                                                                                ☐      WF22 Manufactured Timber Board Lining (Plywood)
+                                                                                                                                                      ☐
+                                                                                                                                                      X      WF22 Manufactured Timber Board Lining (OSB)                                                                                                                              School    TB-900      FURNITURE    Table - Small, 900 Round                      3
+
+Typology Dependent Considerations                                Typology Dependent Considerations                                                    Typology Dependent Considerations
+☐
+X     F03  Carpet Tile General (Entrance Matting)                ☐
+                                                                 X     Upgrade CAC 30 min + Insulation (High-Noise Classroom Above)                   ☐
+                                                                                                                                                      X     Pinboard Located On Perpendicular Faces                                                                                                                                   School    TB-1000     FURNITURE    Table - Small, 1000 Round                     4
+☐     F07  Vinyl (with Acoustic Backing)                         ☐
+                                                                 X     Upgrade CAC 30 min (Hard-Surfaced Classroom Above)                             ☐     Pinboard Located At High-Level On All Faces
+☐     F20  Timber Sprung Floor                                   ☐
+                                                                 X     Upgrade CAC 30 min (Roof Above)                                                ☐     Pinboard Face Polyester (Smooth)
+                                                                 ☐     Wipeable Tile                                                                  ☐     Durable Lining As Dado                                                                                                                                                    School      TR        FURNITURE    Trolley                                       2
+                                                                 ☐     Specialist Acoustic Design Required                                            ☐
+                                                                                                                                                      X     Durable Lining As Dado (Small Rooms Only)
+                                                                                                                                                      ☐     Specialist Acoustic Design Required
+                                                                                                                                                                                                                                         No.                 Description                                                    Date
+GENERAL NOTES:                                                                                                                    SPECIFIC NOTES:                                                                                                                                                                                                           Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                                                                                                                                                                         No.                Description                                                    Date
+                                                                                                                                                                                                                                                                                                                                                            Layouts
+                                                                                                                                                                                                                                         A            100% Developed Design                                              1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                                                                                                                                                                         B           100% Developed Design II                                            5/06/2026
+                                                                                                                                                                                                                                                                                                                                                            A - Architecture
+of each brief, school, environmental conditions and context.
+                                                                                                                                                                                                                                         C           100% Developed Design III                                           26/06/2026
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                                                                                                                                                                                                                                            Layouts - 102 Library Secondary (B)
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                                                                                                                                                                                                                                                   A.L.102.1 - C
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                                                                                                                                                                                                                                       1:50 @ A1
+Building Code.
+Layouts - 102 Library Secondary (B)
+Room Isometric
+
+
+
+
+                                                                                              No.           Description            Date
+GENERAL NOTES:                                                              SPECIFIC NOTES:                                                  Standard Designs
+Ministry of Education (MoE) Standard Solutions are provided as design
+intent and are required to be developed and verified within the MoE
+                                                                                              No.          Description            Date
+                                                                                                                                             Layouts
+                                                                                              A      100% Developed Design      1/05/2026
+Standard Solutions Framework to respond to the individual requirements
+                                                                                              B     100% Developed Design II    5/06/2026
+                                                                                                                                             A - Architecture
+of each brief, school, environmental conditions and context.
+                                                                                              C     100% Developed Design III   26/06/2026
+It is the responsibility of the appointed design team for each project to
+                                                                                                                                             Layouts - 102 Library Secondary (B)
+ensure that the application of the Standard Solutions are compliant with
+
+                                                                                                                                                                   A.L.102.2 - C
+MoE, material supplier & fabricator requirements, and the New Zealand                                                                        1:65 @ A1
+Building Code.
+Working with you
+
+
+         Next steps & feedback
+         Your feedback is important to help us
+         shape how standard designs are used to
+         plan and deliver new school buildings.
+         You can share this with us at:
+         property.improvement@education.govt.nz
+
+
+
+
+                                                  Standardised designs for primary and intermediate schools – V1.0
+He mea tārai e māt ou te
+mātauranga kia rangatir a ai, kia
+mana taurite ai ōna huanga
+
+We shape an education system
+that delivers equitable and
+excellent outcomes
+

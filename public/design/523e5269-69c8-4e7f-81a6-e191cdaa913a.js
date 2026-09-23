@@ -192,8 +192,8 @@ const CLIMATE_ZONES = [
 ];
 
 const OUT_OF_SCOPE = {
-  hall: 'Halls are not covered by standard designs V1.0. Brief separately with your property advisor.',
-  gym: 'Gymnasia / PE spaces are not covered by standard designs V1.0.',
+  hall: 'Halls are covered by Standard designs for school gyms and halls, not by standard designs V1.0.',
+  gym: 'Gymnasia / PE spaces are covered by Standard designs for school gyms and halls, not by standard designs V1.0.',
   specialistSecondary: 'Intermediate specialist fit-outs are briefed using the briefing templates.'
 };
 
@@ -228,8 +228,8 @@ function calcRequirements(input, ratio) {
   const services = HEATING.default[zone.band === 'cold' ? 'cold' : 'warm'];
 
   const notes = [];
-  if (input.hall === 'Yes') notes.push('Hall requirement recorded — outside standard designs V1.0.');
-  if (input.gym === 'Yes') notes.push('Gym / PE requirement recorded — outside standard designs V1.0.');
+  if (input.hall === 'Yes') notes.push('Hall requirement recorded — standard hall layouts are under Further information on the building page.');
+  if (input.gym === 'Yes') notes.push('Gym / PE requirement recorded — standard gym layouts are under Further information on the building page.');
   if (input.relocatable === 'Yes') notes.push('Relocatable buildings accepted — Type R included in options.');
   if (totalTeaching > 18) notes.push('Teaching requirement exceeds a single standard block — multiple blocks proposed.');
 

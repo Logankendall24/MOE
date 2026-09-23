@@ -1,0 +1,30 @@
+# School categories. A category decides which catalogue a user sees and which
+# teaching-module sizes are relevant to them. Nothing from one category's
+# catalogue is ever shown in the other.
+primary_intermediate:
+  label: "Primary and intermediate"
+  catalogue: primary_catalogue
+  # Module classes whose general-teaching layouts are relevant.
+  teaching_modules: [A]
+
+secondary:
+  label: "Secondary school"
+  catalogue: secondary_catalogue
+  teaching_modules: [B, C]
+
+# Teaching-module classes. The letters and sizes are the project team's
+# definitions; each is matched to the structural grid printed on the layout
+# sheets (see grid_mm on each sheet in layouts.yml).
+modules:
+  A:
+    size: "12 m × 7.2 m"
+    grid_mm: [7200, 12000]
+    note: "Primary school teaching-space module."
+  B:
+    size: "10.5 m × 7.2 m"
+    grid_mm: [7200, 10500]
+    note: "Secondary school teaching-space module."
+  C:
+    size: "8 m × 8.4 m"
+    grid_mm: [8400, 8000]
+    note: "Secondary school teaching-space module."

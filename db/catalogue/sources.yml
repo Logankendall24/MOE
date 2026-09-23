@@ -1,0 +1,50 @@
+# Source documents. Every piece of catalogue data cites one of these keys plus a
+# page number. Files live in docs/source-pdfs/.
+primary_catalogue:
+  title: "Great schools, great spaces — Standard designs for primary and intermediate schools"
+  file: "Great schools great spaces - Primary and Int Schools Catalogue FINAL.pdf"
+  version: "Version 1.0, June 2026"
+  category: primary_intermediate
+
+secondary_catalogue:
+  title: "Great schools, great spaces — Standard designs for secondary schools"
+  file: "Great schools great spaces - Secondary Schools Catalogue FINAL.pdf"
+  version: "Version 1.0, June 2026"
+  category: secondary
+
+primary_teaching:
+  title: "Standard layouts for primary school teaching spaces"
+  file: "Standard layouts for primary school teaching spaces.pdf"
+  version: "Version 1.0, August 2026"
+  category: primary_intermediate
+
+primary_admin:
+  title: "Standard layouts for primary school administration spaces"
+  file: "Standard layouts for primary school administration spaces.pdf"
+  version: "Version 1.0, August 2026"
+  category: primary_intermediate
+
+secondary_teaching:
+  title: "Standard layouts for secondary school teaching spaces"
+  file: "Standard layouts for secondary school teaching spaces.pdf"
+  version: "Version 1.0, August 2026"
+  category: secondary
+
+secondary_admin:
+  title: "Standard layouts for secondary school administration spaces"
+  file: "Standard layouts for secondary school administration spaces.pdf"
+  version: "Version 1.0, August 2026"
+  category: secondary
+
+# Shared documents: each sheet inside them states its own category.
+library:
+  title: "Standard layouts for school library spaces"
+  file: "Standard layouts for school library spaces.pdf"
+  version: "Version 1.0, August 2026"
+  category: shared
+
+gyms_halls:
+  title: "Standard designs for school gyms and halls"
+  file: "Standard designs for school gyms and halls.pdf"
+  version: "Version 1.0, August 2026"
+  category: shared

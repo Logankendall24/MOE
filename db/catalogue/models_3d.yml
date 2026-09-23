@@ -1,0 +1,15 @@
+# 3D models (SketchUp → GLB) for building types and modules.
+#
+# Empty until models are supplied. When one is: export it from SketchUp as
+# GLB, put it in public/models/, and add an entry keyed by the building type id
+# the design's option engine uses (R, S1, S2, S3, L, C) or by a layout sheet id
+# (e.g. "001"). The building page reads `glb` and falls back to the existing
+# isometric viewer when there is no entry.
+#
+# Example:
+#   S1:
+#     glb: /models/s1.glb
+#     label: "Type S1 — single-depth, single-storey"
+#     source: "SketchUp model supplied by <who>, <date>"
+#     official: false   # true only for Ministry-issued models
+{}

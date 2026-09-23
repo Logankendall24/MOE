@@ -1,31 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  code: MyString
-  name: MyString
-  category: MyString
-  depth: MyString
-  storeys_supported: MyText
-  teaching_space_min: 1
-  teaching_space_max: 1
-  admin_compatible: false
-  hall_gym_compatible: false
-  fixed_elements: MyText
-  configurable_elements: MyText
-  summary: MyText
-  status: MyString
+  code: S
+  name: "Type S — Single-depth building"
+  category: teaching
+  status: prototype_placeholder
 
 two:
-  code: MyString
-  name: MyString
-  category: MyString
-  depth: MyString
-  storeys_supported: MyText
-  teaching_space_min: 1
-  teaching_space_max: 1
-  admin_compatible: false
-  hall_gym_compatible: false
-  fixed_elements: MyText
-  configurable_elements: MyText
-  summary: MyText
-  status: MyString
+  code: D
+  name: "Type D — Double-depth building"
+  category: teaching
+  status: prototype_placeholder

@@ -1,0 +1,43 @@
+# Layout rule: which specialist sheets belong to each specialist type the user
+# can pick in the requirements flow (the design's SPEC_OPTS).
+#
+# This is a mapping decision, not something the PDFs state, so it lives here
+# rather than on the sheets — edit it without touching the sheet data.
+#
+# Primary / intermediate: the primary layout PDFs contain no specialist-space
+# sheets, so there is nothing to map. A specialist selection in that category
+# shows no specialist diagrams.
+primary_intermediate: {}
+
+secondary:
+  Science:
+    - "050" # Science General / Primary Industry
+    - "051" # Science Specialist (Chemistry / Biology / Physics)
+    - "085" # Science Technician (A) — "Serving 1-2 Specialist Labs"
+    - "086" # Science Technician (B) — "Serving 2+ Specialist Labs"
+  Technology:
+    - "030" # Digital Technologies / Computer Science / Media Studies (A)
+    - "031" # Digital Technologies / Computer Science / Media Studies (B)
+    - "080" # Computer Room (A)
+    - "081" # Computer Room (B)
+    - "060" # Automotive
+    - "063" # Materials & Processing (Hard Materials / Building & Construction)
+    - "064" # Materials & Processing (Textiles / Fabrics / Fashion)
+    - "065" # Mechatronics / Engineering
+    - "089" # Machine & Equipment (A)
+    - "090" # Machine & Equipment (B)
+    - "091" # Pantry / Equipment / Laundry (A) — "Serving 2-3 Technology Classrooms"
+    - "092" # Pantry / Equipment / Laundry (B) — "Serving 2-3 Technology Classrooms"
+  Art:
+    - "070" # Visual Arts (Painting / Creative Arts / Design / Photography)
+    - "088" # Arts Store
+  Music:
+    - "042" # Music
+    - "083" # Practice Rooms (A)
+    - "084" # Practice Rooms (B)
+  Food:
+    - "061" # Health Education (Food Technology)
+    - "062" # Hospitality
+
+# Secondary specialist sheets with no matching option in the requirements flow:
+#   "040" Dance, "041" Drama, "082" Changing Room

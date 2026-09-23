@@ -1,0 +1,304 @@
+# Secondary content. Every string here is copied from the page it cites and is
+# checked by `rails catalogue:verify`. Nothing from the primary / intermediate
+# catalogue belongs in this file. See primary_intermediate.yml for field notes.
+#
+# when:      extra condition on the user's selections —
+#            specialists: any        at least one specialist space selected
+#            specialist: <type>      that specialist type selected
+# verbatim:  the exact source text, where the displayed value corrects an
+#            obvious typo in the PDF. The verifier checks the verbatim text.
+catalogue: secondary_catalogue
+
+about:
+  page: 2
+  paragraphs:
+    - "Great schools need great spaces. Warm, dry, safe and light-filled classrooms. Areas that flex to how your teachers like to teach. Buildings and spaces that feel good and belong to your school and your community. Buildings that are easy to maintain."
+    - "We have collaborated closely with architects, engineers, builders, and educators to develop designs that achieve all this — consistently and affordably. We have called these standard designs. They meet all New Zealand building requirements, make sense for most schools, and respond to your school’s identity, your site, and the way your students learn."
+    - "Our plan is to keep improving these standard designs. As we gather feedback from schools, builders, and designers, we will review and update our standard designs to ensure they work for everyone."
+
+acknowledgements:
+  page: 3
+  paragraphs:
+    - "These standard designs have been developed through the collaboration of many teams and individuals."
+    - "We thank the architects, engineers, quantity surveyors, and builders who contributed to this process. Their expertise has helped ensure these designs are practical to build, easier to maintain, and deliver quality outcomes for schools and their communities."
+    - "We also acknowledge our educator reference groups, peak bodies, and curriculum writers for their contributions and shared insights. Their feedback has helped shape designs that support teaching and learning."
+    - "This shared effort has resulted in a set of standard designs that respond to the needs of schools across Aotearoa New Zealand."
+  groups:
+    - label: "Architecture"
+      logos:
+        - { name: "Athfield Architects", crop: [1064, 248, 172, 176] }
+        - { name: "Jasmax", crop: [1309, 248, 172, 42] }
+        - { name: "McKenzie Higham Architects", crop: [1313, 338, 170, 82] }
+    - label: "Engineering"
+      logos:
+        - { name: "Holmes", crop: [1066, 509, 168, 110] }
+        - { name: "mesh", crop: [1321, 523, 170, 87] }
+        - { name: "Marshall Day Acoustics", crop: [1066, 648, 168, 37] }
+        - { name: "aurecon", crop: [1321, 644, 170, 50] }
+    - label: "Quantity Surveying"
+      logos:
+        - { name: "Maltbys", crop: [1066, 811, 170, 52] }
+    - label: "Project Management"
+      logos:
+        - { name: "Beca", crop: [1321, 811, 170, 46] }
+
+how_it_works:
+  title: "How our building modules work"
+  page: 8
+  paragraphs:
+    - "Standard designs are a series of modular building blocks that can be added and organised to create a building that is suitable for a school’s needs. This gives schools choice and flexibility based on proven designs to ensure buildings are well planned, consistent, and delivered efficiently."
+    - "A teaching module provides a full teaching space with some extra area for resources as needed. Amenity modules can provide toilets, resources, admin or support spaces, depending on the agreed project scope and what already exists on your site. We also have standard modules for stairs, window shading, bag storage and other supporting elements. Over time, we may develop more standard modules as we identify needs."
+  modules:
+    - name: "Teaching Space – Secondary (S)"
+      text: "A general teaching space with teaching wall and flexibility in resources and layout."
+      area: "Net floor area 70m²"
+      size: "7.2m x 10.3m"
+      crop: [622, 450, 114, 94]
+    - name: "Teaching Space – Secondary (D)"
+      text: "A general teaching space with teaching wall and flexibility in resources and layout."
+      area: "Net floor area 70m²"
+      size: "8.4m x 8.9m"
+      crop: [769, 450, 113, 94]
+    - name: "Teaching Space – Specialist"
+      # "ancilliary" is as printed.
+      text: "A specialist teaching space with flexibility in layout and proximity to ancilliary spaces."
+      area: "Net floor area 95m²"
+      size: "8.4m x 12.0m"
+      crop: [938, 445, 126, 92]
+    - name: "Resource / amenities (full-bay)"
+      text: "Provides supporting spaces such as toilets, resource areas, admin or staff spaces, depending on your project."
+      area: "Net floor area varies"
+      size: "7.2m x 10.3m"
+      crop: [1104, 453, 108, 90]
+    - name: "Resource / amenities (half-bay)"
+      text: "Provides supporting spaces such as toilets, resource areas, admin or staff spaces, depending on your project."
+      area: "Net floor area varies"
+      size: "4.1m x 10.3m"
+      crop: [1266, 460, 96, 85]
+    - name: "Resource / breakout"
+      text: "Provides supporting spaces such as resource areas, admin or staff spaces, depending on your project."
+      area: "Net floor area 25m²"
+      size: "8.4m x 3.6m"
+      crop: [1416, 472, 72, 66]
+  examples:
+    - caption: "Example: 3-teaching-space secondary school block with half bay amenities"
+      crop: [714, 184, 170, 120]
+    - caption: "Example: 14-teaching-space secondary school block with half bay amenities module."
+      note: "Note: Two-storey block shown; three-storey block similar; full amenities bay can be located on end, or centrally to suit site and layouts."
+      crop: [1070, 836, 270, 192]
+  closing:
+    - "These modules can be combined in different ways to suit your site and your school’s particular needs."
+    - "Additional modules support how the building works day-to-day, such as stairs, verandahs, shading and storage."
+
+sections:
+  - id: design
+    title: "Design information"
+    sub: "Building type, layouts, and what is standard"
+    blocks:
+      - heading: "Choosing the right building"
+        page: 7
+        applies_to: [teaching]
+        paragraphs:
+          - "Standard building types give us a reliable and consistent starting point for new school buildings. Choosing the right type of building for your school depends on your student roll, site, existing buildings, and future plans."
+          - "For secondary schools, we have produced two main options. A single-depth building (S-type) and a double-depth building (D-type)."
+          - "For many secondary schools, a single-depth single-storey teaching block will be suitable if there is enough space. On tighter sites or for larger schools, a double-depth building and/or two or three-storey option may be more suitable. In some cases, relocatable buildings may be the best fit for the need, site or timeframe."
+        rows:
+          - { label: "S1 – Single-depth, single-storey", value: "2 - 6 teaching spaces", type: S1 }
+          - { label: "S2 – Single-depth, two-storey", value: "6 - 18 teaching spaces", verbatim: "6 - 18 rteaching spaces", type: S2 }
+          - { label: "S3 – Single-depth, three-storey (shown dashed)", value: "6 - 18 teaching spaces", verbatim: "6 - 18 rteaching spaces", type: S3 }
+          - { label: "D1 – Double-depth, single-storey", value: "6 - 10 teaching spaces" }
+          - { label: "D2 – Double-depth, two-storey", value: "12 - 33 teaching spaces" }
+          - { label: "D3 – Double-depth, three-storey (shown dashed)", value: "12 - 33 teaching spaces" }
+          - { label: "OMB 2.5 – Relocatable, single-storey", value: "1 - 4 teaching spaces", type: R }
+      - heading: "Choosing teaching space layouts"
+        page: 9
+        applies_to: [teaching]
+        paragraphs:
+          - "Teaching spaces can be arranged in different ways to support your school’s teaching and learning practices. The standard layouts show a range of options, including:"
+        bullets:
+          - "open teaching areas"
+          - "wet areas"
+          - "breakout spaces"
+          - "areas for storing resources"
+          - "connections between classrooms."
+        after:
+          - "Your project team will work with you to help choose the layout option, or combination of options, that best supports your students, staff, and day-to-day needs."
+      - heading: "Examples: Specialist teaching spaces"
+        page: 10
+        applies_to: [teaching]
+        when: { specialists: any }
+        paragraphs:
+          - "If your project involves specialist teaching spaces, your project team will work with you to choose options that best support your school’s needs."
+          - "The layout catalogue for secondary teaching spaces includes the following:"
+        bullets:
+          - "technology and computer sciences"
+          - "music and performing arts"
+          - "sciences"
+          - "automotive"
+          - "visual arts"
+          - "food and hospitality"
+          - "textiles and multi-materials."
+        after:
+          - "The catalogue also includes portrait and landscape layout options to suit different configurations your school may need."
+      - heading: "Examples: Science teaching spaces"
+        page: 11
+        applies_to: [teaching]
+        when: { specialist: Science }
+        paragraphs:
+          - "These example layouts shows science teaching spaces for our single and double-depth building designs. Your project team will work with you to choose the layouts that best support your teaching and learning."
+          - "Our layout designs also include resource spaces to support each specialist space type. Your project team will work with you to understand if resource spaces are needed, what size they need to be, and where they are best located to support your school."
+      - heading: "Library layouts"
+        page: 14
+        applies_to: [library]
+        paragraphs:
+          - "Standard library layouts have been designed for different school sizes. They are based on the same module system as the teaching spaces, which helps make the design easier to plan and deliver."
+          - "If a library is part of your project scope, we will work with you to confirm which layout best suits your student roll, site and wider school plan."
+      - heading: "Administration layouts"
+        page: 14
+        applies_to: [admin]
+        paragraphs:
+          - "Standard admin layout examples are available for different school sizes. These layouts include spaces that support the day-to-day operation of a secondary school, such as:"
+        bullets:
+          - "reception"
+          - "careers"
+          - "wellbeing"
+          - "staff workrooms"
+          - "leadership spaces."
+        after:
+          - "Administration layouts can be adjusted to suit how your school operates and what you currently have on site. You can use our briefing templates to define your school’s specific needs."
+      - heading: "What this means for your school"
+        page: 5
+        paragraphs:
+          - "Some parts of the design — such as structural systems, roofing, acoustic design, ceiling heights and window dimensions — are standard because they help us to better manage cost, quality and delivery time. But other parts can be chosen by you, so the final building works for your site, your students and your way of working."
+          - "‘Standard’ does not mean the same. Within these design options, your school has choices — about building placement, how spaces are arranged, what materials best reflect your community and kaupapa, and how your buildings flow and connect with the rest of your environment."
+
+  - id: planning
+    title: "Planning"
+    sub: "How the building is fitted to your site"
+    blocks:
+      - heading: "Planning for your site"
+        page: 6
+        paragraphs:
+          - "Every school site is different. During planning, we work with you to look at how a new building will fit into your wider school environment."
+          - "This includes:"
+        bullets:
+          - "connection to other interior and exterior learning spaces"
+          - "existing buildings and heritage features"
+          - "services and drainage"
+          - "sunlight, shade, trees, and wind protection"
+          - "ground conditions"
+          - "future development of your school."
+        after:
+          - "Planning also considers how the building can reflect your school’s identity and kaupapa, and support mātauranga Māori where appropriate. The aim is to make the standard design work well in your school and wider community, both now and into the future."
+
+  - id: construction
+    title: "Construction"
+    sub: "Structure, supply and occupancy on the layout sheets"
+    blocks:
+      - heading: "Bracing walls and openings between teaching spaces"
+        doc: secondary_teaching
+        page: 3
+        applies_to: [teaching]
+        paragraphs:
+          - "In some of our single-storey standard designs, bracing walls are needed to support the structure. The amount of bracing wall needed is indicated by red coloured measurements annotated with a ‘BR’ on the relevant drawings."
+          - "Provided that a teaching space has the total amount of bracing wall required in metres, the bracing walls can be placed where they best suit a school’s teaching preferences."
+      - heading: "Occupancy and space design"
+        doc: secondary_teaching
+        page: 3
+        applies_to: [teaching]
+        paragraphs:
+          - "Each standard layout includes an indicative upper occupancy number. This provides a guide to the limitations of each space, but is not considered a target or a maximum."
+      - heading: "What this document includes"
+        doc: secondary_teaching
+        page: 3
+        applies_to: [teaching]
+        paragraphs:
+          - "*Note: Elements expected to be school-supplied are marked in blue on the isometric drawings and room sheets. Items supplied as part of the build are marked in black."
+
+  - id: materials
+    title: "Materials"
+    sub: "Exterior and interior materials and finishes"
+    blocks:
+      - heading: "Choosing materials & finishes"
+        page: 15
+        paragraphs:
+          - "Your school will be able to choose from a range of materials and finishes that have been proven in school environments. These selections are included to help the building better align with your school’s identity, while supporting long-term maintenance and value for money."
+        rows:
+          - { label: "Wall cladding", value: "A - Profiled metal cladding / B - Brick or concrete masonry veneer / C - Painted fibre cement" }
+          - { label: "Roofing", value: "NA (metal-clad warm roof)" }
+          - { label: "Exterior windows and doors", value: "NA (powder-coat finish aluminium frames)" }
+          - { label: "Balustrade", value: "A - Vertical open balusters / B - Perforated infill panels" }
+          - { label: "Bag shelter", value: "Where contextually required" }
+          - { label: "Glazing manifestation (also interior)", value: "NA (vinyl applied to glazing)" }
+          - { label: "Wall linings", value: "A - Dado at low level, pinboard above / B - Full-height pinboard / C - Pinboard to door head, paint above / D - Dado, pinboard, paint above" }
+          - { label: "Dry-floor finishes", value: "NA (carpet tile)" }
+          - { label: "Wet-floor finishes", value: "NA (vinyl)" }
+          - { label: "Inter-class connection", value: "Openings from standard types" }
+      - heading: "Examples: Exteriors"
+        page: 18
+        paragraphs:
+          - "These examples are illustrative only. Final selections will be confirmed with you during the design process."
+      - heading: "Interior materials & finishes"
+        page: 19
+        paragraphs:
+          - "Interior materials play an important role in how teaching spaces feel, function, and perform. Standard interior materials balance durability, ease of maintenance, cost, and comfort."
+          - "Your school will be able to choose finishes that reflect your identity and support how your spaces are used."
+
+  - id: climate
+    title: "Climate information"
+    sub: "NZBC climate zone, heating and ventilation"
+    blocks:
+      - heading: "Heating & ventilation"
+        page: 22
+        rows_by_zone:
+          "1-3":
+            - { label: "Default", value: "Electric ceiling radiators and natural ventilation." }
+            - { label: "Alternative 01", value: "Airsource heat pumps and wall radiators with natural ventilation." }
+            - { label: "Alternative 02", value: "Heatpump VRF-AC cassettes and ducted outdoor air supply. Natural ventilation openings provided for optional use." }
+          "4-6":
+            - { label: "Default", value: "Electric ceiling radiators and ducted mechanical heat recovery. Natural ventilation during summer." }
+            - { label: "Alternative 01", value: "Airsource heat pumps, wall radiators and ducted mechanical heat recovery. Natural ventilation for summer." }
+            - { label: "Alternative 02", value: "Heatpump VRF-AC cassettes and ducted mechanical heat recovery unit. Natural ventilation openings for optional use." }
+        paragraphs:
+          - "This is the standard approach for most schools. It provides a simple, effective solution that works well in typical site and climate conditions and is the starting point for all projects."
+      - heading: "Heating and ventilation for comfort"
+        page: 21
+        paragraphs:
+          - "Standard designs aim to provide comfortable learning spaces year-round, using simple, efficient systems."
+          - "The preferred approach combines natural ventilation with straightforward heating. This works well in most climates and helps reduce cost, energy use, and long-term maintenance."
+          - "‘Colder climates’ are a consolidation of Climate Zones 4, 5 and 6 as defined by the New Zealand Building Code (NZBC)."
+
+  - id: environment
+    title: "Environmental information"
+    sub: "Daylight, comfort and services"
+    blocks:
+      - heading: "Natural light"
+        page: 21
+        paragraphs:
+          - "Standard designs are developed to provide good natural light under typical site conditions."
+          - "During planning, we consider how the building is positioned on your site — including orientation, nearby buildings, and trees. This helps to ensure that spaces feel bright, comfortable, and usable throughout the day."
+          - "In most cases, the standard design will already meet daylight requirements. Where site conditions are more constrained, the project team may review lighting levels to confirm that the spaces will still perform well."
+      - heading: "Services"
+        page: 21
+        paragraphs:
+          - "We will work with you to understand any existing infrastructure and services already in place. This includes discussing your current systems and any suppliers you may already be working with, so we can factor these into the project. Examples include:"
+        bullets:
+          - "ICT"
+          - "Security"
+          - "PA systems"
+          - "fire alarms."
+
+  - id: other
+    title: "Other MOE documentation"
+    sub: "Scope of this guidance and who to contact"
+    blocks:
+      - heading: "What this guide covers"
+        page: 4
+        paragraphs:
+          - "It does not cover every school building type or technical requirement. Our website has more detailed information about these options, including technical drawings of teaching spaces for secondary schools."
+      - heading: "Next steps & feedback"
+        page: 23
+        paragraphs:
+          - "If you have any questions about this guidance and how it relates to your school, please contact your school property advisor or project team. They can answer your queries and support you as needed."
+          - "Our goal is to continue improving the quality of school property, and we welcome your feedback. Contact us at:"
+          - "property.improvement@education.govt.nz"
