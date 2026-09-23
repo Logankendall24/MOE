@@ -1,0 +1,66 @@
+# PDF pages shown as document boxes in the design (its `docs` lists: 4:3 box
+# with the page as thumbnail, title beneath, opening the PDF at that page).
+#
+# titles: the heading printed on each page, verbatim. `rails catalogue:verify`
+#   checks each one against the page text. Pages without an entry fall back to
+#   the document's title.
+# customise: the pages for each of the design's Customise steps, keyed by the
+#   step id in the design's CUSTOM_STEPS. Pages are in the category's own
+#   catalogue. The teaching layout sheets for the category are added to the
+#   `layout` step automatically. A step with no entry keeps the design's
+#   "PDF to be added" boxes.
+#
+# Further information sections get boxes for the pages their text cites in
+# content/<category>.yml. Nothing needs listing here for that.
+
+titles:
+  primary_catalogue:
+    4: Introduction
+    5: What this means for your school
+    6: Planning for your site
+    7: Choosing the right building
+    8: How our building modules work
+    9: Choosing teaching space layouts
+    10: "Examples: Teaching spaces"
+    11: Choosing library layouts
+    12: Choosing administration layouts
+    13: Choosing materials & finishes
+    14: Exterior materials & finishes
+    15: Choosing cladding
+    16: "Examples: Exteriors"
+    17: Interior materials & finishes
+    18: "Examples: Interiors"
+    19: Daylight, ventilation & comfort
+    20: Heating & ventilation
+    21: Next steps & feedback
+  secondary_catalogue:
+    4: Introduction
+    5: What this means for your school
+    6: Planning for your site
+    7: Choosing the right building
+    8: How our building modules work
+    9: Choosing teaching space layouts
+    10: "Examples: Specialist teaching spaces"
+    11: "Examples: Science teaching spaces"
+    12: "Examples: Single-depth teaching"
+    13: "Examples: Double-depth teaching"
+    14: Choosing library & administration layouts
+    15: Choosing materials & finishes
+    16: Exterior materials & finishes
+    17: Choosing cladding
+    18: "Examples: Exteriors"
+    19: Interior materials & finishes
+    20: "Examples: Interiors"
+    21: Daylight, ventilation & comfort
+    22: Heating & ventilation
+    23: Next steps & feedback
+
+customise:
+  primary_intermediate:
+    cladding: [15, 16, 14, 13]
+    layout: [9, 10]
+    heating: [20, 19]
+  secondary:
+    cladding: [17, 18, 16, 15]
+    layout: [9, 12, 13]
+    heating: [22, 21]

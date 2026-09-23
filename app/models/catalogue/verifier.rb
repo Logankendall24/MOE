@@ -5,10 +5,16 @@
 # and columns) and treats ² as 2, but is otherwise exact.
 class Catalogue::Verifier
   def problems
-    content_problems + layout_problems
+    content_problems + layout_problems + document_problems
   end
 
   private
+
+  def document_problems
+    Catalogue.documents.fetch("titles", {}).flat_map do |source, titles|
+      titles.filter_map { |page, title| missing(source, page, title, "document title") }
+    end
+  end
 
   def content_problems
     Catalogue.categories.keys.flat_map do |category|

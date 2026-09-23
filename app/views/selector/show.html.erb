@@ -961,6 +961,22 @@
                           <a href="{{ bk.sourceUrl }}" target="_blank" rel="noopener" style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189;text-decoration:none" style-hover="color:#2C112D">Source · {{ bk.sourceLabel }} ↗</a>
                         </div>
                       </sc-for>
+                      <sc-if value="{{ sct.hasDocs }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:18px 14px">
+                          <sc-for list="{{ sct.docs }}" as="dc" hint-placeholder-count="4">
+                            <a href="{{ dc.href }}" target="_blank" rel="noopener" sc-camel-on-click="{{ dc.onClick }}" style="display:flex;flex-direction:column;gap:10px;text-decoration:none;color:#2C112D;min-width:0">
+                              <div style="{{ dc.boxStyle }}">
+                                
+                                <sc-if value="{{ dc.noThumb }}" hint-placeholder-val="{{ true }}"><span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;color:#A79FA5">PDF</span></sc-if>
+                              </div>
+                              <div style="display:flex;flex-direction:column;gap:4px">
+                                <span style="font-size:14px;font-weight:500;line-height:1.3">{{ dc.title }}</span>
+                                <span style="font:400 10.5px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.04em;color:#8A8189">{{ dc.status }}</span>
+                              </div>
+                            </a>
+                          </sc-for>
+                        </div>
+                      </sc-if>
                     </div>
                   </sc-if>
                 </div>
@@ -1562,6 +1578,14 @@ class Component extends DCLogic {
         (d.thumb ? "background:#fff url('" + d.thumb + "') center / cover no-repeat;" : 'background:' + (has ? '#fff' : '#FBFAFB') + ';')
     };
   }
+  // A catalogue PDF page (from the Rails API) as a docItem box. The page is
+  // shown whole rather than cropped, and the status gives the page (or, for a
+  // layout sheet, the sheet number printed on it).
+  pageDoc(d) {
+    const doc = this.docItem({ title: d.title, src: d.src, thumb: d.thumb });
+    return { ...doc, boxStyle: doc.boxStyle.replace('/ cover', '/ contain'), status: (d.sheet ? 'Sheet ' + d.sheet : 'PDF · p.' + d.page) + ' · open document' };
+  }
+  pageRef(d) { return d.sheet ? d.title + ' · ' + d.sheet : d.title + ' · p.' + d.page; }
 
   /* ---------- MOE graphics2 p5 arrow ---------- */
   arrowEl(key, side) {
@@ -1609,7 +1633,16 @@ class Component extends DCLogic {
       { label: 'Heating and ventilation', value: heat.name + ' · zone ' + req.climateZone, note: heat[zone] },
       { label: 'Roof', value: blk.roof, note: '' }
     ];
-    const allDocs = [
+    // Real PDF pages from the catalogue once they've loaded; the design's
+    // placeholder boxes until then (or for a step the catalogue has no pages for).
+    const cat = ['building', 'customise', 'report'].includes(s.screen) ? this.buildingData(blk, req) : null;
+    const catOk = !!(cat && !cat.error);
+    const stepDocs = (c) => (catOk && cat.customise[c.id] ? cat.customise[c.id].map((d) => this.pageDoc(d)) : c.docs.map((d) => this.docItem(d)));
+    const allDocs = catOk ? [
+      ...cat.diagrams.groups.flatMap((g) => g.layouts.map((l) => ({ title: l.title, section: 'Diagrams' }))),
+      ...cat.sections.flatMap((sc) => sc.docs.map((d) => ({ title: this.pageRef(d), section: sc.title }))),
+      ...CUSTOM_STEPS.flatMap((c) => (cat.customise[c.id] || []).map((d) => ({ title: this.pageRef(d), section: 'Customise · ' + c.title })))
+    ] : [
       ...INFO_SECTIONS.flatMap((sc) => (sc.docs || []).map((d) => ({ title: d.title, section: sc.title }))),
       ...CUSTOM_STEPS.flatMap((sc) => sc.docs.map((d) => ({ title: d.title, section: 'Customise · ' + sc.title })))
     ];
@@ -1629,7 +1662,7 @@ class Component extends DCLogic {
       }),
       cHasOptions: options.length > 0, cOptions: options,
       cIsSummary: cs.id === 'summary', customRows,
-      cHasDocs: cs.docs.length > 0, cDocs: cs.docs.map((d) => this.docItem(d)),
+      cHasDocs: stepDocs(cs).length > 0, cDocs: stepDocs(cs),
       cBackLabel: step === 0 ? 'Building' : 'Back',
       cOnBack: () => (step === 0 ? this.go('building') : this.setState({ cStep: step - 1 }, () => window.scrollTo(0, 0))),
       cHasNext: step < CUSTOM_STEPS.length - 1,
@@ -1814,6 +1847,7 @@ class Component extends DCLogic {
         chevStyle: this.chev(open ? 405 : 315, INK, 11) + 'margin:' + (open ? '-6px' : '0') + ' 0 0 8px;',
         onToggle: () => this.setState((st) => ({ openInfo: st.openInfo.includes(id) ? st.openInfo.filter((x) => x !== id) : [...st.openInfo, id] })),
         isDiagrams: false, groups: [], hasNotes: false, notes: [], hasExcluded: false, excluded: [], hasNoGroups: false, blocks: [],
+        hasDocs: false, docs: [],
         ...extra
       };
     };
@@ -1836,6 +1870,7 @@ class Component extends DCLogic {
       hasNoGroups: d.groups.length === 0
     });
     const rest = data.sections.map((sc, i) => section(sc.id, i + 2, sc.title, sc.sub, {
+      hasDocs: sc.docs.length > 0, docs: sc.docs.map((d) => this.pageDoc(d)),
       blocks: sc.blocks.map((b) => ({
         heading: b.heading, paras: b.paragraphs, hasBullets: b.bullets.length > 0, bullets: b.bullets, after: b.after,
         hasRows: b.rows.length > 0,

@@ -59,11 +59,24 @@ class CataloguePresenter
         notes: rules.notes
       },
       sections: sections(kind:, specialists:, climate_zone:, building_type:, layout:),
+      customise: customise_docs,
       model3d: Catalogue.models_3d[building_type]
     }
   end
 
   private
+
+  # Document boxes for the design's Customise steps, by step id. The layout
+  # step also gets the category's general teaching layout sheets.
+  def customise_docs
+    modules = Catalogue.categories.dig(@category, "teaching_modules") || []
+    sheets = Catalogue.layouts.select { |l| l.for_category?(@category) && l.space == "teaching" && modules.include?(l.module_class) }
+    Catalogue.customise_pages(@category).to_h do |step, pages|
+      docs = pages.map { |p| page_doc(@catalogue, p) }
+      docs += sheets.map { |l| page_doc(l.source, l.pages.first, title: l.title).merge(sheet: l.sheets.first) } if step == "layout"
+      [step, docs]
+    end
+  end
 
   def sections(kind:, specialists:, climate_zone:, building_type:, layout:)
     zone_group = climate_zone.to_i >= 4 ? "4-6" : "1-3"
@@ -81,8 +94,18 @@ class CataloguePresenter
         }
       end
       next if blocks.empty?
-      { id: section["id"], title: section["title"], sub: section["sub"], blocks: }
+      # One document box per PDF page the section's text comes from.
+      docs = blocks.map { |b| [b[:source][:key], b[:source][:page]] }.uniq.map { |key, page| page_doc(key, page) }
+      { id: section["id"], title: section["title"], sub: section["sub"], blocks:, docs: }
     end
+  end
+
+  # A PDF page as the design's document box: title, the page as thumbnail, and
+  # a link that opens the PDF at that page.
+  def page_doc(key, page, title: Catalogue.page_title(key, page))
+    source = Catalogue.sources.fetch(key)
+    { title:, page:, sourceTitle: source["title"], thumb: sheet_url(key, page, "thumb"),
+      src: catalogue_document_path(source: key, anchor: "page=#{page}") }
   end
 
   def applies?(block, kind, specialists)

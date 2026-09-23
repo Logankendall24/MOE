@@ -45,6 +45,35 @@ class Catalogue
 
     def pdf_path(source_key) = PDF_DIR.join(sources.fetch(source_key).fetch("file"))
 
+    # PDF pages shown as document boxes: see documents.yml.
+    def documents = read("documents")
+
+    # The heading printed on a page, or the document's title if none is listed.
+    def page_title(source_key, page)
+      documents.dig("titles", source_key, page) || sources.fetch(source_key).fetch("title")
+    end
+
+    # Pages for each of the design's Customise steps, in the category's catalogue.
+    def customise_pages(category) = documents.dig("customise", category) || {}
+
+    # Pages the site may render as images: layout sheets, plus every page the
+    # catalogue text, document titles or Customise steps refer to.
+    def renderable_page?(source_key, page)
+      renderable_pages.include?([source_key, page])
+    end
+
+    def renderable_pages
+      pages = layouts.flat_map { |l| l.pages.map { |p| [l.source, p] } }
+      documents.fetch("titles", {}).each { |source, titles| pages += titles.keys.map { |p| [source, p] } }
+      categories.each_key do |category|
+        content = content(category)
+        doc = content.fetch("catalogue")
+        content.fetch("sections").each { |s| s.fetch("blocks").each { |b| pages << [b["doc"] || doc, b.fetch("page")] } }
+        customise_pages(category).each_value { |list| pages += list.map { |p| [doc, p] } }
+      end
+      pages.to_set
+    end
+
     def page_text(source_key, page)
       path = SOURCE_TEXT_DIR.join("#{source_key}.txt")
       return nil unless path.exist?

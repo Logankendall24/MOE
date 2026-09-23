@@ -4,8 +4,7 @@ class CatalogueImagesController < ApplicationController
   def sheet
     source = params[:source]
     page = Integer(params[:page], exception: false)
-    allowed = Catalogue.layouts.any? { |l| l.source == source && l.pages.include?(page) }
-    return head(:not_found) unless allowed
+    return head(:not_found) unless Catalogue.renderable_page?(source, page)
 
     send_rendered SheetRenderer.sheet(source, page, params[:size]), "image/jpeg"
   end
