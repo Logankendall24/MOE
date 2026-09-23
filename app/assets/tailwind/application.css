@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@theme {
+  --color-ink: #2c112d;
+  --color-cream: #f1f3f2;
+  --color-mauve: #7a3a5e;
+  --color-blush: #f1d9e6;
+  --font-heading: "Figtree", "Instrument Sans", Helvetica, Arial, sans-serif;
+  --font-sans: "Instrument Sans", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}

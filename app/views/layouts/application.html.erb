@@ -15,26 +15,32 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-white text-slate-900 antialiased">
-    <header class="border-b border-slate-200">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <%= link_to root_path, class: "flex items-baseline gap-3" do %>
-          <span class="text-sm font-semibold tracking-wide uppercase text-slate-900">Standard Designs Navigator</span>
-          <span class="hidden sm:inline text-xs text-slate-500">Prototype · not an official Ministry of Education service</span>
-        <% end %>
-        <nav class="flex items-center gap-6 text-sm">
-          <%= link_to "Browse building types", building_types_path, class: "text-slate-600 hover:text-slate-900" %>
-          <%= link_to "Start questionnaire", questionnaire_start_path, class: "text-slate-600 hover:text-slate-900" %>
-        </nav>
-      </div>
-    </header>
+  <body class="bg-cream text-ink antialiased font-sans">
+    <% unless content_for?(:full_bleed) %>
+      <header class="border-b border-ink/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <%= link_to root_path, class: "flex items-baseline gap-3" do %>
+            <span class="font-mono text-xs font-medium tracking-[0.14em] uppercase text-ink">Standard Designs Navigator</span>
+            <span class="hidden sm:inline text-xs text-ink/50">Prototype · not an official Ministry of Education service</span>
+          <% end %>
+          <nav class="flex items-center gap-6 font-mono text-xs tracking-[0.1em] uppercase">
+            <%= link_to "Browse building types", building_types_path, class: "text-ink/70 hover:text-ink" %>
+            <%= link_to "Start questionnaire", questionnaire_start_path, class: "text-ink/70 hover:text-ink" %>
+          </nav>
+        </div>
+      </header>
+    <% end %>
 
     <% if flash[:alert] %>
-      <div class="bg-amber-50 border-b border-amber-200 text-amber-900 text-sm">
+      <div class="bg-blush border-b border-ink/10 text-ink text-sm">
         <div class="max-w-6xl mx-auto px-6 py-3"><%= flash[:alert] %></div>
       </div>
     <% end %>
@@ -43,8 +49,8 @@
       <%= yield %>
     </main>
 
-    <footer class="border-t border-slate-200 mt-24">
-      <div class="max-w-6xl mx-auto px-6 py-10 text-sm text-slate-500 space-y-3">
+    <footer class="border-t border-ink/10 mt-24">
+      <div class="max-w-6xl mx-auto px-6 py-10 text-sm text-ink/60 space-y-3">
         <p class="max-w-3xl">
           This tool is intended to assist with early consideration of Ministry of Education
           standard design options. It does not replace Ministry of Education requirements,
@@ -54,7 +60,7 @@
         </p>
         <p>
           Building-type names sourced from the Ministry of Education's
-          <a href="https://www.education.govt.nz/our-work/strategies-policies-and-programmes/property-and-infrastructure/standardising-school-property/standard-designs-school-buildings-and-layouts" class="underline hover:text-slate-700" target="_blank" rel="noopener">standard designs webpage</a>.
+          <a href="https://www.education.govt.nz/our-work/strategies-policies-and-programmes/property-and-infrastructure/standardising-school-property/standard-designs-school-buildings-and-layouts" class="underline hover:text-ink" target="_blank" rel="noopener">standard designs webpage</a>.
           Detailed figures shown in this prototype are placeholders pending verification
           against Ministry source PDFs — see each building type's status badge.
         </p>

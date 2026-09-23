@@ -1,45 +1,76 @@
 <% content_for :title, "Home" %>
+<% content_for :full_bleed, true %>
 
-<section class="border-b border-slate-200">
-  <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-5 gap-12 items-start">
-    <div class="md:col-span-3">
-      <p class="text-xs font-semibold tracking-widest uppercase text-slate-500 mb-4">
-        Decision-support prototype
-      </p>
-      <h1 class="text-4xl font-semibold tracking-tight text-slate-900 leading-tight">
-        Find the Ministry of Education standard designs relevant to your school
-      </h1>
-      <p class="mt-6 text-lg text-slate-600 max-w-xl leading-relaxed">
-        Instead of reading through multiple Ministry PDFs, answer a short set of questions
-        about your school and get a transparent, explainable shortlist of the standard
-        building types and layouts that may be relevant — with every reason traced back to
-        a documented source.
-      </p>
-      <div class="mt-8 flex flex-wrap items-center gap-4">
-        <%= link_to "Start", questionnaire_start_path,
-              class: "inline-flex items-center px-6 py-3 bg-slate-900 text-white text-sm font-medium hover:bg-slate-700" %>
-        <%= link_to "Browse all standard building types", building_types_path,
-              class: "text-sm font-medium text-slate-700 hover:text-slate-900 underline underline-offset-4" %>
-      </div>
-    </div>
+<section class="relative min-h-screen flex flex-col justify-between gap-10 px-7 py-8 sm:px-10 sm:py-12 text-white bg-ink bg-cover bg-center" style="background-image:url('<%= asset_path("cover-background.png") %>')">
+  <div class="flex flex-wrap items-start justify-between gap-8">
+    <%= image_tag "moe-logo.png", alt: "Te Tāhuhu o te Mātauranga — Ministry of Education", class: "w-[190px] sm:w-[230px] h-auto" %>
 
-    <div class="md:col-span-2 border border-slate-200 bg-slate-50 p-6">
-      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-900">What this tool does</h2>
-      <ul class="mt-4 space-y-3 text-sm text-slate-600">
-        <li>— Turns the Ministry's standard-design PDFs into a structured, searchable format</li>
-        <li>— Asks about your school type, roll, spaces, and facilities</li>
-        <li>— Shows which standard building types (Type S, D, H, G, K) may be relevant, and why</li>
-        <li>— Links every claim back to its Ministry source document and page, where available</li>
-        <li>— Clearly labels anything not yet confirmed against a Ministry PDF</li>
-      </ul>
+    <nav class="flex items-center gap-6 sm:gap-10 font-mono text-xs tracking-[0.12em] uppercase">
+      <%= link_to building_types_path, class: "flex items-center gap-3 hover:opacity-70 transition-opacity" do %>
+        <span>Browse building types</span>
+        <span class="w-[11px] h-[11px] border-r border-b border-white rotate-45 -mr-1"></span>
+      <% end %>
+      <%= link_to questionnaire_start_path, class: "flex items-center gap-3 hover:opacity-70 transition-opacity" do %>
+        <span>Start questionnaire</span>
+        <span class="w-[11px] h-[11px] border-r border-b border-white rotate-45 -mr-1"></span>
+      <% end %>
+    </nav>
+  </div>
+
+  <div class="max-w-4xl">
+    <p class="font-mono text-xs tracking-[0.14em] uppercase text-white/60 mb-5">
+      Standard Designs Navigator · Prototype
+    </p>
+    <h1 class="font-heading font-extrabold leading-[1.02] tracking-tight text-[clamp(2rem,6vw,4.75rem)]">
+      Find the right standard design for your school
+    </h1>
+    <p class="mt-6 font-heading font-bold text-[clamp(1.15rem,2vw,1.65rem)] leading-snug max-w-2xl">
+      A guided way through the Ministry of Education's "Great schools, great spaces"
+      standard designs — for primary, intermediate and secondary schools.
+    </p>
+    <div class="mt-9">
+      <%= link_to questionnaire_start_path,
+            class: "inline-flex items-center gap-3 bg-white text-ink px-7 py-[18px] font-mono text-xs font-medium tracking-[0.14em] uppercase hover:bg-blush transition-colors" do %>
+        Start the questionnaire →
+      <% end %>
     </div>
+  </div>
+
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <%= image_tag "nz-govt-logo.png", alt: "Te Kāwanatanga o Aotearoa — New Zealand Government", class: "w-[150px] sm:w-[190px] h-auto" %>
+    <p class="text-xs leading-relaxed max-w-[30em] text-right text-white/50">
+      He mea tārai e mātou te mātauranga kia rangatira ai, kia mana taurite ai ōna huanga
+    </p>
   </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-6 py-16">
-  <div class="border border-amber-300 bg-amber-50 p-6 max-w-3xl">
-    <h2 class="text-sm font-semibold uppercase tracking-wide text-amber-900">Disclaimer</h2>
-    <p class="mt-3 text-sm text-amber-900 leading-relaxed">
+<section class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-5 gap-12 items-start">
+  <div class="md:col-span-3">
+    <p class="font-mono text-xs tracking-[0.14em] uppercase text-ink/50 mb-4">What this tool does</p>
+    <p class="text-lg text-ink/70 leading-relaxed max-w-xl">
+      Instead of reading through multiple Ministry PDFs, answer a short set of questions
+      about your school and get a transparent, explainable shortlist of the standard
+      building types and layouts that may be relevant — with every reason traced back to
+      a documented source.
+    </p>
+  </div>
+
+  <div class="md:col-span-2 border border-ink/15 bg-white p-6">
+    <h2 class="font-mono text-xs font-medium tracking-[0.12em] uppercase text-ink">How it works</h2>
+    <ul class="mt-4 space-y-3 text-sm text-ink/70">
+      <li>— Turns the Ministry's standard-design PDFs into a structured, searchable format</li>
+      <li>— Asks about your school type, roll, spaces, and facilities</li>
+      <li>— Shows which standard building types (Type S, D, H, G, K) may be relevant, and why</li>
+      <li>— Links every claim back to its Ministry source document and page, where available</li>
+      <li>— Clearly labels anything not yet confirmed against a Ministry PDF</li>
+    </ul>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 pb-20">
+  <div class="border border-mauve/30 bg-blush/40 p-6 max-w-3xl">
+    <h2 class="font-mono text-xs font-medium tracking-[0.12em] uppercase text-mauve">Disclaimer</h2>
+    <p class="mt-3 text-sm text-ink/80 leading-relaxed">
       This tool is intended to assist with early consideration of Ministry of Education
       standard design options. It does not replace Ministry of Education requirements,
       project-specific advice, professional architectural design, engineering advice,
@@ -50,7 +81,7 @@
     </p>
   </div>
 
-  <div class="mt-8 max-w-3xl text-sm text-slate-500 leading-relaxed">
+  <div class="mt-8 max-w-3xl text-sm text-ink/50 leading-relaxed">
     <p>
       Built for use by school principals, property managers, boards of trustees,
       architects, and Ministry property teams during early consideration of a property
