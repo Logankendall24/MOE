@@ -5,8 +5,8 @@ require "rack/auth/basic"
 # secrets). If either is missing the site refuses every request rather than
 # opening up. /up stays open so Fly's health check still works.
 #
-# To make the site public again, remove the SiteLock line in
-# config/environments/production.rb.
+# Switched on or off by the SiteLock line in config/environments/production.rb
+# (currently off: the site is public).
 class SiteLock
   REALM = "Standard designs selector".freeze
   OPEN_PATHS = %w[/up].freeze

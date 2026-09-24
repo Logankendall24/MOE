@@ -4,9 +4,9 @@ require_relative "../../lib/site_lock"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Private while unfinished: every request needs the SITE_USERNAME /
-  # SITE_PASSWORD login. Delete this line to make the site public.
-  config.middleware.insert_before 0, SiteLock
+  # The site is public. To make it private again (every request needs the
+  # SITE_USERNAME / SITE_PASSWORD login from Fly secrets), uncomment:
+  # config.middleware.insert_before 0, SiteLock
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
