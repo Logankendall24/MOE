@@ -5,6 +5,7 @@ class CataloguePresenter
   include Rails.application.routes.url_helpers
 
   KINDS = { "R" => "teaching", "S1" => "teaching", "S2" => "teaching", "S3" => "teaching",
+            "D1" => "teaching", "D2" => "teaching", "D3" => "teaching",
             "L" => "library", "C" => "admin" }.freeze
 
   def initialize(category)
@@ -39,6 +40,8 @@ class CataloguePresenter
           e.slice("caption", "note").merge(src: crop_url("example-#{i}"), aspect: "#{e['crop'][2]} / #{e['crop'][3]}")
         end
       },
+      figures: (@content["figures"] || []).each_with_index.map { |f, i| { title: f["title"], **crop_fields(f, "figure-#{i}") } },
+      graphics: graphics,
       specialistSpaces: specialist_spaces,
       spaceNames: Catalogue.space_names.transform_values { |names| names.transform_values { |n| n["label"] } },
       models3d: Catalogue.models_3d
@@ -63,11 +66,33 @@ class CataloguePresenter
       },
       sections: sections(kind:, specialists:, climate_zone:, building_type:, layout:),
       customise: customise_docs(building_type),
+      typology: (@content["typologies"] || []).each_with_index.filter_map do |t, i|
+        { caption: t["caption"], **crop_fields(t, "typology-#{i}") } if t["types"].include?(building_type)
+      end,
       model3d: Catalogue.models_3d[building_type] || Catalogue.models_3d["default"]
     }
   end
 
   private
+
+  # The cover's Graphics panel: example layout pages as document boxes, and
+  # the example renders with their captions, grouped by the page they're on.
+  def graphics
+    g = @content["graphics"] || {}
+    {
+      layouts: (g["layouts"] || []).map { |p| page_doc(@catalogue, p) },
+      renders: (g["renders"] || []).each_with_index.map do |r, i|
+        { title: r["title"], bullets: r["bullets"] || [], group: Catalogue.page_title(@catalogue, r["page"]),
+          **crop_fields(r, "render-#{i}") }
+      end
+    }
+  end
+
+  # A cropped region of a catalogue page: its image, shape and source page.
+  def crop_fields(item, id)
+    _x, _y, w, h = item.fetch("crop")
+    { src: crop_url(id), aspect: (w.to_f / h).round(4), page: item["page"], source: source_ref(@catalogue, item["page"]) }
+  end
 
   # The specialist spaces the requirements flow offers, named as the PDF does,
   # with the occupancy printed on each space's first sheet.

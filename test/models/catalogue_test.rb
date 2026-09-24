@@ -27,14 +27,14 @@ class CatalogueTest < ActiveSupport::TestCase
     end
   end
 
-  test "specialist mappings point at specialist sheets in the same category" do
+  test "specialist mappings point at specialist sheets from the secondary layouts" do
     Catalogue.specialist_types.each do |category, spaces|
       spaces.each do |type, space|
         (space.fetch("sheets") + (space["supporting"] || [])).each do |id|
           layout = Catalogue.layout(id)
           assert layout, "#{category}/#{type}: no sheet #{id}"
           assert_equal "specialist", layout.space, "#{category}/#{type}: #{id} is not a specialist sheet"
-          assert layout.for_category?(category), "#{category}/#{type}: #{id} is not a #{category} sheet"
+          assert_equal "secondary_teaching", layout.source, "#{category}/#{type}: #{id} is not from the secondary layouts"
         end
       end
     end

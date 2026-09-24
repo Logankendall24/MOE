@@ -20,9 +20,11 @@ Rails.application.configure do
   # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
 
-  # Cache assets for far-future expiry since they are all digest stamped.
-  # "private" so no shared cache (Thruster's included) serves them past SiteLock.
-  config.public_file_server.headers = { "cache-control" => "private, max-age=#{1.year.to_i}" }
+  # Public files (the design's scripts, the 3D viewer and models) keep fixed
+  # names, so browsers must check for a newer copy each time (a cheap 304 when
+  # unchanged). "private" so no shared cache serves them past SiteLock if it's
+  # switched back on.
+  config.public_file_server.headers = { "cache-control" => "private, no-cache" }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"

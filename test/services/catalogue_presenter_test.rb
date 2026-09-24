@@ -30,11 +30,11 @@ class CataloguePresenterTest < ActiveSupport::TestCase
     assert_equal [20, 19], climate[:docs].map { |d| d[:page] }
   end
 
-  test "the requirements flow offers every secondary specialist space by its PDF name" do
+  test "the requirements flow offers every specialist space by its PDF name, in both categories" do
     spaces = CataloguePresenter.new("secondary").about[:specialistSpaces]
     assert_equal 13, spaces.size
     assert_includes spaces.map { |s| s[:label] }, "Dance"
-    assert_empty CataloguePresenter.new("primary_intermediate").about[:specialistSpaces]
+    assert_equal 13, CataloguePresenter.new("primary_intermediate").about[:specialistSpaces].size
   end
 
   test "customise steps use the category's own catalogue and teaching sheets" do
@@ -70,5 +70,23 @@ class CataloguePresenterTest < ActiveSupport::TestCase
   test "pages nothing refers to cannot be rendered" do
     assert_not Catalogue.renderable_page?("primary_catalogue", 1)
     assert_not Catalogue.renderable_page?("primary_catalogue", 999)
+  end
+
+  test "each building type gets its own typology diagrams, from its own catalogue" do
+    d2 = building("secondary", building_type: "D2")[:typology]
+    assert_equal ["D2 – Double-depth, two-storey", "Example: 14-teaching-space secondary school block with half bay amenities module."],
+                 d2.map { |t| t[:caption].first }
+    assert d2.all? { |t| t[:source][:key] == "secondary_catalogue" }
+    assert_equal ["S1 – Single-depth, single-storey (typical)", "S1 – Single-depth, single-storey (gabled roof)", "Typical floor Plan – S1 (S2, S3 multi-storey similar)"],
+                 building("primary_intermediate", building_type: "S1")[:typology].map { |t| t[:caption].first }
+    assert_empty building("primary_intermediate", building_type: "L")[:typology]
+  end
+
+  test "about has the how-it-works figures and the graphics panel's layouts and renders" do
+    about = CataloguePresenter.new("secondary").about
+    assert_equal ["Introduction", "How our building modules work"], about[:figures].map { |f| f[:title] }
+    assert_equal [9, 12, 13, 10, 11, 14], about[:graphics][:layouts].map { |d| d[:page] }
+    assert_equal ["Examples: Exteriors"] * 3 + ["Examples: Interiors"] * 3, about[:graphics][:renders].map { |r| r[:group] }
+    about[:graphics][:layouts].each { |d| assert Catalogue.renderable_page?("secondary_catalogue", d[:page]) }
   end
 end

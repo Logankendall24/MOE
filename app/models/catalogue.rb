@@ -31,7 +31,11 @@ class Catalogue
     def sources = read("sources")
     def categories = read("categories").except("modules")
     def modules = read("categories").fetch("modules")
-    def specialist_types = read("specialist_types")
+    # Specialist spaces offered to each category: { category => { name => space } }.
+    def specialist_types
+      data = read("specialist_types")
+      data.fetch("categories").to_h { |c| [c, data.fetch("spaces")] }
+    end
     def space_names = read("space_names")
     def models_3d = read("models_3d")
     def content(category) = read("content/#{category}")
@@ -71,6 +75,7 @@ class Catalogue
         doc = content.fetch("catalogue")
         content.fetch("sections").each { |s| s.fetch("blocks").each { |b| pages << [b["doc"] || doc, b.fetch("page")] } }
         customise_pages(category).each_value { |list| pages += list.map { |p| [doc, p] } }
+        pages += (content.dig("graphics", "layouts") || []).map { |p| [doc, p] }
       end
       pages.to_set
     end

@@ -23,11 +23,14 @@ class SheetRenderer
     end
   end
 
-  def self.crop(source_key, page, box)
-    x, y, w, h = box.map { |v| (v * CROP_DPI / CROP_BASE_DPI).round }
-    render("#{source_key}-p#{page}-crop-#{box.join('-')}", "png", source_key) do |prefix|
-      ["-r", CROP_DPI.to_s, "-f", page.to_s, "-l", page.to_s, "-x", x.to_s, "-y", y.to_s,
-       "-W", w.to_s, "-H", h.to_s, "-singlefile", "-png", prefix]
+  # dpi: render resolution (photos embedded at 150 ppi gain nothing above it).
+  # format: "png" for drawings, "jpg" for photographic renders.
+  def self.crop(source_key, page, box, dpi: CROP_DPI, format: "png")
+    x, y, w, h = box.map { |v| (v * dpi / CROP_BASE_DPI).round }
+    ext = format == "jpg" ? "jpg" : "png"
+    render("#{source_key}-p#{page}-crop-#{box.join('-')}-#{dpi}", ext, source_key) do |prefix|
+      ["-r", dpi.to_s, "-f", page.to_s, "-l", page.to_s, "-x", x.to_s, "-y", y.to_s,
+       "-W", w.to_s, "-H", h.to_s, "-singlefile", *(ext == "jpg" ? ["-jpeg", "-jpegopt", "quality=85"] : ["-png"]), prefix]
     end
   end
 

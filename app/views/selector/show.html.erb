@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html><head><script>window.__resources = {"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"/design/e355f18b-5158-4337-8c1c-31fdd3dc81b5.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"/design/81ce1a23-9483-4e03-8e9c-c22da204d2e1.js"};</script>
 <script type="importmap">{"imports":{"three":"/vendor/three/three.module.min.js","three/addons/":"/vendor/three/addons/"}}</script>
+<script>window.__viewerVersion = "<%= File.mtime(Rails.public_path.join("viewer/model-viewer.js")).to_i %>";</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="/design/6586ca0b-07ca-4e70-89bb-a488367cbf12.js"></script>
@@ -11,7 +12,7 @@
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Standard designs selector</title>
-<script src="/design/523e5269-69c8-4e7f-81a6-e191cdaa913a.js"></script>
+<script src="/design/523e5269-69c8-4e7f-81a6-e191cdaa913a.js?v=<%= File.mtime(Rails.public_path.join("design/523e5269-69c8-4e7f-81a6-e191cdaa913a.js")).to_i %>"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <style>/* latin-ext */
@@ -301,6 +302,14 @@
               </sc-for>
             </div>
           </sc-if>
+          <sc-if value="{{ showAboutFigures }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ aboutFigures }}" as="af" hint-placeholder-count="2">
+              <div style="margin-top:22px;border-top:1px solid rgba(255,255,255,0.2);padding-top:16px">
+                <div style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55)">{{ af.title }}</div>
+                <button sc-camel-on-click="{{ af.onOpen }}" aria-label="{{ af.title }}" style="{{ af.tileStyle }}"></button>
+              </div>
+            </sc-for>
+          </sc-if>
 
           <sc-for list="{{ panelBlocks }}" as="b" hint-placeholder-count="3">
             <div style="margin-top:26px;border-top:1px solid rgba(255,255,255,0.2);padding-top:16px">
@@ -361,6 +370,35 @@
                 <p style="margin:0 0 9px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.78)">{{ hc }}</p>
               </sc-for>
             </div>
+          </sc-if>
+
+          <sc-if value="{{ showGraphics }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:26px;border-top:1px solid rgba(255,255,255,0.2);padding-top:16px">
+              <div style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55)">Example layouts</div>
+              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px;margin-top:14px">
+                <sc-for list="{{ gfxLayouts }}" as="gl" hint-placeholder-count="4">
+                  <button sc-camel-on-click="{{ gl.onOpen }}" style="display:flex;flex-direction:column;gap:8px;background:transparent;border:none;padding:0;text-align:left;color:#fff;cursor:zoom-in">
+                    <span style="{{ gl.tileStyle }}"></span>
+                    <span style="font-size:13.5px;line-height:1.35">{{ gl.title }}</span>
+                    <span style="font:400 10.5px/1.3 'IBM Plex Mono',monospace;color:rgba(255,255,255,0.55)">{{ gl.meta }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <sc-for list="{{ gfxRenderGroups }}" as="rg" hint-placeholder-count="2">
+              <div style="margin-top:26px;border-top:1px solid rgba(255,255,255,0.2);padding-top:16px">
+                <div style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55)">{{ rg.title }}</div>
+                <sc-for list="{{ rg.items }}" as="ri" hint-placeholder-count="3">
+                  <div style="margin-top:14px">
+                    <button sc-camel-on-click="{{ ri.onOpen }}" aria-label="{{ ri.title }}" style="{{ ri.tileStyle }}"></button>
+                    <div style="margin-top:8px;font-size:14px;font-weight:600;color:#fff">{{ ri.title }}</div>
+                    <sc-for list="{{ ri.bullets }}" as="rb" hint-placeholder-count="2">
+                      <div style="margin-top:3px;font-size:13px;line-height:1.45;color:rgba(255,255,255,0.78)">› {{ rb }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
           </sc-if>
 
           <sc-if value="{{ panelHasSource }}" hint-placeholder-val="{{ false }}">
@@ -819,6 +857,22 @@
                 </div>
               </div>
             </div>
+
+            <sc-if value="{{ hasTypology }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:20px;background:#fff;border:1px solid #D7DAD7;padding:18px 20px 20px">
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ typologyLabel }}</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px 28px;margin-top:16px;align-items:end">
+                  <sc-for list="{{ typology }}" as="ty" hint-placeholder-count="2">
+                    <button sc-camel-on-click="{{ ty.onOpen }}" style="display:flex;flex-direction:column;gap:10px;background:transparent;border:none;padding:0;text-align:left;color:#2C112D;cursor:zoom-in">
+                      <span style="{{ ty.imgStyle }}"></span>
+                      <span style="display:flex;flex-direction:column;gap:3px">
+                        <sc-for list="{{ ty.caption }}" as="tc" hint-placeholder-count="2"><span style="font-size:13.5px;line-height:1.35;color:#3F3542">{{ tc }}</span></sc-for>
+                      </span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
 
             <div style="margin-top:clamp(36px,4vw,52px);border-top:1px solid #2C112D;padding-top:20px">
               <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
@@ -1343,6 +1397,8 @@ const PANELS = {
     { label: 'Support modules', text: 'B1 amenities and resource full bay, B1.h half bay, L1 library module, C1 administration module, S.st stair and lift module.' },
     { label: 'Building types', text: 'Type R relocatable, S1 single-depth single-storey, S2 two-storey, S3 three-storey, plus standard library and administration layouts.' }
   ] },
+  // Filled from the catalogue: example layouts and renders from the PDFs.
+  graphics: { title: 'Graphics', blocks: [] },
   contact: { title: 'Contact', blocks: [
     { label: 'Property advisor', text: 'Your Ministry of Education property advisor is the first point of contact for any project using the standard designs.' },
     { label: 'Ministry of Education', text: 'General enquiries and regional office details are published at education.govt.nz.' },
@@ -1503,7 +1559,7 @@ class Component extends DCLogic {
     const el = slot.el, url = slot.want;
     if (!el || !url || slot.loading === url) return;
     slot.loading = url;
-    import('/viewer/model-viewer.js')
+    import('/viewer/model-viewer.js?v=' + (window.__viewerVersion || ''))
       .then(({ ModelViewer }) => {
         if (slot.el !== el) return null;
         slot.mv = slot.mv || new ModelViewer(el, { onChange: this.modelChanged, ...slot.opts });
@@ -2010,7 +2066,17 @@ class Component extends DCLogic {
       hasDocs: sc.docs.length > 0, docs: this.pageDocs(sc.docs),
       blocks: [...(sc.summary ? [siteBlock] : []), ...sc.blocks.map(block)]
     }));
-    return { infoSections: [diagrams, ...rest], infoLoading: false, infoError: false };
+    // The building type's diagrams from the catalogue (p7 sections, the p8 D example),
+    // shown between the 3D window and Building information.
+    const typ = data.typology || [];
+    const typCards = this.cropCards(typ, (t) => t.caption[0]);
+    return {
+      infoSections: [diagrams, ...rest], infoLoading: false, infoError: false,
+      hasTypology: typ.length > 0,
+      typologyLabel: typ.length ? `Building type · ${typ[0].source.title} · p.${[...new Set(typ.map((t) => t.page))].join(", ")}` : "",
+      typology: typ.map((t, i) => ({ caption: t.caption, onOpen: () => this.openSheet(typCards, i),
+        imgStyle: `display:block;width:100%;aspect-ratio:${t.aspect};background:#fff url('${t.src}') center / contain no-repeat;` }))
+    };
   }
 
   // Enlarged view of one layout sheet, stepping through the sheets shown on the page.
@@ -2024,7 +2090,7 @@ class Component extends DCLogic {
       lbOpen: true, lbTitle: c.title,
       lbMeta: [p.sheet ? 'Sheet ' + p.sheet : 'Page ' + p.page, c.occupancy, c.module && 'Module ' + c.module].filter(Boolean).join(' · '),
       // Sheets are ISO A1/A3 landscape (√2), rendered 2600 px on the long side.
-      lbImgStyle: `display:block;background:#fff url('${p.full}') center / contain no-repeat;aspect-ratio:1.4142;` +
+      lbImgStyle: `display:block;background:#fff url('${p.full}') center / contain no-repeat;aspect-ratio:${p.aspect || 1.4142};` +
         (lb.zoom ? 'width:2600px;max-width:none;cursor:zoom-out;' : 'width:100%;cursor:zoom-in;'),
       lbOnZoom: () => this.setState((st) => ({ lb: { ...st.lb, zoom: !st.lb.zoom } })),
       lbZoomLabel: lb.zoom ? 'Fit to screen' : 'Actual size',
@@ -2047,7 +2113,8 @@ class Component extends DCLogic {
   panelVals() {
     const s = this.state;
     const about = s.panel === 'about';
-    const ab = about ? this.aboutData() : null;
+    const graphics = s.panel === 'graphics';
+    const ab = about || graphics ? this.aboutData() : null;
     const ok = !!(ab && !ab.error);
     const P = s.panel ? PANELS[s.panel] : null;
     const tabs = P && P.tabs ? P.tabs : null;
@@ -2066,7 +2133,7 @@ class Component extends DCLogic {
     // How buildings are created: the catalogue's page replaces the design's
     // module summary; the blocks on the tool's own selection and customisation follow it.
     const afterBlocks = about && tab === 'how' && ok ? designBlocks.filter((b) => /Selection|Customisation/.test(b.label)) : [];
-    const src = !ok ? null : tab === 'about' ? ab.about.source : tab === 'ack' ? ab.acknowledgements.source : ab.howItWorks.source;
+    const src = !ok || !about ? null : tab === 'about' ? ab.about.source : tab === 'ack' ? ab.acknowledgements.source : ab.howItWorks.source;
     // Images are bound as backgrounds: an <img src="{{ }}"> would be fetched
     // literally when the page first parses, before the runtime binds it.
     const tile = (src) => `display:block;background:#fff url('${src}') center / contain no-repeat;background-origin:content-box;padding:14px;`;
@@ -2079,10 +2146,18 @@ class Component extends DCLogic {
       panelTabs: (tabs || []).map((t) => ({ label: t.label, onClick: () => this.setState({ panelTab: t.id }),
         style: 'padding:11px 14px;cursor:pointer;font:500 10.5px/1 \'IBM Plex Mono\',monospace;letter-spacing:0.1em;text-transform:uppercase;' +
           'border:1px solid ' + (t === act ? '#fff' : 'rgba(255,255,255,0.4)') + ';background:' + (t === act ? '#fff' : 'transparent') + ';color:' + (t === act ? INK : '#fff') + ';' })),
-      panelLoading: about && !ab,
-      panelError: about && !!ab && !ok,
+      panelLoading: (about || graphics) && !ab,
+      panelError: (about || graphics) && !!ab && !ok,
       panelCategory: ok ? ab.categoryLabel : '',
-      showAboutIntro: ok && tab === 'about', aboutParas: ok ? ab.about.paragraphs : [],
+      showAboutIntro: ok && about && tab === 'about', aboutParas: ok ? ab.about.paragraphs : [],
+      // How it all works: the catalogue's own diagrams (p4, p8), enlargeable.
+      showAboutFigures: ok && about && tab === 'about',
+      aboutFigures: ok ? (() => {
+        const cards = this.cropCards(ab.figures, (f) => f.title);
+        return ab.figures.map((f, i) => ({ title: f.title, onOpen: () => this.openSheet(cards, i),
+          tileStyle: tile(f.src) + `width:100%;margin-top:14px;border:none;cursor:zoom-in;aspect-ratio:${f.aspect};` }));
+      })() : [],
+      ...(graphics && ok ? this.graphicsVals(ab, tile) : { showGraphics: false, gfxLayouts: [], gfxRenderGroups: [] }),
       showAck: ok && tab === 'ack', ackParas: ok ? ab.acknowledgements.paragraphs : [],
       ackGroups: ok ? ab.acknowledgements.groups.map((g) => ({
         label: g.label, logos: g.logos.map((l) => ({ name: l.name, tileStyle: tile(l.src) + 'height:96px;' }))
@@ -2092,6 +2167,34 @@ class Component extends DCLogic {
       howExamples: ok ? ab.howItWorks.examples.map((e) => ({ ...e, hasNote: !!e.note, tileStyle: tile(e.src) + `aspect-ratio:${e.aspect};padding:18px;` })) : [],
       howClosing: ok ? ab.howItWorks.closing : [],
       panelHasSource: !!src, panelSourceLabel: srcLabel(src), panelSourceUrl: src ? src.url : ''
+    };
+  }
+
+  // Cropped catalogue images as viewer cards: enlarged on screen, with the
+  // viewer's source link opening the PDF page.
+  cropCards(list, titleOf) {
+    return list.map((c) => ({ title: titleOf(c), occupancy: '', module: '',
+      pages: [{ page: c.page, sheet: null, thumb: c.src, full: c.src, aspect: c.aspect }],
+      source: { title: c.source.title, url: c.source.url } }));
+  }
+  // The Graphics panel: the catalogue's example layout pages, then its example
+  // renders grouped by the page they're on (Examples: Exteriors / Interiors).
+  graphicsVals(ab, tile) {
+    const docs = this.pageDocs(ab.graphics.layouts);
+    const renders = ab.graphics.renders;
+    const cards = this.cropCards(renders, (r) => `${r.group} · ${r.title}`);
+    const groups = [];
+    renders.forEach((r, i) => {
+      let g = groups.find((x) => x.title === r.group);
+      if (!g) groups.push(g = { title: r.group, items: [] });
+      g.items.push({ title: r.title, bullets: r.bullets, onOpen: () => this.openSheet(cards, i),
+        tileStyle: `display:block;width:100%;border:none;padding:0;cursor:zoom-in;aspect-ratio:${r.aspect};background:#fff url('${r.src}') center / cover no-repeat;` });
+    });
+    return {
+      showGraphics: true,
+      gfxLayouts: ab.graphics.layouts.map((d, i) => ({ title: d.title, meta: 'PDF · p.' + d.page,
+        tileStyle: tile(d.thumb) + 'aspect-ratio:1.4142;padding:6px;', onOpen: docs[i].onClick })),
+      gfxRenderGroups: groups
     };
   }
 
@@ -2110,6 +2213,7 @@ class Component extends DCLogic {
       onStart: () => this.go('quiz', { qStep: 0 }),
       navTabs: [
         { reo: 'Mō tēnei', label: 'About', onClick: () => this.setState({ panel: 'about', panelTab: 'about' }) },
+        { reo: 'Ngā whakaahua', label: 'Graphics', onClick: () => this.setState({ panel: 'graphics' }) },
         { reo: 'Te Tāhuhu o te Mātauranga', label: 'Ministry of Education', onClick: () => window.open('https://www.education.govt.nz/', '_blank', 'noopener') },
         { reo: 'Whakapā mai', label: 'Contact', onClick: () => this.setState({ panel: 'contact' }) },
         { reo: 'Hākoritanga', label: 'Animation', onClick: () => { this.setState({ screen: 'replay', panel: null }); setTimeout(() => this.setState({ screen: 'cover' }), 60); } }
@@ -2310,12 +2414,12 @@ class Component extends DCLogic {
         ...this.customVals(req, opt, blk),
         ...(screen === 'building' ? this.infoVals(blk, req) : {}),
         ...(screen === 'building' ? this.modelVals(blk, req) : { showMassing: true, hasModel: false }),
-        blockTabs: opt.blocks.map((b) => ({ label: b.typeId,
+        blockTabs: opt.blocks.map((b) => ({ label: b.code || b.typeId,
           style: `background:${b.id === blk.id ? '#fff' : 'transparent'};color:${b.id === blk.id ? INK : '#fff'};border:1px solid ${b.id === blk.id ? '#fff' : 'rgba(255,255,255,0.45)'};padding:8px 12px;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;`, onClick: () => this.setState({ blockId: b.id, bayId: null, zoneId: null, level: 'all' }) })),
         infoBlockName: blk.name,
         infoBlockMeta: `${blk.moe} · Option ${opt.id}`,
         infoRows: [
-          { label: 'Building type', value: blk.typeId },
+          { label: 'Building type', value: blk.code || blk.typeId },
           { label: 'Form', value: blk.form },
           { label: 'Gross floor area', value: `${n0(blk.gfa)} m²` },
           { label: 'Net floor area', value: `${n0(blk.nfa)} m²` },
@@ -2323,9 +2427,9 @@ class Component extends DCLogic {
           { label: 'Dimensions', value: blk.dims },
           { label: 'Storeys', value: String(blk.storeys) },
           { label: 'Modules', value: String(bays.length) },
-          { label: 'Teaching spaces', value: String(bays.filter((b) => b.cat === 'teaching').length) },
+          { label: 'Teaching spaces', value: String(bays.reduce((t, b) => t + (b.moduleKey === 'TS_D_PAIR' ? 2 : b.cat === 'teaching' ? 1 : 0), 0)) },
           { label: 'Teaching layout', value: req.layout.name.replace('Layout ', '').split(' — ')[0] },
-          { label: 'Capacity', value: `${n0(bays.filter((b) => b.cat === 'teaching').length * req.ratio)} students` },
+          { label: 'Capacity', value: `${n0(bays.reduce((t, b) => t + (b.moduleKey === 'TS_D_PAIR' ? 2 : b.cat === 'teaching' ? 1 : 0), 0) * req.ratio)} students` },
           { label: 'Roof', value: blk.roof },
           { label: 'Cladding', value: D.CLADDING[req.cladding].name.replace('Option ', '') },
           { label: 'Services', value: `Zone ${req.climateZone} · default` },

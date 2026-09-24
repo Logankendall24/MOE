@@ -62,9 +62,14 @@ class LayoutRulesTest < ActiveSupport::TestCase
     assert result.groups.none? { |g| g.key == "specialist" }
   end
 
-  test "primary has no specialist sheets, and says so rather than borrowing secondary ones" do
+  test "specialist spaces are offered to primary schools too" do
+    result = run_rules(category: "primary_intermediate", kind: "teaching", specialists: [SCIENCE])
+    assert_equal %w[051 085 086], ids(result, "specialist")
+  end
+  
+  test "an unknown specialist name is noted rather than guessed" do
     result = run_rules(category: "primary_intermediate", kind: "teaching", specialists: %w[Science])
-    assert result.groups.none? { |g| g.key == "specialist" }
+    assert_empty ids(result, "specialist")
     assert_match(/No Science specialist layouts/, result.notes.join)
   end
 
@@ -111,12 +116,12 @@ class LayoutRulesTest < ActiveSupport::TestCase
     assert_equal 3, ids(run_rules(category: "secondary", kind: "teaching", buildings: %w[teaching gym]), "gym").size
   end
 
-  test "no result ever contains a sheet from the other category" do
+  test "apart from shared specialist sheets, no result contains a sheet from the other category" do
     Catalogue.categories.each_key do |category|
       %w[teaching library admin].each do |kind|
         result = run_rules(category:, kind:, buildings: %w[teaching library admin gym hall],
                            specialists: [SCIENCE, ART, "Science"], roll: 600)
-        result.groups.flat_map(&:layouts).each do |layout|
+        result.groups.reject { |g| g.key == "specialist" }.flat_map(&:layouts).each do |layout|
           assert_includes layout.categories, category, "#{layout.id} shown in #{category}"
         end
       end

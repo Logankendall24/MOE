@@ -60,6 +60,16 @@ class Catalogue::Verifier
         end
       end
 
+      (content["typologies"] || []).each do |t|
+        t.fetch("caption").each do |line|
+          checks << [doc, t.fetch("page"), (t["verbatim"] || {})[line] || line, "#{category} typology"]
+        end
+      end
+      (content["figures"] || []).each { |f| checks << [doc, f.fetch("page"), f.fetch("title"), "#{category} figure"] }
+      content.dig("graphics", "renders")&.each do |r|
+        [r.fetch("title"), *r["bullets"]].each { |t| checks << [doc, r.fetch("page"), t, "#{category} render"] }
+      end
+
       checks.filter_map { |d, p, text, where| missing(d, p, text, where) }
     end
   end

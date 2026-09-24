@@ -4,7 +4,8 @@
 # (which module sizes a category uses, which sheets a specialist type covers)
 # live in categories.yml and specialist_types.yml. This class only applies them.
 #
-# Sheets from the other school category are never considered at all. Sheets
+# Sheets from the other school category are never considered, except the
+# specialist sheets specialist_types.yml offers to both categories. Sheets
 # that are in the right category but ruled out by the user's requirements (a
 # roll outside the sheet's band) are returned under `excluded` with the reason,
 # so the interface can explain why they aren't shown.
@@ -72,7 +73,9 @@ class LayoutRules
   end
 
   # One line for the specialist spaces the user selected: each space's own
-  # sheets, then the supporting rooms it uses, without repeats.
+  # sheets, then the supporting rooms it uses, without repeats. Specialist
+  # spaces are offered to the categories specialist_types.yml lists, so their
+  # sheets are taken from all layouts rather than the category's own.
   def specialist_group(notes)
     spaces = Catalogue.specialist_types.fetch(@s.category, {})
     ids = @s.specialists.flat_map do |name|
@@ -81,7 +84,7 @@ class LayoutRules
       notes << "No #{name} specialist layouts in the #{@category['label'].downcase} documents."
       []
     end
-    sheets = ids.uniq.filter_map { |id| @sheets.find { |l| l.id == id } }
+    sheets = ids.uniq.filter_map { |id| Catalogue.layout(id) }
     Group.new(key: "specialist", label: "Specialist teaching spaces", note: @s.specialists.join(" · "), layouts: sheets)
   end
 

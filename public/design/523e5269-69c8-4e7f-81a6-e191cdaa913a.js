@@ -39,8 +39,34 @@ const MODULES = {
   ADMIN: { key: 'ADMIN', code: 'C1', name: 'Administration module', w: 7.2, d: 12.0, nfa: 80, cat: 'admin',
     note: 'Reception, sick bay, meeting, staff, workroom and leadership spaces.' },
   STAIR: { key: 'STAIR', code: 'S.st', name: 'Stair & lift module', w: 4.3, d: 12.0, nfa: 34, cat: 'circulation',
-    note: 'Required once per level on multi-storey types.' }
+    note: 'Required once per level on multi-storey types.' },
+  // Secondary modules, sized as the secondary catalogue p8 prints them.
+  TS_S: { key: 'TS_S', code: 'B', name: 'Teaching space — secondary (S)', w: 7.2, d: 10.3, nfa: 70, cat: 'teaching',
+    note: 'A general teaching space with teaching wall and flexibility in resources and layout.' },
+  TS_D: { key: 'TS_D', code: 'C', name: 'Teaching space — secondary (D)', w: 8.4, d: 8.9, nfa: 70, cat: 'teaching',
+    note: 'A general teaching space with teaching wall and flexibility in resources and layout.' },
+  // A D-type bay: a teaching space either side of the resource / breakout
+  // strip (8.4m x 3.6m), as the secondary catalogue p8 example shows.
+  TS_D_PAIR: { key: 'TS_D_PAIR', code: 'C', name: 'Teaching spaces — secondary (D), either side of resource / breakout', w: 8.4, d: 21.4, nfa: 165, cat: 'teaching',
+    note: 'Two D teaching spaces (8.4m x 8.9m, 70m² each) across a resource / breakout module (8.4m x 3.6m, 25m²).' },
+  // The catalogue gives amenity floor area as "varies": these nfa figures are
+  // estimates, the primary amenity areas above scaled to the secondary bay.
+  AM_FULL_S: { key: 'AM_FULL_S', code: 'B1', name: 'Resource / amenities — full bay', w: 7.2, d: 10.3, nfa: 65, cat: 'wc',
+    note: 'Supporting spaces such as toilets, resource areas, admin or staff spaces. Net floor area varies.' },
+  AM_HALF_S: { key: 'AM_HALF_S', code: 'B1.h', name: 'Resource / amenities — half bay', w: 4.1, d: 10.3, nfa: 36, cat: 'wc',
+    note: 'Supporting spaces such as toilets, resource areas, admin or staff spaces. Net floor area varies.' }
 };
+// The specialist module as the secondary catalogue p8 prints it (8.4m x 12.0m,
+// 95m²). Specialist spaces apply to S and D types in both school categories.
+Object.assign(MODULES.TS_SPEC, { w: 8.4, d: 12.0, nfa: 95 });
+
+// How many teaching spaces a bay holds, and how many bays of building length
+// it adds to the building code (S2-A6.5: half an amenity bay adds 0.5).
+const BAY_TS = { TS_P: 1, TS_S: 1, TS_D: 1, TS_D_PAIR: 2, TS_SPEC: 1 };
+// The code counts teaching bays along the building; a half amenity bay adds
+// .5 (S2-A6.5). A full amenity bay adds nothing: S2 types always have one per
+// level and the project team's example codes a 6-long S2 as S2-A6.
+const BAY_LEN = { TS_P: 1, TS_S: 1, TS_D: 1, TS_D_PAIR: 1, TS_SPEC: 1, AM_HALF: 0.5, AM_HALF_S: 0.5 };
 
 // Typologies
 const BUILDING_TYPES = {
@@ -60,6 +86,19 @@ const BUILDING_TYPES = {
         moe: 'Standard type S3', roof: 'Mono-pitch',
         tags: ['three-storey', 'constrained site'],
         description: 'Three-storey single-depth block for larger rolls on constrained sites.' },
+  // Secondary only. Names and ranges as the secondary catalogue p7 prints them.
+  D1: { id: 'D1', name: 'Type D1 — Double-depth, single-storey', form: 'Double-depth, single-storey', storeys: 1, tsMin: 6, tsMax: 10,
+        moe: 'Standard type D1', roof: 'Gabled',
+        tags: ['double-depth', 'single-storey', 'secondary'],
+        description: 'Double-depth block: teaching spaces either side of a central resource / breakout strip.' },
+  D2: { id: 'D2', name: 'Type D2 — Double-depth, two-storey', form: 'Double-depth, two-storey', storeys: 2, tsMin: 12, tsMax: 33,
+        moe: 'Standard type D2', roof: 'Gabled',
+        tags: ['double-depth', 'two-storey', 'secondary'],
+        description: 'Two-storey double-depth block with teaching spaces either side of a central resource / breakout strip.' },
+  D3: { id: 'D3', name: 'Type D3 — Double-depth, three-storey', form: 'Double-depth, three-storey', storeys: 3, tsMin: 12, tsMax: 33,
+        moe: 'Standard type D3', roof: 'Gabled',
+        tags: ['double-depth', 'three-storey', 'secondary'],
+        description: 'Three-storey double-depth block with teaching spaces either side of a central resource / breakout strip.' },
   L:  { id: 'L',  name: 'Library building', form: 'Single-storey, 1–2 modules', storeys: 1, tsMin: 0, tsMax: 0,
         moe: 'Standard library layouts A / B', roof: 'Mono-pitch',
         tags: ['library', 'learning commons'],
@@ -160,8 +199,16 @@ const MODULE_ZONES = {
     { cat: 'circulation', label: 'Stair', fx: 0, fy: 0, fw: 1, fh: 0.55 },
     { cat: 'circulation', label: 'Lift', fx: 0, fy: 0.55, fw: 0.45, fh: 0.45 },
     { cat: 'store', label: 'Store', fx: 0.45, fy: 0.55, fw: 0.55, fh: 0.45 }
+  ],
+  // D bay across its 21.4m depth: 8.9m teaching, 3.6m resource / breakout, 8.9m teaching.
+  TS_D_PAIR: [
+    { cat: 'teaching', label: 'General teaching', fx: 0, fy: 0, fw: 1, fh: 8.9 / 21.4 },
+    { cat: 'breakout', label: 'Resource / breakout', fx: 0, fy: 8.9 / 21.4, fw: 1, fh: 3.6 / 21.4 },
+    { cat: 'teaching', label: 'General teaching', fx: 0, fy: 12.5 / 21.4, fw: 1, fh: 8.9 / 21.4 }
   ]
 };
+MODULE_ZONES.AM_FULL_S = MODULE_ZONES.AM_FULL;
+MODULE_ZONES.AM_HALF_S = MODULE_ZONES.AM_HALF;
 
 const LIBRARY_LAYOUTS = {
   A: { id: 'A', modules: 1, name: 'Library layout A', suits: 'Small to medium primary school', zones: 'LIB' },
@@ -243,9 +290,17 @@ function calcRequirements(input, ratio) {
     maxStoreys: input.maxStoreys === 'No preference' ? 3 : Number(input.maxStoreys) || 3,
     siteArea: input.siteArea || 'Moderate',
     layout: TEACHING_LAYOUTS[input.layout] || TEACHING_LAYOUTS.B,
+    // School category: secondary schools use the secondary S module and can
+    // have D-type buildings; primary / intermediate use the primary module.
+    category: input.category === 'secondary' ? 'secondary' : 'primary_intermediate',
     notes
   };
 }
+
+// A single-depth (S) building is at most 6 teaching spaces long per level:
+// beyond that it becomes S2, then S3 (project team rule; the catalogues'
+// typical plan shows 2-6 modules). D types take the same length per side.
+const MAX_LEN = 6;
 
 /* ---------------------------------------------------------------- 2. Bay + block assembly */
 
@@ -257,23 +312,25 @@ function bay(moduleKey, level, opts = {}) {
     id: `b${++uid}`,
     moduleKey, code: opts.code || m.code, name: opts.name || m.name,
     cat: opts.cat || m.cat, w: m.w, d: m.d, nfa: opts.nfa || m.nfa, level,
-    layout: opts.layout || null, note: opts.note || m.note,
+    layout: opts.layout || null, note: opts.note || m.note, spec: opts.spec || 0,
     zones: zones.map((z, i) => ({ ...z, id: `z${uid}-${i}` }))
   };
 }
 
-function teachingLevel(count, level, layout, specialistCount, amenity, stair) {
+function teachingLevel(count, level, layout, specialistCount, amenity, stair, category) {
+  const secondary = category === 'secondary';
+  const tsKey = secondary ? 'TS_S' : 'TS_P';
   const bays = [];
   for (let i = 0; i < count; i++) {
     const spec = i >= count - specialistCount;
-    bays.push(bay(spec ? 'TS_SPEC' : 'TS_P', level, {
+    bays.push(bay(spec ? 'TS_SPEC' : tsKey, level, {
       layout: layout.id,
-      name: spec ? 'Specialist teaching space' : 'Teaching space — primary',
+      name: spec ? 'Specialist teaching space' : MODULES[tsKey].name,
       zones: layout.zones
     }));
   }
   if (amenity) {
-    const key = amenity === 0.5 ? 'AM_HALF' : 'AM_FULL';
+    const key = (amenity === 0.5 ? 'AM_HALF' : 'AM_FULL') + (secondary ? '_S' : '');
     const at = count >= 6 ? Math.round(count / 2) : bays.length;
     bays.splice(at, 0, bay(key, level));
   }
@@ -281,24 +338,45 @@ function teachingLevel(count, level, layout, specialistCount, amenity, stair) {
   return bays;
 }
 
-function measure(block) {
-  let nfa = 0, footprint = 0, gfa = 0, len = 0;
+// Areas from each bay's own size, since secondary and D bays aren't 12m deep.
+function measure(block, category) {
+  let nfa = 0, footprint = 0, gfa = 0, len = 0, depth = 0;
   block.levels.forEach((bays, i) => {
     const l = bays.reduce((s, b) => s + b.w, 0);
+    const a = bays.reduce((s, b) => s + b.w * b.d, 0);
     len = Math.max(len, l);
-    gfa += l * 12.0;
+    depth = Math.max(depth, ...bays.map((b) => b.d));
+    gfa += a;
     nfa += bays.reduce((s, b) => s + b.nfa, 0);
-    if (i === 0) footprint = l * 12.0;
+    if (i === 0) footprint = a;
   });
   const storeys = block.levels.length;
+  const r1 = (n) => Math.round(n * 10) / 10;
+  const code = buildingCode(block.typeId, block.levels, category);
+  const t = BUILDING_TYPES[block.typeId];
   return {
     ...block,
+    code, name: code !== block.typeId && t ? `Type ${code} — ${t.form}` : block.name,
     nfa: Math.round(nfa), gfa: Math.round(gfa), footprint: Math.round(footprint),
-    length: Math.round(len * 10) / 10, depth: 12.0, storeys,
-    height: Math.round((storeys * LEVEL_H + ROOF_H) * 10) / 10,
-    dims: `${Math.round(len * 10) / 10}m × 12.0m × ${Math.round((storeys * LEVEL_H + ROOF_H) * 10) / 10}m`
+    length: r1(len), depth: r1(depth), storeys,
+    height: r1(storeys * LEVEL_H + ROOF_H),
+    dims: `${r1(len)}m × ${r1(depth)}m × ${r1(storeys * LEVEL_H + ROOF_H)}m`
   };
 }
+
+// Building code: type, then module letter and length in bays, e.g. S2-A6.5 is
+// a single-depth two-storey block of primary modules (A), 6 bays long with a
+// half amenity bay. Module letters: A primary, B secondary S, C secondary D.
+// The stair module doesn't count towards length. Other types keep their id.
+function buildingCode(typeId, levels, category) {
+  if (!/^[SD][123]$/.test(typeId)) return typeId;
+  const letter = typeId[0] === 'D' ? 'C' : category === 'secondary' ? 'B' : 'A';
+  const len = Math.max(...levels.map((bays) => bays.reduce((s, b) => s + (BAY_LEN[b.moduleKey] || 0), 0)));
+  return `${typeId}-${letter}${len}`;
+}
+
+const tsIn = (b) => BAY_TS[b.moduleKey] || 0;
+const specIn = (b) => b.spec || (b.moduleKey === 'TS_SPEC' ? 1 : 0);
 
 function teachingBlock(typeId, ts, specialist, req, storeys) {
   const perLevel = ceil((ts + specialist) / storeys);
@@ -310,10 +388,41 @@ function teachingBlock(typeId, ts, specialist, req, storeys) {
     const spec = Math.min(remainingSpec, l === storeys - 1 ? remainingSpec : specHere);
     const gen = take - spec;
     remainingTs -= gen; remainingSpec -= spec;
-    levels.push(teachingLevel(take, l, req.layout, spec, storeys > 1 ? 1 : req.amenityBays, storeys > 1));
+    levels.push(teachingLevel(take, l, req.layout, spec, storeys > 1 ? 1 : req.amenityBays, storeys > 1, req.category));
   }
   const t = BUILDING_TYPES[typeId];
-  return measure({ id: `${typeId}-${++uid}`, typeId, name: t.name, form: t.form, moe: t.moe, roof: t.roof, levels });
+  return measure({ id: `${typeId}-${++uid}`, typeId, name: t.name, form: t.form, moe: t.moe, roof: t.roof, levels }, req.category);
+}
+
+// D-type block (secondary only): each bay holds a teaching space either side
+// of the resource / breakout strip, so a level of n spaces is ceil(n / 2) bays
+// long. Specialist spaces take their share of the bays; an odd space out sits
+// in a single-sided D bay. Amenities as for S types.
+function teachingBlockD(typeId, ts, specialist, req, storeys) {
+  const perLevel = ceil((ts + specialist) / storeys);
+  const levels = [];
+  let remaining = ts + specialist, specLeft = specialist;
+  for (let l = 0; l < storeys; l++) {
+    const take = Math.min(perLevel, remaining);
+    const bays = [];
+    for (let i = 0; i < take; i += 2) {
+      const pair = i + 1 < take;
+      const spec = Math.min(specLeft, pair ? 2 : 1);
+      specLeft -= spec;
+      bays.push(bay(pair ? 'TS_D_PAIR' : 'TS_D', l, {
+        layout: req.layout.id, spec,
+        name: (pair ? MODULES.TS_D_PAIR.name : MODULES.TS_D.name) + (spec ? ` (${spec} specialist)` : ''),
+        zones: pair ? MODULE_ZONES.TS_D_PAIR : req.layout.zones
+      }));
+    }
+    const amenity = storeys > 1 ? 1 : req.amenityBays;
+    if (amenity) bays.push(bay(amenity === 0.5 ? 'AM_HALF_S' : 'AM_FULL_S', l));
+    if (storeys > 1) bays.push(bay('STAIR', l));
+    remaining -= take;
+    levels.push(bays);
+  }
+  const t = BUILDING_TYPES[typeId];
+  return measure({ id: `${typeId}-${++uid}`, typeId, name: t.name, form: t.form, moe: t.moe, roof: t.roof, levels }, req.category);
 }
 
 function libraryBlock(req) {
@@ -339,11 +448,11 @@ function adminBlock(req, extraAmenity) {
 
 function fitLines(req, blocks) {
   const all = blocks.flatMap((b) => b.levels.flat());
-  const ts = all.filter((b) => b.moduleKey === 'TS_P').length;
-  const spec = all.filter((b) => b.moduleKey === 'TS_SPEC').length;
+  const spec = all.reduce((s, b) => s + specIn(b), 0);
+  const ts = all.reduce((s, b) => s + tsIn(b), 0) - spec;
   const lib = all.filter((b) => b.moduleKey === 'LIB').length;
   const adm = all.filter((b) => b.moduleKey === 'ADMIN').length;
-  const amen = all.filter((b) => b.moduleKey === 'AM_FULL').length + all.filter((b) => b.moduleKey === 'AM_HALF').length * 0.5;
+  const amen = all.reduce((s, b) => s + (/^AM_FULL/.test(b.moduleKey) ? 1 : /^AM_HALF/.test(b.moduleKey) ? 0.5 : 0), 0);
   const storeys = Math.max(...blocks.map((b) => b.storeys));
 
   const mk = (label, required, provided, unit) => {
@@ -373,7 +482,7 @@ function fitLines(req, blocks) {
 
 function totals(blocks, req) {
   const all = blocks.flatMap((b) => b.levels.flat());
-  const ts = all.filter((b) => b.cat === 'teaching').length;
+  const ts = all.reduce((s, b) => s + tsIn(b), 0);
   return {
     gfa: blocks.reduce((s, b) => s + b.gfa, 0),
     nfa: blocks.reduce((s, b) => s + b.nfa, 0),
@@ -391,7 +500,7 @@ function totals(blocks, req) {
 function buildOptions(req) {
   const ts = req.tsNew, spec = req.specialist, total = req.totalTeaching;
   const out = [];
-  const label = ['A', 'B', 'C', 'D'];
+  const label = 'ABCDEFGH'.split('');
 
   const support = (extraAmenity) => {
     const b = [];
@@ -411,52 +520,91 @@ function buildOptions(req) {
   };
 
   if (total > 0) {
-    // Option A — lowest-rise standard type that fits
-    if (total <= 6) {
-      add(`Type S1 — ${total} teaching ${total === 1 ? 'space' : 'spaces'}`,
-        'Single teaching block on one level with amenities bay, plus standard support buildings.',
-        [teachingBlock('S1', ts, spec, req, 1), ...support(false)],
-        ['Single-storey, no stair or lift', 'Largest footprint of the options', 'Simplest and fastest to deliver', `Teaching layout ${req.layout.id}`]);
+    const spaces = (n) => `${n} teaching ${n === 1 ? 'space' : 'spaces'}`;
+    const secondary = req.category === 'secondary';
+    // Split n spaces as evenly as possible into k blocks, specialist spaces
+    // shared out in proportion.
+    const split = (n, k) => Array.from({ length: k }, (_, i) => Math.floor(n / k) + (i < n % k ? 1 : 0));
+    const sBlock = (n, sp, storeys) => teachingBlock(`S${storeys}`, n - sp, sp, req, storeys);
+
+    // Option A — lowest-rise S type that fits, at most 6 spaces long per level.
+    // Above 18 spaces (an S3 of 6 per level), the provision is split into
+    // several blocks.
+    if (total <= MAX_LEN * 3) {
+      const storeys = Math.ceil(total / MAX_LEN);
+      const blk = sBlock(total, spec, storeys);
+      add(`Type ${blk.code} — ${spaces(total)}`,
+        storeys === 1 ? 'Single teaching block on one level with amenities bay, plus standard support buildings.'
+          : `Single-depth ${storeys}-storey teaching block with a full amenities bay and stair module per level.`,
+        [blk, ...support(false)],
+        storeys === 1 ? ['Single-storey, no stair or lift', 'Largest footprint of the options', 'Simplest and fastest to deliver', `Teaching layout ${req.layout.id}`]
+          : [`${storeys} storeys, stair and lift module per level`, 'Compact footprint', 'Full amenities bay per level', `Teaching layout ${req.layout.id}`]);
     } else {
-      const storeys = total <= 12 ? 2 : 3;
-      add(`Type S${storeys} — ${total} teaching spaces`,
-        `Single-depth ${storeys}-storey teaching block with a full amenities bay and stair module per level.`,
-        [teachingBlock(`S${storeys}`, ts, spec, req, storeys), ...support(false)],
-        [`${storeys} storeys, stair and lift module per level`, 'Compact footprint', 'Full amenities bay per level', `Teaching layout ${req.layout.id}`]);
+      const k = Math.ceil(total / (MAX_LEN * 3));
+      const sizes = split(total, k), specs = split(spec, k);
+      const blocks = sizes.map((n, i) => sBlock(n, Math.min(specs[i], n), Math.ceil(n / MAX_LEN)));
+      add(`${blocks.map((b) => `Type ${b.code}`).join(' + ')} — ${spaces(total)}`,
+        `More than one S3 holds (18 spaces), so the provision is split across ${k} single-depth blocks.`,
+        [...blocks, ...support(false)],
+        [`${k} blocks, each up to 6 spaces long per level`, 'Stair and lift module per level', 'Full amenities bay per level', `Teaching layout ${req.layout.id}`]);
     }
 
-    // Option B — alternative massing
+    // Option B — alternative S massing
     if (total <= 6 && total >= 4 && req.maxStoreys >= 2) {
-      add(`Type S2 — ${total} teaching spaces over two levels`,
+      const blk = sBlock(total, spec, 2);
+      add(`Type ${blk.code} — ${spaces(total)} over two levels`,
         'The same teaching provision stacked over two levels to release site area.',
-        [teachingBlock('S2', ts, spec, req, 2), ...support(false)],
+        [blk, ...support(false)],
         ['Footprint roughly halved', 'Stair and lift module per level', 'Amenities bay on each level', 'Suits tighter or sloping sites']);
     } else if (total > 6) {
       if (req.maxStoreys >= 3 && total <= 12) {
-        add(`Type S3 — ${total} teaching spaces over three levels`,
+        const blk = sBlock(total, spec, 3);
+        add(`Type ${blk.code} — ${spaces(total)} over three levels`,
           'Three-storey single-depth block for the smallest possible footprint.',
-          [teachingBlock('S3', ts, spec, req, 3), ...support(false)],
+          [blk, ...support(false)],
           ['Smallest footprint', 'Three storeys, lift required', 'Amenities and stair per level', 'Suits constrained sites']);
       }
-      const half = Math.ceil(total / 2);
-      add(`Two Type S1 blocks — ${half} + ${total - half} teaching spaces`,
-        'Teaching provision split across two single-storey blocks that can be staged or placed apart on the site.',
-        [teachingBlock('S1', Math.min(ts, half), Math.max(0, spec - Math.max(0, half - ts)), req, 1),
-         teachingBlock('S1', Math.max(0, ts - half), Math.min(spec, Math.max(0, total - half)), req, 1),
-         ...support(false)],
-        ['All single-storey', 'Can be delivered in two stages', 'Two separate footprints on the site', 'No lift required']);
+      // Two single-storey blocks only while each stays within 6 spaces.
+      if (total <= MAX_LEN * 2) {
+        const [n1, n2] = split(total, 2), [s1, s2] = split(spec, 2);
+        const b1 = sBlock(n1, Math.min(s1, n1), 1), b2 = sBlock(n2, Math.min(s2, n2), 1);
+        add(`Type ${b1.code} + Type ${b2.code} — ${n1} + ${n2} teaching spaces`,
+          'Teaching provision split across two single-storey blocks that can be staged or placed apart on the site.',
+          [b1, b2, ...support(false)],
+          ['All single-storey', 'Can be delivered in two stages', 'Two separate footprints on the site', 'No lift required']);
+      }
     }
 
-    // Option C — combination with relocatable
+    // D types (secondary only): teaching spaces either side of a central
+    // resource / breakout strip, in the catalogue's ranges (D1 6-10, D2 and
+    // D3 12-33), at most 6 bays long per level.
+    if (secondary) {
+      const dFits = (storeys) => Math.ceil(Math.ceil(total / storeys) / 2) <= MAX_LEN && storeys <= req.maxStoreys;
+      const dAdd = (typeId, storeys, summary, chars) => {
+        const blk = teachingBlockD(typeId, total - spec, spec, req, storeys);
+        add(`Type ${blk.code} — ${spaces(total)}`, summary, [blk, ...support(false)], chars);
+      };
+      if (total >= 6 && total <= 10 && dFits(1)) {
+        dAdd('D1', 1, 'Double-depth single-storey block: teaching spaces either side of a central resource / breakout strip.',
+          ['Single-storey, no stair or lift', 'Shorter, deeper footprint than S1', 'Central resource / breakout strip', `Teaching layout ${req.layout.id}`]);
+      }
+      if (total >= 12 && total <= 33) {
+        if (dFits(2)) dAdd('D2', 2, 'Double-depth two-storey block with a central resource / breakout strip and stair module per level.',
+          ['2 storeys, stair and lift module per level', 'Compact, deep footprint', 'Full amenities bay per level', `Teaching layout ${req.layout.id}`]);
+        if (dFits(3)) dAdd('D3', 3, 'Double-depth three-storey block for the largest provision on a tight site.',
+          ['3 storeys, lift required', 'Smallest footprint of the D types', 'Full amenities bay per level', `Teaching layout ${req.layout.id}`]);
+      }
+    }
+
+    // Option — permanent S1 with relocatables (Type R holds 1-4 spaces)
     if (req.relocatableOk !== false && total >= 3) {
-      const perm = Math.max(2, total - 2);
+      const perm = Math.min(MAX_LEN, total - 1);
       const relo = total - perm;
-      if (relo >= 1) {
-        add(`Type S1 + Type R — ${perm} permanent + ${relo} relocatable`,
+      if (relo >= 1 && relo <= 4) {
+        const b1 = sBlock(perm, Math.min(spec, perm), 1);
+        add(`Type ${b1.code} + Type R — ${perm} permanent + ${relo} relocatable`,
           'Permanent block sized to the confirmed roll, with relocatable spaces covering short-term growth.',
-          [teachingBlock('S1', Math.min(ts, perm), Math.max(0, perm - ts), req, 1),
-           teachingBlock('R', relo, 0, req, 1),
-           ...support(false)],
+          [b1, teachingBlock('R', relo, Math.max(0, spec - perm), req, 1), ...support(false)],
           ['Lowest permanent footprint', 'Relocatable spaces can be removed later', 'Suits uncertain roll projections', 'OMB 2.5 relocatable']);
       }
     }

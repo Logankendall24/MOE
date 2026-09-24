@@ -278,3 +278,68 @@ sections:
           - "If you have any questions about this guidance and how it relates to your school, please contact your school property advisor or project team. They can answer your queries and support you as needed."
           - "Our goal is to continue improving the quality of school property, and we welcome your feedback. Contact us at:"
           - "property.improvement@education.govt.nz"
+
+# Building-type diagrams (p7 "Choosing the right building"), shown under the
+# 3D window on the building page for the building types listed in `types`.
+# Crops are [x, y, width, height] at 100 dpi; captions are printed beneath
+# each diagram on the page.
+typologies:
+  - page: 7
+    crop: [645, 458, 258, 82]
+    types: [S1]
+    caption: ["S1 – Single-depth, single-storey (typical)", "2-6 teaching spaces"]
+  - page: 7
+    crop: [604, 254, 318, 88]
+    types: [S1]
+    caption: ["S1 – Single-depth, single-storey (gabled roof)", "2-6 teaching spaces"]
+  - page: 7
+    crop: [988, 338, 262, 212]
+    types: [S2, S3]
+    caption: ["S2 – Single-depth, two-storey", "S3 – Single-depth, three-storey (shown dashed)", "6-18 teaching spaces"]
+  - page: 7
+    crop: [610, 726, 665, 292]
+    types: [S1, S2, S3]
+    caption: ["Typical floor Plan – S1 (S2, S3 multi-storey similar)"]
+  - page: 7
+    crop: [1280, 456, 252, 84]
+    types: [R]
+    caption: ["OMB 2.5 – Relocatable, single-storey", "1-4 teaching spaces"]
+
+# "How it all works" diagrams for the About panel, titled as their pages are.
+figures:
+  - page: 4
+    title: "Introduction"
+    crop: [695, 68, 870, 1025]
+  - page: 8
+    title: "How our building modules work"
+    crop: [570, 238, 1045, 795]
+
+# The cover's Graphics panel: example layout pages (shown whole) and the
+# example renders, cropped at the renders' own 150 ppi.
+graphics:
+  layouts: [9, 10, 11, 12]
+  renders:
+    - page: 16
+      crop: [618, 84, 650, 306]
+      title: "Option A: Profiled metal"
+      bullets: ["Full-height profiled metal cladding", "Bag shelters to suit climate", "Open painted balustrade"]
+    - page: 16
+      crop: [618, 422, 650, 306]
+      title: "Option B: Brick"
+      bullets: ["Low-level brick cladding (full height on single storeys in low seismic areas only, but brick dado possible in all areas)", "Profiled metal cladding on upper level of multi-storey above brick", "Open natural-finished balustrade"]
+    - page: 16
+      crop: [618, 759, 650, 306]
+      title: "Option C: Painted fibre cement"
+      bullets: ["Painted fibre cement cladding", "Profiled metal cladding to upper level of full-height two-storey walls", "Infill balustrade panels", "Bag shelters to suit climate"]
+    - page: 18
+      crop: [618, 86, 650, 302]
+      title: "Option A:"
+      bullets: ["Tiered seating around mat area", "High-wear dado, pinboard above", "Connection with adjacent teaching space via glazed sliding doors"]
+    - page: 18
+      crop: [618, 424, 650, 302]
+      title: "Option B:"
+      bullets: ["Dry teaching space", "Full-height pinboard", "Connection to shared wet space"]
+    - page: 18
+      crop: [618, 761, 650, 302]
+      title: "Option C:"
+      bullets: ["Wet area integrated into teaching space", "Small breakout space off teaching space", "High-wear dado, with accessible pinboard above"]

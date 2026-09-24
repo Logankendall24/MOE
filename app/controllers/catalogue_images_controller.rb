@@ -14,26 +14,35 @@ class CatalogueImagesController < ApplicationController
     return head(:not_found) unless Catalogue.category?(category)
 
     content = Catalogue.content(category)
-    page, box = find_crop(content, params[:crop])
+    page, box, opts = find_crop(content, params[:crop])
     return head(:not_found) unless box
 
-    send_rendered SheetRenderer.crop(content.fetch("catalogue"), page, box), "image/png"
+    path = SheetRenderer.crop(content.fetch("catalogue"), page, box, **opts)
+    send_rendered path, path.extname == ".jpg" ? "image/jpeg" : "image/png"
   end
 
   private
 
+  # Crop ids are "<kind>-<index>" into the lists in the category's content
+  # (acknowledgement logos take a group and logo index).
   def find_crop(content, id)
     kind, *index = id.to_s.split("-")
     index = index.map { |i| Integer(i, exception: false) }
-    return nil if index.any?(&:nil?)
+    return nil if index.empty? || index.any?(&:nil?)
 
     case kind
     when "ack"
       ack = content.fetch("acknowledgements")
-      [ack["page"], ack.dig("groups", index[0], "logos", index[1], "crop")]
+      [ack["page"], ack.dig("groups", index[0], "logos", index[1], "crop"), {}]
     when "module", "example"
       how = content.fetch("how_it_works")
-      [how["page"], how.dig("#{kind}s", index[0], "crop")]
+      [how["page"], how.dig("#{kind}s", index[0], "crop"), {}]
+    when "typology", "figure"
+      item = content.fetch(kind == "typology" ? "typologies" : "figures", [])[index[0]]
+      item && [item["page"], item["crop"], { dpi: 200 }]
+    when "render"
+      item = content.dig("graphics", "renders")&.[](index[0])
+      item && [item["page"], item["crop"], { dpi: 150, format: "jpg" }]
     end
   end
 

@@ -1,6 +1,6 @@
-# Specialist teaching spaces the user can choose in the requirements flow,
-# per category. Every specialist teaching-space layout in the category's
-# layout PDF is listed, named as its sheet title prints it (checked by
+# Specialist teaching spaces the user can choose in the requirements flow.
+# Every specialist teaching-space layout in the secondary teaching layouts is
+# listed, named as its sheet title prints it (checked by
 # `rails catalogue:verify`).
 #
 #   sheets:      the space's own layout sheets.
@@ -8,12 +8,13 @@
 #                what it serves (e.g. "Serving 1-2 Specialist Labs") that is
 #                followed; otherwise the pairing is a judgement, marked below.
 #
-# Primary / intermediate: the primary layout PDFs contain no specialist-space
-# sheets, so there is nothing to list; the requirements flow keeps the
-# design's own specialist options and no specialist diagrams are shown.
-primary_intermediate: {}
+# Specialist spaces apply to S and D type buildings in both primary and
+# secondary schools (project team rule). Their sheets come from the secondary
+# teaching layouts, the only document with specialist layouts, so both
+# categories are offered the same spaces.
+categories: [primary_intermediate, secondary]
 
-secondary:
+spaces:
   "Digital Technologies / Computer Science / Media Studies":
     sheets: ["030", "031"]
     supporting: ["080", "081"]   # Computer Room (A)/(B), judgement
