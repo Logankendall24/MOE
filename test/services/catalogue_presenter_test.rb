@@ -2,9 +2,8 @@ require "test_helper"
 
 class CataloguePresenterTest < ActiveSupport::TestCase
   def building(category, **opts)
-    CataloguePresenter.new(category).building(
-      building_type: "S1", buildings: %w[teaching], specialists: [], roll: 300, climate_zone: "3", layout: "A", **opts
-    )
+    defaults = { building_type: "S1", buildings: %w[teaching], specialists: [], roll: 300, climate_zone: "3", layout: "A" }
+    CataloguePresenter.new(category).building(**defaults, **opts)
   end
 
   def page_of(doc) = doc[:src][/page=(\d+)/, 1].to_i
@@ -36,6 +35,14 @@ class CataloguePresenterTest < ActiveSupport::TestCase
       data = building(category)
       docs = data[:sections].flat_map { |s| s[:docs] } + data[:customise].values.flatten
       docs.each { |d| assert Catalogue.renderable_page?(source_of(d), page_of(d)), "#{category}: #{d[:title]}" }
+    end
+  end
+
+  test "every building type gets a 3D model, falling back to the default" do
+    %w[R S1 S2 S3 L C].each do |type|
+      model = building("primary_intermediate", building_type: type)[:model3d]
+      assert model, "no model for #{type}"
+      assert Rails.root.join("public", model["glb"].delete_prefix("/")).exist?, "missing file #{model['glb']}"
     end
   end
 

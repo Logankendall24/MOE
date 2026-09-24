@@ -1,6 +1,7 @@
 <%# Imported from School Building Selector (1).html by `rails design:import`, then edited by hand to wire in the catalogue (About tabs, Further information, diagram viewer). design:import no longer writes here. %>
 <!DOCTYPE html>
 <html><head><script>window.__resources = {"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"/design/e355f18b-5158-4337-8c1c-31fdd3dc81b5.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"/design/81ce1a23-9483-4e03-8e9c-c22da204d2e1.js"};</script>
+<script type="importmap">{"imports":{"three":"/vendor/three/three.module.min.js","three/addons/":"/vendor/three/addons/"}}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="/design/6586ca0b-07ca-4e70-89bb-a488367cbf12.js"></script>
@@ -728,6 +729,7 @@
                   </sc-for>
                 </div>
                 <div style="position:relative;flex:1;min-height:0;overflow:hidden">
+                  <sc-if value="{{ showMassing }}" hint-placeholder-val="{{ true }}">
                   <div ref="{{ viewerRef }}" sc-camel-on-mouse-down="{{ onViewerDown }}" sc-camel-on-wheel="{{ onViewerWheel }}" style="{{ viewerStyle }}">
                     <div style="{{ stageStyle }}">
                       <div style="{{ sceneStyle }}">
@@ -737,6 +739,10 @@
                       </div>
                     </div>
                   </div>
+                  </sc-if>
+                  <sc-if value="{{ hasModel }}" hint-placeholder-val="{{ false }}">
+                    <div ref="{{ modelRef }}" style="{{ modelStyle }}"></div>
+                  </sc-if>
                 </div>
                 <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px 20px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid #D7DAD7;background:#fff">
                   <div style="min-width:0;flex:1 1 260px">
@@ -1465,6 +1471,68 @@ class Component extends DCLogic {
     (i.specialist > 0 ? i.specialistTypes || [] : []).forEach((t) => q.append('specialists[]', t));
     return this.fetchJson('/api/catalogue/building?' + q.toString());
   }
+  // 3D window: the building's GLB (db/catalogue/models_3d.yml) replaces the
+  // massing once it has loaded, driven by the same toolbar, legend and readout.
+  // Until then, or if the browser can't show it, the massing view stays.
+  modelVals(blk, req) {
+    const s = this.state;
+    const data = this.buildingData(blk, req);
+    const m = data && !data.error ? data.model3d : null;
+    const url = m && m.glb && s.modelFailed !== m.glb ? m.glb : null;
+    this._modelUrl = url;
+    if (url) queueMicrotask(() => this.syncModel());
+    const mv = this._mv;
+    const ready = !!(url && mv && mv.loadedUrl === url);
+    const base = { hasModel: !!url, showMassing: !ready, modelRef: this.modelRef,
+      modelStyle: 'position:absolute;inset:0;cursor:grab;' + (ready ? '' : 'visibility:hidden;pointer-events:none;') };
+    if (!ready) return base;
+    const hidden = s.modelHidden || [];
+    const r = mv.readout();
+    const go = (name) => () => { if (name === 'reset') { mv.setHidden([]); this.setState({ modelHidden: [] }); } mv.view(name); this.modelChanged(); };
+    return {
+      ...base,
+      viewButtons: [['Axonometric', 'axonometric'], ['Plan', 'plan'], ['Elevation', 'elevation'], ['Reset', 'reset']]
+        .map(([label, name]) => ({ label, onClick: go(name), style: this.btn(name !== 'reset' && mv.preset === name) })),
+      legend: mv.materials.map((g) => {
+        const off = hidden.includes(g.name);
+        return {
+          label: g.name,
+          style: `display:flex;align-items:center;gap:7px;background:transparent;border:none;padding:0;` +
+            `font:500 10.5px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.04em;color:${off ? '#B6B0B4' : '#3F3542'};text-decoration:${off ? 'line-through' : 'none'};`,
+          swatchStyle: `width:11px;height:11px;flex:none;background:${g.color};border:1px solid rgba(44,17,45,0.35);opacity:${off ? 0.3 : 1};`,
+          onClick: () => {
+            const next = off ? hidden.filter((x) => x !== g.name) : [...hidden, g.name];
+            mv.setHidden(next); this.setState({ modelHidden: next });
+          }
+        };
+      }),
+      viewReadout: `${m.label} · AZ ${r.az}° · EL ${r.el}° · ${r.zoom}%`
+    };
+  }
+  modelRef = (el) => {
+    if (el === this._mel) return;
+    if (this._mv) { this._mv.dispose(); this._mv = null; }
+    this._mel = el; this._mvUrl = null;
+    if (el) this.syncModel();
+  };
+  syncModel() {
+    const el = this._mel, url = this._modelUrl;
+    if (!el || !url || this._mvUrl === url) return;
+    this._mvUrl = url;
+    import('/viewer/model-viewer.js')
+      .then(({ ModelViewer }) => {
+        if (this._mel !== el) return null;
+        this._mv = this._mv || new ModelViewer(el, { onChange: this.modelChanged });
+        return this._mv.load(url);
+      })
+      .then(() => { this.setState({ modelHidden: [] }); this.modelChanged(); })
+      .catch((e) => { console.warn('3D model unavailable; showing the massing view.', e); this.setState({ modelFailed: url }); });
+  }
+  // Re-render the readout at most once a frame while the camera moves.
+  modelChanged = () => {
+    if (this._mvTick) return;
+    this._mvTick = requestAnimationFrame(() => { this._mvTick = null; this.setState((st) => ({ mvTick: (st.mvTick || 0) + 1 })); });
+  };
   openSheet(cards, index) { this.setState({ lb: { cards, i: index, page: 0, zoom: false } }); }
   moveSheet(delta) {
     this.setState((st) => {
@@ -2179,6 +2247,7 @@ class Component extends DCLogic {
         onCustomise: () => this.go('customise', { cStep: 0 }),
         ...this.customVals(req, opt, blk),
         ...(screen === 'building' ? this.infoVals(blk, req) : {}),
+        ...(screen === 'building' ? this.modelVals(blk, req) : { showMassing: true, hasModel: false }),
         blockTabs: opt.blocks.map((b) => ({ label: b.typeId,
           style: `background:${b.id === blk.id ? '#fff' : 'transparent'};color:${b.id === blk.id ? INK : '#fff'};border:1px solid ${b.id === blk.id ? '#fff' : 'rgba(255,255,255,0.45)'};padding:8px 12px;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;`, onClick: () => this.setState({ blockId: b.id, bayId: null, zoneId: null, level: 'all' }) })),
         infoBlockName: blk.name,

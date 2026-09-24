@@ -1,0 +1,192 @@
+// Renders a GLB in the building page's 3D window: rotate (drag), pan
+// (right-drag), zoom (scroll), and the preset views on the design's toolbar.
+// Loaded on demand by the design's component. three.js is vendored under
+// /vendor/three and resolved through the page's import map.
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const INK = 0x2c112d;
+const DEG = Math.PI / 180;
+
+// The design's own view angles: tilt from straight down, turn about vertical.
+const PRESETS = {
+  axonometric: { tilt: 57, turn: -36 },
+  plan: { tilt: 0.01, turn: 0 },
+  elevation: { tilt: 89.9, turn: 0 }
+};
+
+export class ModelViewer {
+  constructor(el, { onChange } = {}) {
+    this.el = el;
+    this.onChange = onChange || (() => {});
+    this.materials = [];
+    this.preset = 'axonometric';
+
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+    this.renderer.domElement.style.cssText = 'display:block;width:100%;height:100%;touch-action:none;';
+    el.appendChild(this.renderer.domElement);
+
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(30, 1, 0.1, 10000);
+    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d2d9, 2.4));
+    const sun = new THREE.DirectionalLight(0xffffff, 1.5);
+    sun.position.set(-0.5, 1, 0.7);
+    this.scene.add(sun);
+
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.enableDamping = true;
+    this.controls.dampingFactor = 0.12;
+    this.controls.screenSpacePanning = true;
+    this.controls.maxPolarAngle = Math.PI / 2;
+    this.controls.addEventListener('start', () => { this.preset = null; this.tween = null; });
+    this.controls.addEventListener('change', () => { this.dirty = true; this.onChange(); });
+
+    this.ro = new ResizeObserver(() => this.resize());
+    this.ro.observe(el);
+    this.resize();
+
+    const loop = (t) => {
+      this.raf = requestAnimationFrame(loop);
+      this.stepTween(t);
+      this.controls.update();
+      if (this.dirty) { this.dirty = false; this.renderer.render(this.scene, this.camera); }
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  async load(url) {
+    const gltf = await new GLTFLoader().loadAsync(url);
+    if (this.disposed) return;
+    if (this.model) { this.scene.remove(this.model); this.disposeObject(this.model); }
+
+    // Matte versions of the model's own colours, with thin outlines, for a
+    // clean architectural look. Meshes are grouped by material for the legend.
+    const groups = new Map();
+    gltf.scene.traverse((o) => {
+      if (!o.isMesh) return;
+      const src = o.material;
+      const name = src.name || 'Model';
+      if (!groups.has(name)) {
+        const mat = new THREE.MeshStandardMaterial({
+          color: src.color.clone(), opacity: src.opacity, transparent: src.opacity < 1,
+          roughness: 0.9, metalness: 0, side: THREE.DoubleSide,
+          polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1
+        });
+        groups.set(name, { name, color: '#' + src.color.getHexString(THREE.SRGBColorSpace), material: mat, meshes: [] });
+      }
+      const g = groups.get(name);
+      src.dispose();
+      o.material = g.material;
+      o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 25),
+        new THREE.LineBasicMaterial({ color: INK, transparent: true, opacity: 0.5 })));
+      g.meshes.push(o);
+    });
+    this.materials = [...groups.values()];
+
+    // Sit the model on the ground, centred on the origin.
+    const model = gltf.scene;
+    const box = new THREE.Box3().setFromObject(model);
+    const centre = box.getCenter(new THREE.Vector3());
+    model.position.sub(new THREE.Vector3(centre.x, box.min.y, centre.z));
+    this.scene.add(model);
+    this.model = model;
+
+    const size = box.getSize(new THREE.Vector3());
+    this.target = new THREE.Vector3(0, size.y / 2, 0);
+    // A bounding sphere is conservative for long, low buildings, so fit a little tighter.
+    this.fitDistance = (box.getBoundingSphere(new THREE.Sphere()).radius / Math.sin((this.camera.fov / 2) * DEG)) * 0.8;
+    this.camera.near = this.fitDistance / 100;
+    this.camera.far = this.fitDistance * 20;
+    this.camera.updateProjectionMatrix();
+    this.controls.minDistance = this.fitDistance * 0.15;
+    this.controls.maxDistance = this.fitDistance * 4;
+    this.view('axonometric', false);
+    this.loadedUrl = url;
+  }
+
+  // Move to one of the design's preset views ('reset' is axonometric, re-centred).
+  view(name, animate = true) {
+    const p = PRESETS[name === 'reset' ? 'axonometric' : name];
+    if (!p || !this.target) return;
+    this.preset = name === 'reset' ? 'axonometric' : name;
+    const to = { tilt: p.tilt, turn: p.turn, dist: this.fitDistance, target: this.target.clone() };
+    if (!animate) { this.place(to); return; }
+    const from = this.current();
+    // Turn the short way round.
+    let dt = to.turn - from.turn;
+    dt -= Math.round(dt / 360) * 360;
+    to.turn = from.turn + dt;
+    this.tween = { from, to, start: null };
+    this.dirty = true;
+  }
+
+  setHidden(names) {
+    const hidden = new Set(names);
+    this.materials.forEach((g) => g.meshes.forEach((m) => { m.visible = !hidden.has(g.name); }));
+    this.dirty = true;
+  }
+
+  // Azimuth and elevation in degrees, and zoom relative to the fitted view.
+  readout() {
+    const { tilt, turn, dist } = this.current();
+    return { az: Math.round(((turn % 360) + 360) % 360), el: Math.round(90 - tilt), zoom: Math.round((this.fitDistance / dist) * 100) };
+  }
+
+  current() {
+    const offset = this.camera.position.clone().sub(this.controls.target);
+    const s = new THREE.Spherical().setFromVector3(offset);
+    return { tilt: s.phi / DEG, turn: s.theta / DEG, dist: s.radius, target: this.controls.target.clone() };
+  }
+
+  place({ tilt, turn, dist, target }) {
+    this.controls.target.copy(target);
+    const offset = new THREE.Vector3().setFromSpherical(new THREE.Spherical(dist, tilt * DEG, turn * DEG));
+    this.camera.position.copy(target).add(offset);
+    this.camera.lookAt(target);
+    this.dirty = true;
+    this.onChange();
+  }
+
+  stepTween(t) {
+    const tw = this.tween;
+    if (!tw) return;
+    if (tw.start === null) tw.start = t;
+    const k = Math.min(1, (t - tw.start) / 650);
+    const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    const lerp = (a, b) => a + (b - a) * e;
+    this.place({
+      tilt: lerp(tw.from.tilt, tw.to.tilt), turn: lerp(tw.from.turn, tw.to.turn), dist: lerp(tw.from.dist, tw.to.dist),
+      target: tw.from.target.clone().lerp(tw.to.target, e)
+    });
+    if (k === 1) this.tween = null;
+  }
+
+  resize() {
+    const w = this.el.clientWidth, h = this.el.clientHeight;
+    if (!w || !h) return;
+    this.renderer.setSize(w, h, false);
+    this.camera.aspect = w / h;
+    this.camera.updateProjectionMatrix();
+    this.dirty = true;
+  }
+
+  disposeObject(obj) {
+    obj.traverse((o) => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) o.material.dispose();
+    });
+  }
+
+  dispose() {
+    this.disposed = true;
+    cancelAnimationFrame(this.raf);
+    this.ro.disconnect();
+    this.controls.dispose();
+    if (this.model) this.disposeObject(this.model);
+    this.renderer.dispose();
+    this.renderer.domElement.remove();
+  }
+}

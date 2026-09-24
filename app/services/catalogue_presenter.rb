@@ -60,7 +60,7 @@ class CataloguePresenter
       },
       sections: sections(kind:, specialists:, climate_zone:, building_type:, layout:),
       customise: customise_docs,
-      model3d: Catalogue.models_3d[building_type]
+      model3d: Catalogue.models_3d[building_type] || Catalogue.models_3d["default"]
     }
   end
 
