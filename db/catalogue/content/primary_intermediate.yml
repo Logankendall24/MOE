@@ -75,6 +75,10 @@ how_it_works:
 
 # Further information under the building. The "diagrams" section is built from
 # layouts.yml by LayoutRules, so it isn't listed here.
+# Sections shown under Further information on the building page, in order.
+# The others are kept for use elsewhere (placement not yet decided).
+further_information: [climate]
+
 sections:
   - id: design
     title: "Design information"
@@ -215,6 +219,9 @@ sections:
   - id: climate
     title: "Climate information"
     sub: "NZBC climate zone, heating and ventilation"
+    # Shown as a summary for the site (location, climate zone, the heating and
+    # ventilation rows for that zone) with the PDF pages below it.
+    style: summary
     blocks:
       - heading: "Heating & ventilation"
         page: 20

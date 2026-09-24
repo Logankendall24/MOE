@@ -32,6 +32,7 @@ class Catalogue
     def categories = read("categories").except("modules")
     def modules = read("categories").fetch("modules")
     def specialist_types = read("specialist_types")
+    def space_names = read("space_names")
     def models_3d = read("models_3d")
     def content(category) = read("content/#{category}")
 

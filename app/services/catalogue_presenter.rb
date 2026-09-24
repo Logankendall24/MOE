@@ -38,7 +38,10 @@ class CataloguePresenter
         examples: how["examples"].each_with_index.map do |e, i|
           e.slice("caption", "note").merge(src: crop_url("example-#{i}"), aspect: "#{e['crop'][2]} / #{e['crop'][3]}")
         end
-      }
+      },
+      specialistSpaces: specialist_spaces,
+      spaceNames: Catalogue.space_names.transform_values { |names| names.transform_values { |n| n["label"] } },
+      models3d: Catalogue.models_3d
     }
   end
 
@@ -47,7 +50,7 @@ class CataloguePresenter
   def building(building_type:, buildings:, specialists:, roll:, climate_zone:, layout:)
     kind = KINDS.fetch(building_type, "teaching")
     rules = LayoutRules.new(LayoutRules::Selection.new(
-      category: @category, kind:, buildings:, specialists:, roll:
+      category: @category, kind:, buildings:, specialists:, roll:, building_type:
     )).call
 
     {
@@ -59,17 +62,26 @@ class CataloguePresenter
         notes: rules.notes
       },
       sections: sections(kind:, specialists:, climate_zone:, building_type:, layout:),
-      customise: customise_docs,
+      customise: customise_docs(building_type),
       model3d: Catalogue.models_3d[building_type] || Catalogue.models_3d["default"]
     }
   end
 
   private
 
+  # The specialist spaces the requirements flow offers, named as the PDF does,
+  # with the occupancy printed on each space's first sheet.
+  def specialist_spaces
+    Catalogue.specialist_types.fetch(@category, {}).map do |name, space|
+      sheet = Catalogue.layout(space.fetch("sheets").first)
+      { key: name, label: name, note: sheet&.occupancy.to_s }
+    end
+  end
+
   # Document boxes for the design's Customise steps, by step id. The layout
-  # step also gets the category's general teaching layout sheets.
-  def customise_docs
-    modules = Catalogue.categories.dig(@category, "teaching_modules") || []
+  # step also gets the general teaching layout sheets for this building type.
+  def customise_docs(building_type)
+    modules = LayoutRules.teaching_modules(@category, building_type)
     sheets = Catalogue.layouts.select { |l| l.for_category?(@category) && l.space == "teaching" && modules.include?(l.module_class) }
     Catalogue.customise_pages(@category).to_h do |step, pages|
       docs = pages.map { |p| page_doc(@catalogue, p) }
@@ -78,16 +90,22 @@ class CataloguePresenter
     end
   end
 
+  # The sections listed under further_information, in that order. A section
+  # with `style: summary` is shown as its rows only (no paragraphs), with its
+  # PDF pages below.
   def sections(kind:, specialists:, climate_zone:, building_type:, layout:)
     zone_group = climate_zone.to_i >= 4 ? "4-6" : "1-3"
-    @content.fetch("sections").filter_map do |section|
+    by_id = @content.fetch("sections").index_by { |s| s["id"] }
+    @content.fetch("further_information").filter_map do |id|
+      section = by_id.fetch(id)
+      summary = section["style"] == "summary"
       blocks = section.fetch("blocks").select { |b| applies?(b, kind, specialists) }.map do |b|
         rows = b["rows_by_zone"] ? b["rows_by_zone"].fetch(zone_group) : (b["rows"] || [])
         {
           heading: b["heading"],
-          paragraphs: b["paragraphs"] || [],
-          bullets: b["bullets"] || [],
-          after: b["after"] || [],
+          paragraphs: summary ? [] : b["paragraphs"] || [],
+          bullets: summary ? [] : b["bullets"] || [],
+          after: summary ? [] : b["after"] || [],
           rows: rows.map { |r| { label: r["label"], value: r["value"], highlight: (r["type"] && r["type"] == building_type) || (r["layout"] && r["layout"] == layout) } },
           zoneNote: b["rows_by_zone"] ? "Shown for NZBC climate zones #{zone_group.sub('-', '–')}" : nil,
           source: source_ref(b["doc"] || @catalogue, b["page"])
@@ -96,15 +114,17 @@ class CataloguePresenter
       next if blocks.empty?
       # One document box per PDF page the section's text comes from.
       docs = blocks.map { |b| [b[:source][:key], b[:source][:page]] }.uniq.map { |key, page| page_doc(key, page) }
-      { id: section["id"], title: section["title"], sub: section["sub"], blocks:, docs: }
+      # A summary section drops blocks that are only text.
+      blocks = blocks.select { |b| b[:rows].any? } if summary
+      { id: section["id"], title: section["title"], sub: section["sub"], summary:, blocks:, docs: }
     end
   end
 
-  # A PDF page as the design's document box: title, the page as thumbnail, and
-  # a link that opens the PDF at that page.
+  # A PDF page as the design's document box: title, the page as thumbnail
+  # (and full size, for the on-screen viewer), and a link to the PDF page.
   def page_doc(key, page, title: Catalogue.page_title(key, page))
     source = Catalogue.sources.fetch(key)
-    { title:, page:, sourceTitle: source["title"], thumb: sheet_url(key, page, "thumb"),
+    { title:, page:, sourceTitle: source["title"], thumb: sheet_url(key, page, "thumb"), full: sheet_url(key, page, "full"),
       src: catalogue_document_path(source: key, anchor: "page=#{page}") }
   end
 
@@ -112,7 +132,7 @@ class CataloguePresenter
     return false if block["applies_to"] && !block["applies_to"].include?(kind)
     condition = block["when"] || {}
     return false if condition["specialists"] == "any" && specialists.empty?
-    return false if condition["specialist"] && !specialists.include?(condition["specialist"])
+    return false if condition["specialist_any_of"] && (condition["specialist_any_of"] & specialists).empty?
     true
   end
 

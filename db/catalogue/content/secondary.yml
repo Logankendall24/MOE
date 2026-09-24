@@ -4,7 +4,7 @@
 #
 # when:      extra condition on the user's selections —
 #            specialists: any        at least one specialist space selected
-#            specialist: <type>      that specialist type selected
+#            specialist_any_of: [..] one of these specialist spaces selected
 # verbatim:  the exact source text, where the displayed value corrects an
 #            obvious typo in the PDF. The verifier checks the verbatim text.
 catalogue: secondary_catalogue
@@ -90,6 +90,10 @@ how_it_works:
     - "These modules can be combined in different ways to suit your site and your school’s particular needs."
     - "Additional modules support how the building works day-to-day, such as stairs, verandahs, shading and storage."
 
+# Sections shown under Further information on the building page, in order.
+# The others are kept for use elsewhere (placement not yet decided).
+further_information: [climate]
+
 sections:
   - id: design
     title: "Design information"
@@ -143,7 +147,7 @@ sections:
       - heading: "Examples: Science teaching spaces"
         page: 11
         applies_to: [teaching]
-        when: { specialist: Science }
+        when: { specialist_any_of: ["Science General / Primary Industry", "Science Specialist (Chemistry / Biology / Physics)"] }
         paragraphs:
           - "These example layouts shows science teaching spaces for our single and double-depth building designs. Your project team will work with you to choose the layouts that best support your teaching and learning."
           - "Our layout designs also include resource spaces to support each specialist space type. Your project team will work with you to understand if resource spaces are needed, what size they need to be, and where they are best located to support your school."
@@ -247,6 +251,9 @@ sections:
   - id: climate
     title: "Climate information"
     sub: "NZBC climate zone, heating and ventilation"
+    # Shown as a summary for the site (location, climate zone, the heating and
+    # ventilation rows for that zone) with the PDF pages below it.
+    style: summary
     blocks:
       - heading: "Heating & ventilation"
         page: 22

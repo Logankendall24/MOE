@@ -5,10 +5,29 @@
 # and columns) and treats ² as 2, but is otherwise exact.
 class Catalogue::Verifier
   def problems
-    content_problems + layout_problems + document_problems
+    content_problems + layout_problems + document_problems + space_name_problems + specialist_problems
   end
 
   private
+
+  def space_name_problems
+    Catalogue.space_names.flat_map do |group, names|
+      names.filter_map do |key, n|
+        missing(n.fetch("source"), n.fetch("page"), n["verbatim"] || n.fetch("label"), "space name #{group} #{key}")
+      end
+    end
+  end
+
+  # Each specialist space is named as its first sheet's title prints it.
+  def specialist_problems
+    Catalogue.specialist_types.flat_map do |category, spaces|
+      spaces.filter_map do |name, space|
+        sheet = Catalogue.layout(space.fetch("sheets").first)
+        next "specialist #{category} #{name}: unknown sheet" unless sheet
+        missing(sheet.source, sheet.pages.first, name, "specialist #{category}")
+      end
+    end
+  end
 
   def document_problems
     Catalogue.documents.fetch("titles", {}).flat_map do |source, titles|

@@ -1,0 +1,27 @@
+# Names for the 3D window's space-category key, as the catalogue legends print
+# them. Each cites the page it's printed on; `rails catalogue:verify` checks it
+# (against `verbatim` where the page prints it differently, e.g. in capitals).
+#
+# design:     the design's massing categories (SPACE_CATS in its data script).
+# materials:  material names in GLB exports. The example model's layers are
+#             named by colour; they're matched to the legend colours on the
+#             primary catalogue p10 (and the module diagram on p8).
+#
+# A category with no entry keeps the design's own label.
+
+design:
+  teaching:    { label: "General teaching space", source: primary_catalogue, page: 10 }
+  breakout:    { label: "Breakout space", source: primary_catalogue, page: 10 }
+  wet:         { label: "Wet area", source: primary_catalogue, page: 10 }
+  resource:    { label: "Resource / teachers’ wall", source: primary_catalogue, page: 10 }
+  admin:       { label: "Admin & resource space", source: primary_catalogue, page: 10 }
+  wc:          { label: "WC", source: primary_catalogue, page: 12 }
+  library:     { label: "Library", source: primary_catalogue, page: 11 }
+  circulation: { label: "Internal circulation", verbatim: "Internal Circulation", source: primary_catalogue, page: 12 }
+  # store ("Storage / bags"): no matching legend entry in the catalogues.
+
+materials:
+  "SSD - GTS (Green)":    { label: "General teaching space", source: primary_catalogue, page: 10 }
+  "*3":                   { label: "Admin & resource space", source: primary_catalogue, page: 10 }
+  "SSD - Amenity (Blue)": { label: "WC", source: primary_catalogue, page: 12 }
+  "Gross":                { label: "Covered walkway", verbatim: "COVERED WALKWAY", source: primary_catalogue, page: 10 }

@@ -1,8 +1,11 @@
 require "test_helper"
 
 class LayoutRulesTest < ActiveSupport::TestCase
-  def run_rules(category:, kind:, buildings: %w[teaching], specialists: [], roll: nil)
-    LayoutRules.new(LayoutRules::Selection.new(category:, kind:, buildings:, specialists:, roll:)).call
+  SCIENCE = "Science Specialist (Chemistry / Biology / Physics)".freeze
+  ART = "Visual Arts (Painting / Creative Arts / Design / Photography)".freeze
+
+  def run_rules(category:, kind:, buildings: %w[teaching], specialists: [], roll: nil, building_type: "S1")
+    LayoutRules.new(LayoutRules::Selection.new(category:, kind:, buildings:, specialists:, roll:, building_type:)).call
   end
 
   def ids(result, key = nil)
@@ -12,29 +15,57 @@ class LayoutRulesTest < ActiveSupport::TestCase
 
   test "primary teaching shows only 12 m x 7.2 m (A) layouts and the resource module" do
     result = run_rules(category: "primary_intermediate", kind: "teaching")
-    assert_equal %w[001 002 003 004 005], ids(result, "teaching")
+    assert_equal %w[001 002 003 004 005], ids(result, "standard")
   end
 
-  test "secondary teaching shows 10.5 m x 7.2 m (B) and 8 m x 8.4 m (C) layouts, never A" do
-    result = run_rules(category: "secondary", kind: "teaching")
-    assert_equal %w[010 011 012 020 021 022 087], ids(result, "teaching")
+  test "secondary S types and relocatables use only the 10.5 m x 7.2 m (B) module" do
+    %w[S1 S2 S3 R].each do |type|
+      result = run_rules(category: "secondary", kind: "teaching", building_type: type)
+      assert_equal %w[010 011 012 087], ids(result, "standard"), type
+    end
   end
 
-  test "a secondary science selection shows only science sheets" do
-    result = run_rules(category: "secondary", kind: "teaching", specialists: %w[Science])
-    assert_equal %w[050 051 085 086], ids(result, "specialist-science")
+  test "secondary D types use only the 8 m x 8.4 m (C) module" do
+    %w[D1 D2 D3].each do |type|
+      result = run_rules(category: "secondary", kind: "teaching", building_type: type)
+      assert_equal %w[020 021 022 087], ids(result, "standard"), type
+    end
+  end
+
+  test "standard and specialist layouts are one line each" do
+    result = run_rules(category: "secondary", kind: "teaching", specialists: [SCIENCE, ART])
+    assert_equal %w[standard specialist], result.groups.map(&:key)
+  end
+
+  test "the specialist line holds only the selected spaces and their supporting rooms" do
+    result = run_rules(category: "secondary", kind: "teaching", specialists: [SCIENCE])
+    assert_equal %w[051 085 086], ids(result, "specialist")
     refute_includes ids(result), "070", "an unselected specialist space leaked in"
+  end
+
+  test "supporting rooms shared by two selected spaces appear once" do
+    result = run_rules(category: "secondary", kind: "teaching",
+                       specialists: [SCIENCE, "Science General / Primary Industry"])
+    assert_equal %w[051 085 086 050], ids(result, "specialist")
+  end
+
+  test "every secondary specialist space in the PDFs can be selected" do
+    spaces = Catalogue.specialist_types.fetch("secondary")
+    assert_equal 13, spaces.size
+    specialist_sheets = Catalogue.layouts.select { |l| l.space == "specialist" }.map(&:id)
+    covered = spaces.values.flat_map { |s| s["sheets"] + s["supporting"] }
+    assert_empty specialist_sheets - covered, "specialist sheets no space can show"
   end
 
   test "unselected specialist types are not shown" do
     result = run_rules(category: "secondary", kind: "teaching", specialists: [])
-    assert result.groups.none? { |g| g.key.start_with?("specialist") }
+    assert result.groups.none? { |g| g.key == "specialist" }
   end
 
   test "primary has no specialist sheets, and says so rather than borrowing secondary ones" do
     result = run_rules(category: "primary_intermediate", kind: "teaching", specialists: %w[Science])
-    assert result.groups.none? { |g| g.key.start_with?("specialist") }
-    assert_match(/No science specialist layouts/, result.notes.join)
+    assert result.groups.none? { |g| g.key == "specialist" }
+    assert_match(/No Science specialist layouts/, result.notes.join)
   end
 
   test "library layouts are filtered by projected roll" do
@@ -84,7 +115,7 @@ class LayoutRulesTest < ActiveSupport::TestCase
     Catalogue.categories.each_key do |category|
       %w[teaching library admin].each do |kind|
         result = run_rules(category:, kind:, buildings: %w[teaching library admin gym hall],
-                           specialists: %w[Science Technology Art Music Food], roll: 600)
+                           specialists: [SCIENCE, ART, "Science"], roll: 600)
         result.groups.flat_map(&:layouts).each do |layout|
           assert_includes layout.categories, category, "#{layout.id} shown in #{category}"
         end

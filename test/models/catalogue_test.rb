@@ -28,9 +28,9 @@ class CatalogueTest < ActiveSupport::TestCase
   end
 
   test "specialist mappings point at specialist sheets in the same category" do
-    Catalogue.specialist_types.each do |category, types|
-      types.each do |type, ids|
-        ids.each do |id|
+    Catalogue.specialist_types.each do |category, spaces|
+      spaces.each do |type, space|
+        (space.fetch("sheets") + (space["supporting"] || [])).each do |id|
           layout = Catalogue.layout(id)
           assert layout, "#{category}/#{type}: no sheet #{id}"
           assert_equal "specialist", layout.space, "#{category}/#{type}: #{id} is not a specialist sheet"
@@ -42,7 +42,8 @@ class CatalogueTest < ActiveSupport::TestCase
 
   test "each category's teaching modules are defined" do
     Catalogue.categories.each do |key, category|
-      category.fetch("teaching_modules").each { |m| assert Catalogue.modules.key?(m), "#{key}: module #{m}" }
+      assert category.fetch("teaching_modules").key?("*"), "#{key}: no module for other building types"
+      category.fetch("teaching_modules").values.flatten.each { |m| assert Catalogue.modules.key?(m), "#{key}: module #{m}" }
     end
   end
 end

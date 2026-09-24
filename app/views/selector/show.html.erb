@@ -662,6 +662,7 @@
                   </div>
 
                   <div ref="{{ cardBoxRef }}" style="position:relative;height:210px;background:#F7F8F6;border-bottom:1px solid #D7DAD7;overflow:hidden">
+                    <sc-if value="{{ o.showMassing }}" hint-placeholder-val="{{ true }}">
                     <div style="position:absolute;inset:0;perspective:2200px">
                       <div style="{{ o.stageStyle }}">
                         <div style="{{ o.sceneStyle }}">
@@ -671,6 +672,10 @@
                         </div>
                       </div>
                     </div>
+                    </sc-if>
+                    <sc-if value="{{ o.hasModel }}" hint-placeholder-val="{{ false }}">
+                      <div ref="{{ o.modelRef }}" style="{{ o.modelStyle }}"></div>
+                    </sc-if>
                   </div>
 
                   <div style="padding:18px">
@@ -964,7 +969,7 @@
                           <sc-if value="{{ bk.hasZoneNote }}" hint-placeholder-val="{{ false }}">
                             <span style="font:400 11px/1.4 'IBM Plex Mono',monospace;color:#8A8189">{{ bk.zoneNote }}</span>
                           </sc-if>
-                          <a href="{{ bk.sourceUrl }}" target="_blank" rel="noopener" style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189;text-decoration:none" style-hover="color:#2C112D">Source · {{ bk.sourceLabel }} ↗</a>
+                          <sc-if value="{{ bk.hasSource }}" hint-placeholder-val="{{ true }}"><a href="{{ bk.sourceUrl }}" target="_blank" rel="noopener" style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189;text-decoration:none" style-hover="color:#2C112D">Source · {{ bk.sourceLabel }} ↗</a></sc-if>
                         </div>
                       </sc-for>
                       <sc-if value="{{ sct.hasDocs }}" hint-placeholder-val="{{ false }}">
@@ -1471,21 +1476,50 @@ class Component extends DCLogic {
     (i.specialist > 0 ? i.specialistTypes || [] : []).forEach((t) => q.append('specialists[]', t));
     return this.fetchJson('/api/catalogue/building?' + q.toString());
   }
-  // 3D window: the building's GLB (db/catalogue/models_3d.yml) replaces the
-  // massing once it has loaded, driven by the same toolbar, legend and readout.
-  // Until then, or if the browser can't show it, the massing view stays.
+  // 3D windows: the building's GLB (db/catalogue/models_3d.yml) replaces the
+  // design's massing once it has loaded, on the building page (driven by the
+  // same toolbar, key and readout) and on each option card (rotate only, so
+  // the page still scrolls). Until then, or if the browser can't show it, the
+  // massing stays. Each window is a "slot" with its own viewer.
+  modelSlot(key, url, opts) {
+    this._slots = this._slots || {};
+    let slot = this._slots[key];
+    if (!slot) {
+      slot = this._slots[key] = { el: null, mv: null, loading: null, want: null, opts };
+      slot.ref = (el) => {
+        if (el === slot.el) return;
+        if (slot.mv) { slot.mv.dispose(); slot.mv = null; }
+        slot.el = el; slot.loading = null;
+        if (el) this.syncSlot(slot);
+      };
+    }
+    slot.want = url && this.state.modelFailed !== url ? url : null;
+    if (slot.want) queueMicrotask(() => this.syncSlot(slot));
+    const ready = !!(slot.want && slot.mv && slot.mv.loadedUrl === slot.want);
+    return { slot, ready, hasModel: !!slot.want,
+      style: 'position:absolute;inset:0;cursor:grab;' + (ready ? '' : 'visibility:hidden;pointer-events:none;') };
+  }
+  syncSlot(slot) {
+    const el = slot.el, url = slot.want;
+    if (!el || !url || slot.loading === url) return;
+    slot.loading = url;
+    import('/viewer/model-viewer.js')
+      .then(({ ModelViewer }) => {
+        if (slot.el !== el) return null;
+        slot.mv = slot.mv || new ModelViewer(el, { onChange: this.modelChanged, ...slot.opts });
+        return slot.mv.load(url);
+      })
+      .then(() => this.setState((st) => ({ mvTick: (st.mvTick || 0) + 1 })))
+      .catch((e) => { console.warn('3D model unavailable; showing the massing view.', e); this.setState({ modelFailed: url }); });
+  }
   modelVals(blk, req) {
     const s = this.state;
     const data = this.buildingData(blk, req);
     const m = data && !data.error ? data.model3d : null;
-    const url = m && m.glb && s.modelFailed !== m.glb ? m.glb : null;
-    this._modelUrl = url;
-    if (url) queueMicrotask(() => this.syncModel());
-    const mv = this._mv;
-    const ready = !!(url && mv && mv.loadedUrl === url);
-    const base = { hasModel: !!url, showMassing: !ready, modelRef: this.modelRef,
-      modelStyle: 'position:absolute;inset:0;cursor:grab;' + (ready ? '' : 'visibility:hidden;pointer-events:none;') };
+    const { slot, ready, hasModel, style } = this.modelSlot('building', m && m.glb);
+    const base = { hasModel, showMassing: !ready, modelRef: slot.ref, modelStyle: style };
     if (!ready) return base;
+    const mv = slot.mv;
     const hidden = s.modelHidden || [];
     const r = mv.readout();
     const go = (name) => () => { if (name === 'reset') { mv.setHidden([]); this.setState({ modelHidden: [] }); } mv.view(name); this.modelChanged(); };
@@ -1496,9 +1530,8 @@ class Component extends DCLogic {
       legend: mv.materials.map((g) => {
         const off = hidden.includes(g.name);
         return {
-          label: g.name,
-          style: `display:flex;align-items:center;gap:7px;background:transparent;border:none;padding:0;` +
-            `font:500 10.5px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.04em;color:${off ? '#B6B0B4' : '#3F3542'};text-decoration:${off ? 'line-through' : 'none'};`,
+          label: this.spaceName('materials', g.name, g.name),
+          style: this.legendStyle(off),
           swatchStyle: `width:11px;height:11px;flex:none;background:${g.color};border:1px solid rgba(44,17,45,0.35);opacity:${off ? 0.3 : 1};`,
           onClick: () => {
             const next = off ? hidden.filter((x) => x !== g.name) : [...hidden, g.name];
@@ -1509,26 +1542,15 @@ class Component extends DCLogic {
       viewReadout: `${m.label} · AZ ${r.az}° · EL ${r.el}° · ${r.zoom}%`
     };
   }
-  modelRef = (el) => {
-    if (el === this._mel) return;
-    if (this._mv) { this._mv.dispose(); this._mv = null; }
-    this._mel = el; this._mvUrl = null;
-    if (el) this.syncModel();
-  };
-  syncModel() {
-    const el = this._mel, url = this._modelUrl;
-    if (!el || !url || this._mvUrl === url) return;
-    this._mvUrl = url;
-    import('/viewer/model-viewer.js')
-      .then(({ ModelViewer }) => {
-        if (this._mel !== el) return null;
-        this._mv = this._mv || new ModelViewer(el, { onChange: this.modelChanged });
-        return this._mv.load(url);
-      })
-      .then(() => { this.setState({ modelHidden: [] }); this.modelChanged(); })
-      .catch((e) => { console.warn('3D model unavailable; showing the massing view.', e); this.setState({ modelFailed: url }); });
+  // An option card's 3D window: the model for the option's first building.
+  cardModelVals(o) {
+    const ab = this.aboutData();
+    const models = ab && !ab.error ? ab.models3d || {} : {};
+    const m = models[o.blocks[0].typeId] || models.default;
+    const { slot, ready, hasModel, style } = this.modelSlot('card-' + o.id, m && m.glb, { rotateOnly: true });
+    return { hasModel, showMassing: !ready, modelRef: slot.ref, modelStyle: style };
   }
-  // Re-render the readout at most once a frame while the camera moves.
+  // Re-render the readout at most once a frame while a camera moves.
   modelChanged = () => {
     if (this._mvTick) return;
     this._mvTick = requestAnimationFrame(() => { this._mvTick = null; this.setState((st) => ({ mvTick: (st.mvTick || 0) + 1 })); });
@@ -1646,14 +1668,40 @@ class Component extends DCLogic {
         (d.thumb ? "background:#fff url('" + d.thumb + "') center / cover no-repeat;" : 'background:' + (has ? '#fff' : '#FBFAFB') + ';')
     };
   }
-  // A catalogue PDF page (from the Rails API) as a docItem box. The page is
-  // shown whole rather than cropped, and the status gives the page (or, for a
-  // layout sheet, the sheet number printed on it).
-  pageDoc(d) {
-    const doc = this.docItem({ title: d.title, src: d.src, thumb: d.thumb });
-    return { ...doc, boxStyle: doc.boxStyle.replace('/ cover', '/ contain'), status: (d.sheet ? 'Sheet ' + d.sheet : 'PDF · p.' + d.page) + ' · open document' };
+  // Catalogue PDF pages (from the Rails API) as docItem boxes. Each page is
+  // shown whole rather than cropped, and clicking it enlarges it in the
+  // on-screen viewer (which still links to the PDF page), stepping through
+  // the pages in the same list.
+  pageDocs(list) {
+    const cards = list.map((d) => ({ title: d.title, occupancy: '', module: '',
+      pages: [{ page: d.page, sheet: d.sheet, thumb: d.thumb, full: d.full }], source: { title: d.sourceTitle, url: d.src } }));
+    return list.map((d, i) => {
+      const doc = this.docItem({ title: d.title, src: d.src, thumb: d.thumb });
+      return { ...doc, boxStyle: doc.boxStyle.replace('/ cover', '/ contain') + 'cursor:zoom-in;',
+        status: d.sheet ? 'Sheet ' + d.sheet : 'PDF · p.' + d.page,
+        onClick: (e) => { e.preventDefault(); this.openSheet(cards, i); } };
+    });
   }
   pageRef(d) { return d.sheet ? d.title + ' · ' + d.sheet : d.title + ' · p.' + d.page; }
+  // A space-category key entry, in the page's body font.
+  legendStyle(off) {
+    return 'display:flex;align-items:center;gap:7px;background:transparent;border:none;padding:0;cursor:pointer;' +
+      "font:500 13px/1.3 'Instrument Sans',Helvetica,Arial,sans-serif;color:" + (off ? '#B6B0B4' : '#3F3542') + ';text-decoration:' + (off ? 'line-through' : 'none') + ';';
+  }
+  // Specialist options for the requirements flow: every specialist space in
+  // the category's layout PDFs, from the catalogue. Where the PDFs have none
+  // (primary / intermediate) the design's own list is kept.
+  specOpts() {
+    const ab = this.aboutData();
+    const list = ab && !ab.error ? ab.specialistSpaces : null;
+    return list && list.length ? list : SPEC_OPTS;
+  }
+  // A space category's name as the catalogue legends print it (group: 'design'
+  // for the massing categories, 'materials' for GLB layers), else the fallback.
+  spaceName(group, key, fallback) {
+    const ab = this.aboutData();
+    return (ab && !ab.error && ab.spaceNames[group] && ab.spaceNames[group][key]) || fallback;
+  }
 
   /* ---------- MOE graphics2 p5 arrow ---------- */
   arrowEl(key, side) {
@@ -1705,7 +1753,7 @@ class Component extends DCLogic {
     // placeholder boxes until then (or for a step the catalogue has no pages for).
     const cat = ['building', 'customise', 'report'].includes(s.screen) ? this.buildingData(blk, req) : null;
     const catOk = !!(cat && !cat.error);
-    const stepDocs = (c) => (catOk && cat.customise[c.id] ? cat.customise[c.id].map((d) => this.pageDoc(d)) : c.docs.map((d) => this.docItem(d)));
+    const stepDocs = (c) => (catOk && cat.customise[c.id] ? this.pageDocs(cat.customise[c.id]) : c.docs.map((d) => this.docItem(d)));
     const allDocs = catOk ? [
       ...cat.diagrams.groups.flatMap((g) => g.layouts.map((l) => ({ title: l.title, section: 'Diagrams' }))),
       ...cat.sections.flatMap((sc) => sc.docs.map((d) => ({ title: this.pageRef(d), section: sc.title }))),
@@ -1762,7 +1810,7 @@ class Component extends DCLogic {
     const roll = w.mode === 'ts' ? ts * ratio : Number(w.rollGrowth) || 0;
     const region = REGIONS.find((r) => r.label === w.region);
     const mix = w.specMix || {};
-    const specTypes = SPEC_OPTS.map((o) => o.key).filter((k) => (mix[k] || 0) > 0);
+    const specTypes = this.specOpts().map((o) => o.key).filter((k) => (mix[k] || 0) > 0);
     const specTotal = specTypes.reduce((t, k) => t + mix[k], 0) || (teaching ? Number(w.specCount) || 0 : 0);
     this.setState({
       screen: 'review', section: 0, optionId: null, bayId: null, zoneId: null, compare: [],
@@ -1823,7 +1871,7 @@ class Component extends DCLogic {
     });
 
     const mix = w.specMix || {};
-    const allocated = SPEC_OPTS.reduce((t, o) => t + (mix[o.key] || 0), 0);
+    const allocated = this.specOpts().reduce((t, o) => t + (mix[o.key] || 0), 0);
     const specTarget = Number(w.specCount) || 0;
     const setMix = (k, v) => this.setState((st) => ({ wz: { ...st.wz, specMix: { ...(st.wz.specMix || {}), [k]: Math.max(0, v) } } }));
 
@@ -1861,7 +1909,7 @@ class Component extends DCLogic {
         number: { key: 'specCount', value: specTarget, unit: 'spaces', step: 1, min: 0, max: 12 },
         inlineNext: specTarget > 0 && !stage2,
         onInlineNext: () => this.setState((st) => ({ wz: { ...st.wz, specStage: 1 } })),
-        counters: stage2 ? SPEC_OPTS.map((o) => {
+        counters: stage2 ? this.specOpts().map((o) => {
           const count = mix[o.key] || 0;
           return {
             label: o.key, note: o.note, count: String(count),
@@ -1937,16 +1985,30 @@ class Component extends DCLogic {
       hasExcluded: d.excluded.length > 0, excluded: d.excluded.map((e) => `${e.title} — ${e.reason}`),
       hasNoGroups: d.groups.length === 0
     });
+    const block = (b) => ({
+      heading: b.heading, paras: b.paragraphs, hasBullets: b.bullets.length > 0, bullets: b.bullets, after: b.after,
+      hasRows: b.rows.length > 0,
+      rows: b.rows.map((r) => ({ label: r.label, value: r.value,
+        style: rowBase + (r.highlight ? 'font-weight:600;background:#F7F6F7;padding-left:10px;padding-right:10px;' : '') })),
+      hasZoneNote: !!b.zoneNote, zoneNote: b.zoneNote || '',
+      hasSource: true, sourceLabel: `${b.source.title} · p.${b.source.page}`, sourceUrl: b.source.url
+    });
+    // A summary section (climate) opens with the site as entered in the
+    // requirements; the catalogue rows for its climate zone follow.
+    const w = s.wz || {};
+    const region = REGIONS.find((r) => r.label === w.region);
+    const siteBlock = {
+      heading: 'Your site', paras: [], hasBullets: false, bullets: [], after: [], hasRows: true,
+      rows: [
+        ...(w.location ? [{ label: 'Location', value: w.location }] : []),
+        { label: 'Region', value: region ? `${region.label} (${region.note})` : '—' },
+        { label: 'NZBC climate zone', value: `Zone ${req.climateZone}` }
+      ].map((r) => ({ ...r, style: rowBase })),
+      hasZoneNote: false, zoneNote: '', hasSource: false, sourceLabel: '', sourceUrl: ''
+    };
     const rest = data.sections.map((sc, i) => section(sc.id, i + 2, sc.title, sc.sub, {
-      hasDocs: sc.docs.length > 0, docs: sc.docs.map((d) => this.pageDoc(d)),
-      blocks: sc.blocks.map((b) => ({
-        heading: b.heading, paras: b.paragraphs, hasBullets: b.bullets.length > 0, bullets: b.bullets, after: b.after,
-        hasRows: b.rows.length > 0,
-        rows: b.rows.map((r) => ({ label: r.label, value: r.value,
-          style: rowBase + (r.highlight ? 'font-weight:600;background:#F7F6F7;padding-left:10px;padding-right:10px;' : '') })),
-        hasZoneNote: !!b.zoneNote, zoneNote: b.zoneNote || '',
-        sourceLabel: `${b.source.title} · p.${b.source.page}`, sourceUrl: b.source.url
-      }))
+      hasDocs: sc.docs.length > 0, docs: this.pageDocs(sc.docs),
+      blocks: [...(sc.summary ? [siteBlock] : []), ...sc.blocks.map(block)]
     }));
     return { infoSections: [diagrams, ...rest], infoLoading: false, infoError: false };
   }
@@ -2172,6 +2234,7 @@ class Component extends DCLogic {
         fitText: `FIT ${o.fit.score}%`,
         fitStyle: `font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.08em;color:${fitColour(o.fit.score)};`,
         faces: g.faces, stageStyle: this.stage(58, -36, gz, 0, 10), sceneStyle: this.scene(g),
+        ...(screen === 'options' ? this.cardModelVals(o) : { showMassing: true, hasModel: false }),
         stats: [
           { label: 'Teaching spaces', value: String(o.totals.teachingSpaces) },
           { label: 'Capacity', value: `${n0(o.totals.capacity)}` },
@@ -2227,9 +2290,8 @@ class Component extends DCLogic {
         legend: cats.map((c) => {
           const cat = D.SPACE_CATS[c]; const hidden = s.hiddenCats.includes(c);
           return {
-            label: cat.label,
-            style: `display:flex;align-items:center;gap:7px;background:transparent;border:none;padding:0;` +
-              `font:500 10.5px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.04em;color:${hidden ? '#B6B0B4' : '#3F3542'};text-decoration:${hidden ? 'line-through' : 'none'};`,
+            label: this.spaceName('design', c, cat.label),
+            style: this.legendStyle(hidden),
             swatchStyle: `width:11px;height:11px;flex:none;background:${cat.fill};border:1px solid ${cat.line};opacity:${hidden ? 0.3 : 1};`,
             onClick: () => this.setState((st) => ({ hiddenCats: st.hiddenCats.includes(c) ? st.hiddenCats.filter((x) => x !== c) : [...st.hiddenCats, c] }))
           };

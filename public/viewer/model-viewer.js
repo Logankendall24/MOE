@@ -17,7 +17,8 @@ const PRESETS = {
 };
 
 export class ModelViewer {
-  constructor(el, { onChange } = {}) {
+  // rotateOnly: no zoom or pan, so the page still scrolls over the window.
+  constructor(el, { onChange, rotateOnly = false } = {}) {
     this.el = el;
     this.onChange = onChange || (() => {});
     this.materials = [];
@@ -41,6 +42,7 @@ export class ModelViewer {
     this.controls.dampingFactor = 0.12;
     this.controls.screenSpacePanning = true;
     this.controls.maxPolarAngle = Math.PI / 2;
+    if (rotateOnly) { this.controls.enableZoom = false; this.controls.enablePan = false; }
     this.controls.addEventListener('start', () => { this.preset = null; this.tween = null; });
     this.controls.addEventListener('change', () => { this.dirty = true; this.onChange(); });
 
@@ -96,8 +98,8 @@ export class ModelViewer {
 
     const size = box.getSize(new THREE.Vector3());
     this.target = new THREE.Vector3(0, size.y / 2, 0);
-    // A bounding sphere is conservative for long, low buildings, so fit a little tighter.
-    this.fitDistance = (box.getBoundingSphere(new THREE.Sphere()).radius / Math.sin((this.camera.fov / 2) * DEG)) * 0.8;
+    this.radius = box.getBoundingSphere(new THREE.Sphere()).radius;
+    this.fit();
     this.camera.near = this.fitDistance / 100;
     this.camera.far = this.fitDistance * 20;
     this.camera.updateProjectionMatrix();
@@ -105,6 +107,14 @@ export class ModelViewer {
     this.controls.maxDistance = this.fitDistance * 4;
     this.view('axonometric', false);
     this.loadedUrl = url;
+  }
+
+  // Camera distance that frames the model in the window's narrower direction.
+  // A bounding sphere is conservative for long, low buildings, so fit a little tighter.
+  fit() {
+    const v = this.camera.fov * DEG;
+    const h = 2 * Math.atan(Math.tan(v / 2) * this.camera.aspect);
+    this.fitDistance = (this.radius / Math.sin(Math.min(v, h) / 2)) * 0.9;
   }
 
   // Move to one of the design's preset views ('reset' is axonometric, re-centred).
@@ -170,6 +180,7 @@ export class ModelViewer {
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
+    if (this.radius) this.fit();
     this.dirty = true;
   }
 

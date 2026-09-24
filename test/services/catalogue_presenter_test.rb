@@ -9,11 +9,32 @@ class CataloguePresenterTest < ActiveSupport::TestCase
   def page_of(doc) = doc[:src][/page=(\d+)/, 1].to_i
   def source_of(doc) = doc[:src][%r{documents/(\w+)}, 1]
 
-  test "each section's document boxes are the pages its text cites" do
+  test "each section's document boxes include every page its text cites" do
     building("primary_intermediate")[:sections].each do |section|
       cited = section[:blocks].map { |b| [b[:source][:key], b[:source][:page]] }.uniq
-      assert_equal cited, section[:docs].map { |d| [source_of(d), page_of(d)] }, section[:id]
+      assert_empty cited - section[:docs].map { |d| [source_of(d), page_of(d)] }, section[:id]
     end
+  end
+
+  test "further information shows only the sections listed for it" do
+    %w[primary_intermediate secondary].each do |category|
+      assert_equal %w[climate], building(category)[:sections].map { |s| s[:id] }, category
+    end
+  end
+
+  test "climate is a summary: the zone's rows, no paragraphs, and its PDF pages" do
+    climate = building("primary_intermediate", climate_zone: "5")[:sections].first
+    assert climate[:summary]
+    assert climate[:blocks].all? { |b| b[:paragraphs].empty? && b[:rows].any? }
+    assert_match(/mechanical heat recovery/, climate[:blocks].first[:rows].first[:value])
+    assert_equal [20, 19], climate[:docs].map { |d| d[:page] }
+  end
+
+  test "the requirements flow offers every secondary specialist space by its PDF name" do
+    spaces = CataloguePresenter.new("secondary").about[:specialistSpaces]
+    assert_equal 13, spaces.size
+    assert_includes spaces.map { |s| s[:label] }, "Dance"
+    assert_empty CataloguePresenter.new("primary_intermediate").about[:specialistSpaces]
   end
 
   test "customise steps use the category's own catalogue and teaching sheets" do

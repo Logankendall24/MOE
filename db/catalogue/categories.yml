@@ -4,13 +4,21 @@
 primary_intermediate:
   label: "Primary and intermediate"
   catalogue: primary_catalogue
-  # Module classes whose general-teaching layouts are relevant.
-  teaching_modules: [A]
+  # General-teaching module for each building type, keyed by the type id's
+  # first letter (R, S1–S3, D1–D3); "*" covers every other type.
+  teaching_modules:
+    "*": [A]
 
 secondary:
   label: "Secondary school"
   catalogue: secondary_catalogue
-  teaching_modules: [B, C]
+  # Set by the project team: the 8 m × 8.4 m module (C) is only used in
+  # double-depth D-type buildings (D1–D3), and D types use no other module.
+  # Single-depth S types and relocatables use 10.5 m × 7.2 m (B). The secondary
+  # catalogue p7–8 names the S and D types and their separate teaching modules.
+  teaching_modules:
+    D: [C]
+    "*": [B]
 
 # Teaching-module classes. The letters and sizes are the project team's
 # definitions; each is matched to the structural grid printed on the layout
