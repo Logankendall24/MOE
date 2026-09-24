@@ -1,0 +1,48 @@
+# Colour choices for Customise → Cladding, one list per cladding option.
+#
+# The catalogues show the finishes as unnamed swatches on the "Exterior
+# cladding" page (primary p15, secondary p17; the swatches are identical).
+# `swatch` is the colour sampled from that page. The names are NOT printed in
+# the PDFs: each is the closest colour in the supplier's current range, found
+# by comparing colours (CIE Lab), one name per swatch. `check` marks matches
+# where another colour was nearly as close. Confirm names with the supplier or
+# project team before relying on them.
+pages: { primary_catalogue: 15, secondary_catalogue: 17 }
+
+cladding:
+  A:
+    supplier: "COLORSTEEL®"
+    url: "https://www.colorsteel.co.nz/colours"
+    note: "The catalogue names Colorsteel and Colorcote as examples of factory-coated metal."
+    colours:
+      - { name: "Gull Grey", swatch: "#C8C9C7", url: "https://www.colorsteel.co.nz/colours?colour=gull-grey" }
+      - { name: "SandBar®", swatch: "#C2AA8A", url: "https://www.colorsteel.co.nz/colours?colour=sandbar", check: "Lichen is nearly as close" }
+      - { name: "Lichen", swatch: "#AA9D73", url: "https://www.colorsteel.co.nz/colours?colour=lichen" }
+      - { name: "Sandstone Grey", swatch: "#828484", url: "https://www.colorsteel.co.nz/colours?colour=sandstone-grey" }
+      - { name: "Mist Green", swatch: "#859675", url: "https://www.colorsteel.co.nz/colours?colour=mist-green" }
+      - { name: "Pioneer Red", swatch: "#9A1C20", url: "https://www.colorsteel.co.nz/colours?colour=pioneer-red" }
+      - { name: "Scoria", swatch: "#772326", url: "https://www.colorsteel.co.nz/colours?colour=scoria", check: "Pioneer Red is nearly as close" }
+      - { name: "Slate", swatch: "#404040", url: "https://www.colorsteel.co.nz/colours?colour=slate", check: "Thunder Grey is closer on screen" }
+      - { name: "Grey Friars", swatch: "#6D6D6F", url: "https://www.colorsteel.co.nz/colours?colour=grey-friars" }
+      - { name: "Thunder Grey", swatch: "#3D444A", url: "https://www.colorsteel.co.nz/colours?colour=thunder-grey", check: "New Denim Blue is closer on screen" }
+      - { name: "Permanent Green", swatch: "#084B2C", url: "https://www.colorsteel.co.nz/colours?colour=permanent-green" }
+      - { name: "Ironsand", swatch: "#35362F", url: "https://www.colorsteel.co.nz/colours?colour=ironsand", check: "Slate is as close" }
+      - { name: "Ebony", swatch: "#272B26", url: "https://www.colorsteel.co.nz/colours?colour=ebony" }
+      - { name: "Karaka", swatch: "#29271B", url: "https://www.colorsteel.co.nz/colours?colour=karaka", check: "Ironsand is closer on screen" }
+      - { name: "New Denim Blue", swatch: "#445463", url: "https://www.colorsteel.co.nz/colours?colour=new-denim-blue", check: "Grey Friars is closer on screen" }
+  B:
+    supplier: "Midland Brick"
+    url: "https://www.midlandbrick.co.nz/bricks/view-by-colour/"
+    colours:
+      - { name: "Ceres", swatch: "#AD9A8E", url: "https://www.midlandbrick.co.nz/bricks/euro-largo/", check: "Siena Ash Grey is nearly as close" }
+      - { name: "Limestone Hue", swatch: "#B89C7F", url: "https://www.midlandbrick.co.nz/bricks/classic-range/" }
+      - { name: "Trad. Antique Gold", swatch: "#906A4B", url: "https://www.midlandbrick.co.nz/bricks/nz-made-range/" }
+      - { name: "Trad. Russet Red", swatch: "#855C44", url: "https://www.midlandbrick.co.nz/bricks/nz-made-range/" }
+      - { name: "Heritage Red", swatch: "#854636", url: "https://www.midlandbrick.co.nz/bricks/aspire-range/" }
+      - { name: "Metallic Black", swatch: "#323232", url: "https://www.midlandbrick.co.nz/bricks/euro-modus/", check: "Mora is nearly as close" }
+  C:
+    supplier: "Resene"
+    url: "https://www.resene.co.nz/swatches/"
+    # Any Resene colour, entered by name: the catalogue gives a "wide spectrum
+    # of colour ranges within MoE requirements" rather than a fixed list.
+    free: true

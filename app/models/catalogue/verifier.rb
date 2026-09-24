@@ -66,6 +66,18 @@ class Catalogue::Verifier
         end
       end
       (content["figures"] || []).each { |f| checks << [doc, f.fetch("page"), f.fetch("title"), "#{category} figure"] }
+      if (h = content["heating_options"])
+        h.fetch("options").each do |o|
+          texts = [o.fetch("name"), *o["paragraphs"], *o.fetch("zones").values.map { |z| z.fetch("text") }]
+          texts.each { |t| checks << [doc, h.fetch("page"), t, "#{category} heating"] }
+        end
+      end
+      if (c = content["cladding_options"])
+        c.fetch("options").each do |o|
+          [o.fetch("name"), *o["bullets"]].flat_map { |t| (o["verify_parts"] || {})[t] || [t] }
+            .each { |t| checks << [doc, c.fetch("page"), t, "#{category} cladding"] }
+        end
+      end
       content.dig("graphics", "renders")&.each do |r|
         [r.fetch("title"), *r["bullets"]].each { |t| checks << [doc, r.fetch("page"), t, "#{category} render"] }
       end

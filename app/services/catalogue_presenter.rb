@@ -66,6 +66,8 @@ class CataloguePresenter
       },
       sections: sections(kind:, specialists:, climate_zone:, building_type:, layout:),
       customise: customise_docs(building_type),
+      heating: heating_options(climate_zone),
+      cladding: cladding_options,
       typology: (@content["typologies"] || []).each_with_index.filter_map do |t, i|
         { caption: t["caption"], **crop_fields(t, "typology-#{i}") } if t["types"].include?(building_type)
       end,
@@ -74,6 +76,42 @@ class CataloguePresenter
   end
 
   private
+
+  # Customise → Heating and ventilation: the three options with their text and
+  # diagram for the school's zone group (NZBC zones 1-3 or 4-6).
+  def heating_options(climate_zone)
+    h = @content["heating_options"] or return nil
+    group = climate_zone.to_i >= 4 ? 1 : 0
+    key = %w[1-3 4-6][group]
+    {
+      zones: key.sub("-", "–"), source: source_ref(@catalogue, h["page"]),
+      options: h.fetch("options").each_with_index.map do |o, i|
+        zone = o.fetch("zones").fetch(key)
+        _x, _y, w, ht = zone.fetch("crop")
+        { id: o["id"], name: o["name"], paragraphs: o["paragraphs"] || [], text: zone["text"],
+          src: crop_url("heating-#{i}-#{group}"), aspect: (w.to_f / ht).round(4) }
+      end
+    }
+  end
+
+  # Customise → Cladding: the three options with their bullets, example render
+  # and colour list (finishes.yml: swatches from the PDF, supplier names matched).
+  def cladding_options
+    c = @content["cladding_options"] or return nil
+    renders = @content.dig("graphics", "renders") || []
+    {
+      source: source_ref(@catalogue, c["page"]),
+      namesNote: "Colour names are matched to the supplier's range by colour; the catalogue shows unnamed swatches.",
+      options: c.fetch("options").map do |o|
+        palette = Catalogue.finishes.dig("cladding", o["id"]) || {}
+        render = o["render"] && renders[o["render"]]
+        { id: o["id"], name: o["name"], bullets: o["bullets"] || [],
+          render: render && { title: render["title"], **crop_fields(render, "render-#{o['render']}") },
+          supplier: palette["supplier"], supplierUrl: palette["url"], supplierNote: palette["note"], free: !!palette["free"],
+          colours: (palette["colours"] || []).map { |col| col.slice("name", "swatch", "url", "check") } }
+      end
+    }
+  end
 
   # The cover's Graphics panel: example layout pages as document boxes, and
   # the example renders with their captions, grouped by the page they're on.
@@ -110,7 +148,7 @@ class CataloguePresenter
     sheets = Catalogue.layouts.select { |l| l.for_category?(@category) && l.space == "teaching" && modules.include?(l.module_class) }
     Catalogue.customise_pages(@category).to_h do |step, pages|
       docs = pages.map { |p| page_doc(@catalogue, p) }
-      docs += sheets.map { |l| page_doc(l.source, l.pages.first, title: l.title).merge(sheet: l.sheets.first) } if step == "layout"
+      docs += sheets.map { |l| page_doc(l.source, l.pages.first, title: l.title).merge(sheet: l.sheets.first, id: l.id, variant: l.variant) } if step == "layout"
       [step, docs]
     end
   end

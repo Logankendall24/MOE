@@ -43,6 +43,10 @@ class CatalogueImagesController < ApplicationController
     when "render"
       item = content.dig("graphics", "renders")&.[](index[0])
       item && [item["page"], item["crop"], { dpi: 150, format: "jpg" }]
+    when "heating" # heating-<option>-<zone group: 0 for zones 1-3, 1 for 4-6>
+      h = content["heating_options"]
+      zone = h&.dig("options", index[0], "zones", %w[1-3 4-6][index[1].to_i])
+      zone && [h["page"], zone["crop"], { dpi: 200 }]
     end
   end
 

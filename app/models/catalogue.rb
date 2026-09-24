@@ -37,6 +37,7 @@ class Catalogue
       data.fetch("categories").to_h { |c| [c, data.fetch("spaces")] }
     end
     def space_names = read("space_names")
+    def finishes = read("finishes")
     def models_3d = read("models_3d")
     def content(category) = read("content/#{category}")
 

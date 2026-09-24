@@ -343,3 +343,48 @@ graphics:
       crop: [618, 761, 650, 302]
       title: "Option C:"
       bullets: ["Wet area integrated into teaching space", "Small breakout space off teaching space", "High-wear dado, with accessible pinboard above"]
+
+# Customise → Heating and ventilation: the three options on the heating page,
+# each with its text and section diagram for the school's zone group. Ids
+# match the design's HEATING keys.
+heating_options:
+  page: 20
+  options:
+    - id: default
+      name: "Default"
+      paragraphs: ["This is the standard approach for most schools. It provides a simple, effective solution that works well in typical site and climate conditions and is the starting point for all projects."]
+      zones:
+        "1-3": { text: "Electric ceiling radiators and natural ventilation.", crop: [672, 322, 350, 102] }
+        "4-6": { text: "Electric ceiling radiators and ducted mechanical heat recovery. Natural ventilation during summer.", crop: [1150, 290, 350, 132] }
+    - id: alt01
+      name: "Alternative 01"
+      paragraphs: ["This option may be used where site conditions require a different approach.", "Your project team will work with you to confirm whether this will work for your building and layout, and whether it is needed, based on site constraints, or existing infrastructure."]
+      zones:
+        "1-3": { text: "Airsource heat pumps and wall radiators with natural ventilation.", crop: [700, 610, 295, 88] }
+        "4-6": { text: "Airsource heat pumps, wall radiators and ducted mechanical heat recovery. Natural ventilation for summer.", crop: [1180, 584, 285, 112] }
+    - id: alt02
+      name: "Alternative 02"
+      paragraphs: ["This option is used only in specific situations where other approaches are not suitable.", "Because of upfront and ongoing cost, this option should be supported by a clear reason as part of the project process."]
+      zones:
+        "1-3": { text: "Heatpump VRF-AC cassettes and ducted outdoor air supply. Natural ventilation openings provided for optional use.", crop: [705, 856, 290, 112] }
+        "4-6": { text: "Heatpump VRF-AC cassettes and ducted mechanical heat recovery unit. Natural ventilation openings for optional use.", crop: [1180, 856, 285, 112] }
+
+# Customise → Cladding: the three options on the exterior cladding page, with
+# the example render (index into graphics.renders) shown beside each.
+cladding_options:
+  page: 15
+  options:
+    - id: A
+      name: "Option A: Profiled metal"
+      render: 0
+      bullets: ["Profiled metal cladding (ie corrugated, trapezoidal) from standard ranges", "Factory-coated metal (ie Colorsteel, Colorcote)", "Finish based on standard proprietary colour ranges within MoE requirements"]
+    - id: B
+      name: "Option B: Brick"
+      render: 1
+      bullets: ["Brick or concrete masonry veneer cladding", "Use at low-level only (refer examples below)", "Use in combination with fibre cement (single storey only) or profiled metal at high level where applicable", "Finish based on standard ranges"]
+    - id: C
+      name: "Option C: Painted fibre cement"
+      render: 2
+      bullets: ["Medium-density fibre cement sheet with vertical cover battens", "Use at low-level only (refer examples below)", "Use in combination with profiled metal at high level for multi-storeys", "Paint finish in wide spectrum of colour ranges within MoE requirements"]
+      # The text layer splits this bullet across columns; check it in its two parts.
+      verify_parts: { "Medium-density fibre cement sheet with vertical cover battens": ["Medium-density fibre cement sheet with", "vertical cover battens"] }

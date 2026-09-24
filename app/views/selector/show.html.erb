@@ -889,22 +889,6 @@
               </div>
 
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:28px 36px;margin-top:32px;align-items:start">
-                <div style="min-width:0">
-                  <div style="font:500 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">Module schedule</div>
-                  <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:6px">
-                    <sc-for list="{{ schedule }}" as="m" hint-placeholder-count="4">
-                      <button sc-camel-on-click="{{ m.onClick }}" style="{{ m.style }}">
-                        <span style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;width:100%">
-                          <span style="font-size:13.5px;text-align:left">{{ m.name }}</span>
-                          <span style="font:500 12px/1 'IBM Plex Mono',monospace;white-space:nowrap">× {{ m.count }}</span>
-                        </span>
-                        <span style="display:flex;justify-content:space-between;gap:12px;width:100%;margin-top:6px;font:400 10.5px/1 'IBM Plex Mono',monospace;color:#8A8189;letter-spacing:0.06em">
-                          <span>{{ m.code }}</span><span>{{ m.dims }}</span>
-                        </span>
-                      </button>
-                    </sc-for>
-                  </div>
-                </div>
                 <sc-if value="{{ showFit }}" hint-placeholder-val="{{ true }}">
                   <div style="min-width:0">
                     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
@@ -1051,6 +1035,189 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isAboutPage }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="About" style="flex:1;position:relative;z-index:1;padding:clamp(24px,3.4vw,44px) clamp(22px,4vw,56px) clamp(36px,4vw,60px)">
+          <div style="max-width:1320px;margin:0 auto">
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+              <div style="min-width:0">
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ panelCategory }}</div>
+                <h2 style="margin:12px 0 0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(30px,3.6vw,50px);font-weight:800;line-height:1.04;letter-spacing:-0.028em">{{ pageTitle }}</h2>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <sc-for list="{{ pageTabs }}" as="t" hint-placeholder-count="3">
+                  <button sc-camel-on-click="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ panelLoading }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:28px;font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">Loading from the standard designs catalogue…</div>
+            </sc-if>
+            <sc-if value="{{ panelError }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:28px;font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">The standard designs catalogue could not be loaded.</div>
+            </sc-if>
+
+            <sc-if value="{{ showAboutIntro }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:28px 44px;margin-top:clamp(26px,3vw,38px);align-items:start">
+                <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+                  <sc-for list="{{ aboutParas }}" as="ap" hint-placeholder-count="3">
+                    <p style="margin:0;font-size:17px;line-height:1.6;color:#3F3542;max-width:40em;text-wrap:pretty">{{ ap }}</p>
+                  </sc-for>
+                  <div style="margin-top:10px;border-top:1px solid #D7DAD7">
+                    <sc-for list="{{ panelBlocks }}" as="b" hint-placeholder-count="3">
+                      <div style="padding:14px 0;border-bottom:1px solid #D7DAD7">
+                        <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ b.label }}</div>
+                        <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:#3F3542;text-wrap:pretty">{{ b.text }}</p>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display:grid;gap:22px;min-width:0">
+                  <sc-for list="{{ aboutFigures }}" as="af" hint-placeholder-count="2">
+                    <div style="background:#fff;border:1px solid #D7DAD7;padding:14px 16px 16px">
+                      <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ af.title }}</div>
+                      <button sc-camel-on-click="{{ af.onOpen }}" aria-label="{{ af.title }}" style="{{ af.tileStyle }}"></button>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showAck }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:clamp(26px,3vw,38px);max-width:880px;display:grid;gap:14px">
+                <sc-for list="{{ panelBlocks }}" as="b" hint-placeholder-count="2">
+                  <div style="padding-bottom:12px;border-bottom:1px solid #D7DAD7">
+                    <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ b.label }}</div>
+                    <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:#3F3542">{{ b.text }}</p>
+                  </div>
+                </sc-for>
+                <sc-for list="{{ ackParas }}" as="ap" hint-placeholder-count="4">
+                  <p style="margin:0;font-size:16px;line-height:1.6;color:#3F3542;text-wrap:pretty">{{ ap }}</p>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px;margin-top:28px">
+                <sc-for list="{{ ackGroups }}" as="ag" hint-placeholder-count="4">
+                  <div style="background:#fff;border:1px solid #D7DAD7;padding:16px 18px 18px">
+                    <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ ag.label }}</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px">
+                      <sc-for list="{{ ag.logos }}" as="lg" hint-placeholder-count="2">
+                        <div role="img" aria-label="{{ lg.name }}" style="{{ lg.tileStyle }}"></div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showHow }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:clamp(26px,3vw,38px);max-width:880px">
+                <h3 style="margin:0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.02em">{{ howTitle }}</h3>
+                <sc-for list="{{ howParas }}" as="hp" hint-placeholder-count="2">
+                  <p style="margin:12px 0 0;font-size:16px;line-height:1.6;color:#3F3542;text-wrap:pretty">{{ hp }}</p>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:24px">
+                <sc-for list="{{ howModules }}" as="hm" hint-placeholder-count="3">
+                  <div style="background:#fff;border:1px solid #D7DAD7;padding:16px;display:flex;gap:16px;align-items:flex-start">
+                    <div role="img" aria-label="{{ hm.name }}" style="{{ hm.tileStyle }}"></div>
+                    <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+                      <span style="font-size:15px;font-weight:600">{{ hm.name }}</span>
+                      <span style="font-size:14px;line-height:1.45;color:#3F3542">{{ hm.text }}</span>
+                      <span style="font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">{{ hm.area }} · {{ hm.size }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:20px">
+                <sc-for list="{{ howExamples }}" as="he" hint-placeholder-count="2">
+                  <div style="background:#fff;border:1px solid #D7DAD7;padding:14px 16px 16px">
+                    <div role="img" aria-label="{{ he.caption }}" style="{{ he.tileStyle }}"></div>
+                    <p style="margin:10px 0 0;font-size:14.5px;line-height:1.45;color:#2C112D">{{ he.caption }}</p>
+                    <sc-if value="{{ he.hasNote }}" hint-placeholder-val="{{ false }}">
+                      <p style="margin:6px 0 0;font-size:13px;line-height:1.45;color:#5D5360">{{ he.note }}</p>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="margin-top:20px;max-width:880px">
+                <sc-for list="{{ howClosing }}" as="hc" hint-placeholder-count="2">
+                  <p style="margin:0 0 9px;font-size:15px;line-height:1.55;color:#3F3542">{{ hc }}</p>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0 32px;margin-top:10px;border-top:1px solid #D7DAD7">
+                <sc-for list="{{ panelAfterBlocks }}" as="b" hint-placeholder-count="2">
+                  <div style="padding:14px 0;border-bottom:1px solid #D7DAD7">
+                    <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ b.label }}</div>
+                    <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:#3F3542">{{ b.text }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:clamp(32px,4vw,48px)">
+              <button sc-camel-on-click="{{ onPageBack }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1EEF1">← Start</button>
+              <sc-if value="{{ panelHasSource }}" hint-placeholder-val="{{ false }}">
+                <a href="{{ panelSourceUrl }}" target="_blank" rel="noopener" style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189;text-decoration:none" style-hover="color:#2C112D">Source · {{ panelSourceLabel }} ↗</a>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isGraphicsPage }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Graphics" style="flex:1;position:relative;z-index:1;padding:clamp(24px,3.4vw,44px) clamp(22px,4vw,56px) clamp(36px,4vw,60px)">
+          <div style="max-width:1320px;margin:0 auto">
+            <div style="min-width:0;max-width:760px">
+              <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ panelCategory }}</div>
+              <h2 style="margin:12px 0 0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(30px,3.6vw,50px);font-weight:800;line-height:1.04;letter-spacing:-0.028em">{{ pageTitle }}</h2>
+              <p style="margin:12px 0 0;font-size:16px;line-height:1.5;color:#5D5360;text-wrap:pretty">Example layouts and renders from the standard designs catalogue. Click any image to enlarge it.</p>
+            </div>
+            <sc-if value="{{ panelLoading }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:28px;font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">Loading from the standard designs catalogue…</div>
+            </sc-if>
+            <sc-if value="{{ panelError }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:28px;font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">The standard designs catalogue could not be loaded.</div>
+            </sc-if>
+            <sc-if value="{{ showGraphics }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:clamp(30px,3.6vw,48px)">
+                <div style="border-bottom:1px solid #2C112D;padding-bottom:14px;margin-bottom:20px">
+                  <h3 style="margin:0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-0.02em">Example layouts</h3>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:22px 18px">
+                  <sc-for list="{{ gfxLayouts }}" as="gl" hint-placeholder-count="4">
+                    <button sc-camel-on-click="{{ gl.onOpen }}" style="display:flex;flex-direction:column;gap:10px;background:transparent;border:none;padding:0;text-align:left;color:#2C112D;cursor:zoom-in">
+                      <span style="display:block;border:1px solid #D7DAD7"><span style="{{ gl.tileStyle }}"></span></span>
+                      <span style="font-size:14.5px;font-weight:500;line-height:1.3">{{ gl.title }}</span>
+                      <span style="font:400 10.5px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.04em;color:#8A8189">{{ gl.meta }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+              <sc-for list="{{ gfxRenderGroups }}" as="rg" hint-placeholder-count="2">
+                <div style="margin-top:clamp(36px,4vw,52px)">
+                  <div style="border-bottom:1px solid #2C112D;padding-bottom:14px;margin-bottom:20px">
+                    <h3 style="margin:0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-0.02em">{{ rg.title }}</h3>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px 20px">
+                    <sc-for list="{{ rg.items }}" as="ri" hint-placeholder-count="3">
+                      <div style="min-width:0">
+                        <button sc-camel-on-click="{{ ri.onOpen }}" aria-label="{{ ri.title }}" style="{{ ri.tileStyle }}"></button>
+                        <div style="margin-top:12px;font-size:16px;font-weight:600;color:#2C112D">{{ ri.title }}</div>
+                        <sc-for list="{{ ri.bullets }}" as="rb" hint-placeholder-count="2">
+                          <div style="margin-top:4px;font-size:14px;line-height:1.45;color:#3F3542">› {{ rb }}</div>
+                        </sc-for>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </sc-if>
+            <div style="margin-top:clamp(32px,4vw,48px)">
+              <button sc-camel-on-click="{{ onPageBack }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1EEF1">← Start</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isCustomise }}" hint-placeholder-val="{{ false }}">
         <div data-screen-label="{{ cScreenLabel }}" style="flex:1;position:relative;z-index:1;padding:clamp(24px,3.4vw,44px) clamp(22px,4vw,56px) clamp(36px,4vw,60px)">
           <div style="max-width:1320px;margin:0 auto">
@@ -1077,6 +1244,67 @@
                     <span style="font-size:14px;line-height:1.5;opacity:0.8;text-wrap:pretty">{{ co.note }}</span>
                   </button>
                 </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ cSplit }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px 28px;margin-top:clamp(26px,3vw,38px);align-items:start">
+                <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+                  <sc-for list="{{ cChoices }}" as="ch" hint-placeholder-count="3">
+                    <div style="{{ ch.style }}">
+                      <button sc-camel-on-click="{{ ch.onClick }}" style="display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:transparent;border:none;padding:0;color:inherit;cursor:pointer">
+                        <sc-if value="{{ ch.hasTick }}" hint-placeholder-val="{{ false }}"><span style="{{ ch.tickStyle }}">{{ ch.tickMark }}</span></sc-if>
+                        <sc-if value="{{ ch.hasThumb }}" hint-placeholder-val="{{ false }}"><span style="{{ ch.thumbStyle }}"></span></sc-if>
+                        <span style="display:flex;flex-direction:column;gap:5px;min-width:0">
+                          <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;opacity:0.7">{{ ch.tag }}</span>
+                          <span style="font-size:17px;font-weight:500;line-height:1.25">{{ ch.label }}</span>
+                          <span style="font-size:13.5px;line-height:1.45;opacity:0.8;text-wrap:pretty">{{ ch.note }}</span>
+                        </span>
+                      </button>
+                      <sc-if value="{{ ch.hasColours }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+                          <span style="{{ ch.colourLabelStyle }}">{{ ch.colourLabel }}</span>
+                          <div style="display:flex;flex-wrap:wrap;gap:8px">
+                            <sc-for list="{{ ch.colours }}" as="sw" hint-placeholder-count="6">
+                              <button title="{{ sw.title }}" aria-label="{{ sw.title }}" sc-camel-on-click="{{ sw.onClick }}" style="{{ sw.style }}"></button>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ ch.hasFree }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+                          <span style="{{ ch.colourLabelStyle }}">{{ ch.colourLabel }}</span>
+                          <input type="text" value="{{ ch.freeValue }}" sc-camel-on-change="{{ ch.onFree }}" placeholder="{{ ch.freePlaceholder }}" style="{{ ch.inputStyle }}" />
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ ch.hasLink }}" hint-placeholder-val="{{ false }}">
+                        <a href="{{ ch.linkUrl }}" target="_blank" rel="noopener" style="{{ ch.linkStyle }}">{{ ch.linkLabel }} ↗</a>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="background:#fff;border:1px solid #D7DAD7;padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;position:sticky;top:96px;min-width:0">
+                  <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ cdKicker }}</div>
+                  <div style="font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(20px,1.9vw,26px);font-weight:700;line-height:1.2;letter-spacing:-0.01em">{{ cdTitle }}</div>
+                  <sc-if value="{{ cdHasImage }}" hint-placeholder-val="{{ false }}">
+                    <button sc-camel-on-click="{{ cdOnImage }}" aria-label="{{ cdTitle }}" style="{{ cdImageStyle }}"></button>
+                  </sc-if>
+                  <sc-if value="{{ cdHasText }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:0;font-size:16px;font-weight:500;line-height:1.5;color:#2C112D;text-wrap:pretty">{{ cdText }}</p>
+                  </sc-if>
+                  <sc-for list="{{ cdParas }}" as="dp" hint-placeholder-count="1">
+                    <p style="margin:0;font-size:14.5px;line-height:1.55;color:#3F3542;text-wrap:pretty">{{ dp }}</p>
+                  </sc-for>
+                  <sc-for list="{{ cdBullets }}" as="db" hint-placeholder-count="3">
+                    <div style="font-size:14px;line-height:1.5;color:#3F3542">› {{ db }}</div>
+                  </sc-for>
+                  <sc-if value="{{ cdHasNote }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:0;font:400 11.5px/1.5 'IBM Plex Mono',monospace;color:#8A8189">{{ cdNote }}</p>
+                  </sc-if>
+                  <sc-if value="{{ cdHasSource }}" hint-placeholder-val="{{ false }}">
+                    <a href="{{ cdSourceUrl }}" target="_blank" rel="noopener" style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189;text-decoration:none" style-hover="color:#2C112D">Source · {{ cdSourceLabel }} ↗</a>
+                  </sc-if>
+                </div>
               </div>
             </sc-if>
 
@@ -1781,6 +2009,102 @@ class Component extends DCLogic {
       'transform:rotate(' + deg + 'deg);transition:transform 700ms cubic-bezier(.3,.7,.2,1),opacity 400ms ease;';
   }
 
+  // Ticked layout sheets: the user's ticks, or the sheet matching the
+  // design's current teaching layout letter until they tick something.
+  tickedLayouts(sheets, req) {
+    return this.state.layoutSheets || sheets.filter((d) => d.variant === req.layout.id).map((d) => d.id);
+  }
+
+  // Customise steps from the catalogue: the choices on the left, the chosen
+  // option's PDF text and diagram on the right. Returns null for a step the
+  // catalogue has nothing for (the design's own options are shown instead).
+  customSplit(cs, cat, req, card) {
+    const s = this.state;
+    const blank = { hasTick: false, hasThumb: false, hasColours: false, hasFree: false, hasLink: false, colours: [], tag: '', note: '',
+      tickMark: '', tickStyle: '', thumbStyle: '', colourLabel: '', colourLabelStyle: '', freeValue: '', freePlaceholder: '', inputStyle: '', linkUrl: '', linkLabel: '', linkStyle: '' };
+    const detail = (d) => ({ cdKicker: '', cdTitle: '', cdHasImage: false, cdImageStyle: '', cdOnImage: () => {}, cdHasText: false, cdText: '',
+      cdParas: [], cdBullets: [], cdHasNote: false, cdNote: '', cdHasSource: false, cdSourceLabel: '', cdSourceUrl: '', ...d });
+    const source = (r) => (r ? { cdHasSource: true, cdSourceLabel: `${r.title} · p.${r.page}`, cdSourceUrl: r.url } : {});
+    const image = (im, title) => (im ? { cdHasImage: true, cdOnImage: () => this.openSheet(this.cropCards([im], () => title), 0),
+      cdImageStyle: `display:block;width:100%;padding:0;border:1px solid #EDEFEC;cursor:zoom-in;aspect-ratio:${im.aspect};background:#fff url('${im.src}') center / contain no-repeat;` } : {});
+    const mono = (on) => `font:500 10px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:${on ? 'rgba(255,255,255,0.75)' : '#8A8189'};`;
+    const link = (on) => `display:inline-block;margin-top:12px;font:500 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;color:${on ? '#fff' : INK};`;
+
+    // Heating and ventilation: the three options for the school's zone group.
+    if (cs.id === 'heating' && cat.heating) {
+      const h = cat.heating;
+      const cur = h.options.find((o) => o.id === s.heating) || h.options[0];
+      return {
+        choices: h.options.map((o) => ({ ...blank, tag: `NZBC climate zones ${h.zones}`, label: o.name, note: o.text,
+          style: card(o === cur), onClick: () => this.setState({ heating: o.id }) })),
+        detail: detail({ cdKicker: `Heating & ventilation · site zone ${req.climateZone}`, cdTitle: cur.name, cdHasText: true, cdText: cur.text,
+          cdParas: cur.paragraphs, ...image({ ...cur, page: h.source.page, source: h.source }, cur.name), ...source(h.source) })
+      };
+    }
+
+    // Cladding: each option with its colour choice and supplier link.
+    if (cs.id === 'cladding' && cat.cladding) {
+      const c = cat.cladding;
+      const chosen = s.cladColour || {};
+      const cur = c.options.find((o) => o.id === req.cladding) || c.options[0];
+      const pick = (o, name) => { if (req.cladding !== o.id) this.set('cladding', o.id); this.setState((st) => ({ cladColour: { ...(st.cladColour || {}), [o.id]: name } })); };
+      const colourOf = (o) => o.colours.find((col) => col.name === chosen[o.id]);
+      const curColour = colourOf(cur);
+      return {
+        choices: c.options.map((o) => {
+          const on = o === cur, col = colourOf(o);
+          return { ...blank, tag: o.supplier ? `Colours · ${o.supplier}` : '', label: o.name, note: '', style: card(on),
+            onClick: () => this.set('cladding', o.id),
+            colourLabel: chosen[o.id] ? `Colour · ${chosen[o.id]}` : o.free ? 'Colour · enter a Resene colour name' : 'Choose a colour', colourLabelStyle: mono(on),
+            hasColours: o.colours.length > 0,
+            colours: o.colours.map((cl) => ({ title: cl.name + (cl.check ? ` (to confirm: ${cl.check})` : ''), onClick: () => pick(o, cl.name),
+              style: `width:30px;height:30px;padding:0;border-radius:50%;cursor:pointer;background:${cl.swatch};` +
+                `border:2px solid ${chosen[o.id] === cl.name ? (on ? '#fff' : INK) : 'transparent'};box-shadow:0 0 0 1px rgba(0,0,0,0.18);` })),
+            hasFree: o.free, freeValue: o.free ? chosen[o.id] || '' : '', freePlaceholder: 'e.g. a colour from the Resene colour library',
+            onFree: (e) => pick(o, e.target.value),
+            inputStyle: `width:100%;background:transparent;border:none;border-bottom:1px solid ${on ? 'rgba(255,255,255,0.6)' : '#B6B0B4'};color:inherit;padding:8px 0;font:400 15px/1.3 'Instrument Sans',Helvetica,Arial,sans-serif;outline:none;`,
+            hasLink: !!o.supplierUrl, linkUrl: col && col.url ? col.url : o.supplierUrl,
+            linkLabel: col ? `${col.name} on ${o.supplier}` : `${o.supplier} colours`, linkStyle: link(on) };
+        }),
+        detail: detail({ cdKicker: 'Cladding' + (chosen[cur.id] ? ` · ${chosen[cur.id]}` : ''), cdTitle: cur.name, cdBullets: cur.bullets,
+          ...image(cur.render, cur.render ? `${cur.name} · example render` : ''),
+          cdHasNote: cur.colours.length > 0, cdNote: c.namesNote + (curColour && curColour.check ? ` ${curColour.name}: ${curColour.check}.` : ''),
+          ...source(c.source) })
+      };
+    }
+
+    // Teaching space layout: tick each standard layout sheet the school wants.
+    if (cs.id === 'layout') {
+      const sheets = (cat.customise.layout || []).filter((d) => d.id);
+      if (!sheets.length) return null;
+      const ticked = this.tickedLayouts(sheets, req);
+      const docs = this.pageDocs(sheets);
+      const focus = sheets.find((d) => d.id === s.layoutFocus) || sheets.find((d) => ticked.includes(d.id)) || sheets[0];
+      const toggle = (d) => {
+        const next = ticked.includes(d.id) ? ticked.filter((x) => x !== d.id) : [...ticked, d.id];
+        this.setState({ layoutSheets: next, layoutFocus: d.id });
+        // Keep the design's layout letter (used by the massing view) on the first ticked sheet.
+        const first = sheets.find((x) => next.includes(x.id));
+        if (first && first.variant && this.D.TEACHING_LAYOUTS[first.variant]) this.set('layout', first.variant);
+      };
+      return {
+        choices: sheets.map((d) => {
+          const on = ticked.includes(d.id);
+          return { ...blank, hasTick: true, tickMark: on ? '✓' : '', hasThumb: true, tag: d.sheet, label: d.title.replace(/^Layouts - /, ''),
+            note: on ? 'Ticked' : 'Tick to include', style: card(on), onClick: () => toggle(d),
+            tickStyle: `display:flex;align-items:center;justify-content:center;flex:none;width:24px;height:24px;border:1.5px solid ${on ? '#fff' : INK};font:600 15px/1 'Instrument Sans',sans-serif;`,
+            thumbStyle: `display:block;flex:none;width:112px;aspect-ratio:1.4142;border:1px solid #EDEFEC;background:#fff url('${d.thumb}') center / contain no-repeat;` };
+        }),
+        detail: detail({ cdKicker: `Layout sheet · ${focus.sheet}`, cdTitle: focus.title.replace(/^Layouts - /, ''),
+          cdHasImage: true, cdOnImage: docs[sheets.indexOf(focus)].onClick,
+          cdImageStyle: `display:block;width:100%;padding:0;border:1px solid #EDEFEC;cursor:zoom-in;aspect-ratio:1.4142;background:#fff url('${focus.thumb}') center / contain no-repeat;`,
+          cdParas: [`${ticked.length} of ${sheets.length} standard layouts ticked for this building type.`],
+          cdHasSource: true, cdSourceLabel: `${focus.sourceTitle} · p.${focus.page}`, cdSourceUrl: focus.src })
+      };
+    }
+    return null;
+  }
+
   /* ---------- customise building + PDF report ---------- */
   customVals(req, opt, blk) {
     const s = this.state, D = this.D;
@@ -1791,24 +2115,37 @@ class Component extends DCLogic {
       'border:1px solid ' + (active ? INK : '#D7DAD7') + ';background:' + (active ? INK : '#fff') + ';color:' + (active ? '#fff' : INK) + ';' +
       'box-shadow:' + (active ? '0 0 0 1px ' + INK : 'none') + ';transition:background 160ms ease,border-color 160ms ease;' + (extra || '');
     const sw = (fill) => fill ? 'display:block;width:100%;height:54px;margin-bottom:6px;border:1px solid rgba(0,0,0,0.12);background:' + fill + ';' : 'display:none;';
+    // Catalogue data for the building: when loaded, the heating, cladding and
+    // layout steps come from the PDFs (customSplit); the design's own options
+    // are the fallback until then.
+    const cat = ['building', 'customise', 'report'].includes(s.screen) ? this.buildingData(blk, req) : null;
+    const catOk = !!(cat && !cat.error);
+    const split = catOk ? this.customSplit(cs, cat, req, card) : null;
     let options = [];
-    if (cs.id === 'cladding') options = Object.values(D.CLADDING).map((c) => ({ tag: 'Option ' + c.id, label: c.name.replace(/^Option . — /, ''), note: c.notes,
+    if (split) { /* catalogue choices replace the design's option cards */ } else if (cs.id === 'cladding') options = Object.values(D.CLADDING).map((c) => ({ tag: 'Option ' + c.id, label: c.name.replace(/^Option . — /, ''), note: c.notes,
       style: card(req.cladding === c.id), swatchStyle: sw(c.wall), onClick: () => this.set('cladding', c.id) }));
-    if (cs.id === 'layout') options = Object.values(D.TEACHING_LAYOUTS).map((l) => ({ tag: 'Layout ' + l.id, label: l.name.replace(/^Layout . — /, ''), note: l.summary,
+    if (!split && cs.id === 'layout') options = Object.values(D.TEACHING_LAYOUTS).map((l) => ({ tag: 'Layout ' + l.id, label: l.name.replace(/^Layout . — /, ''), note: l.summary,
       style: card(req.layout.id === l.id), swatchStyle: sw(null), onClick: () => this.set('layout', l.id) }));
-    if (cs.id === 'heating') options = Object.entries(D.HEATING).map(([k, v]) => ({ tag: 'Zone ' + req.climateZone + ' · ' + zone, label: v.name, note: v[zone],
+    if (!split && cs.id === 'heating') options = Object.entries(D.HEATING).map(([k, v]) => ({ tag: 'Zone ' + req.climateZone + ' · ' + zone, label: v.name, note: v[zone],
       style: card(s.heating === k), swatchStyle: sw(null), onClick: () => this.setState({ heating: k }) }));
     const heat = D.HEATING[s.heating] || D.HEATING.default;
+    // The summary and report use the catalogue's options where loaded.
+    const cladOpt = catOk && cat.cladding ? cat.cladding.options.find((o) => o.id === req.cladding) : null;
+    const cladColour = (s.cladColour || {})[req.cladding];
+    const heatOpt = catOk && cat.heating ? cat.heating.options.find((o) => o.id === s.heating) || cat.heating.options[0] : null;
+    const sheets = catOk ? (cat.customise.layout || []).filter((d) => d.id) : [];
+    const ticked = this.tickedLayouts(sheets, req);
     const customRows = [
-      { label: 'Cladding', value: D.CLADDING[req.cladding].name, note: D.CLADDING[req.cladding].notes },
-      { label: 'Teaching layout', value: req.layout.name, note: req.layout.summary },
-      { label: 'Heating and ventilation', value: heat.name + ' · zone ' + req.climateZone, note: heat[zone] },
+      cladOpt ? { label: 'Cladding', value: cladOpt.name.replace(/^Option (.): /, '$1 — ') + (cladColour ? ' · ' + cladColour : ''), note: cladOpt.supplier ? 'Colour from ' + cladOpt.supplier : '' }
+        : { label: 'Cladding', value: D.CLADDING[req.cladding].name, note: D.CLADDING[req.cladding].notes },
+      sheets.length ? { label: 'Teaching layouts', value: sheets.filter((d) => ticked.includes(d.id)).map((d) => d.sheet).join(', ') || 'None ticked', note: '' }
+        : { label: 'Teaching layout', value: req.layout.name, note: req.layout.summary },
+      heatOpt ? { label: 'Heating and ventilation', value: heatOpt.name + ' · zone ' + req.climateZone, note: heatOpt.text }
+        : { label: 'Heating and ventilation', value: heat.name + ' · zone ' + req.climateZone, note: heat[zone] },
       { label: 'Roof', value: blk.roof, note: '' }
     ];
     // Real PDF pages from the catalogue once they've loaded; the design's
     // placeholder boxes until then (or for a step the catalogue has no pages for).
-    const cat = ['building', 'customise', 'report'].includes(s.screen) ? this.buildingData(blk, req) : null;
-    const catOk = !!(cat && !cat.error);
     const stepDocs = (c) => (catOk && cat.customise[c.id] ? this.pageDocs(cat.customise[c.id]) : c.docs.map((d) => this.docItem(d)));
     const allDocs = catOk ? [
       ...cat.diagrams.groups.flatMap((g) => g.layouts.map((l) => ({ title: l.title, section: 'Diagrams' }))),
@@ -1833,6 +2170,8 @@ class Component extends DCLogic {
           onClick: () => this.setState({ cStep: i }) };
       }),
       cHasOptions: options.length > 0, cOptions: options,
+      cSplit: !!split, cChoices: split ? split.choices : [],
+      ...(split ? split.detail : { cdKicker: '', cdTitle: '', cdHasImage: false, cdHasText: false, cdParas: [], cdBullets: [], cdHasNote: false, cdHasSource: false }),
       cIsSummary: cs.id === 'summary', customRows,
       cHasDocs: stepDocs(cs).length > 0, cDocs: stepDocs(cs),
       cBackLabel: step === 0 ? 'Building' : 'Back',
@@ -2112,11 +2451,13 @@ class Component extends DCLogic {
   // building works (p.8).
   panelVals() {
     const s = this.state;
-    const about = s.panel === 'about';
-    const graphics = s.panel === 'graphics';
+    // About and Graphics are full pages (screens); the side panel remains for
+    // any other panel.
+    const about = s.panel === 'about' || s.screen === 'about';
+    const graphics = s.panel === 'graphics' || s.screen === 'graphics';
     const ab = about || graphics ? this.aboutData() : null;
     const ok = !!(ab && !ab.error);
-    const P = s.panel ? PANELS[s.panel] : null;
+    const P = s.panel ? PANELS[s.panel] : about ? PANELS.about : graphics ? PANELS.graphics : null;
     const tabs = P && P.tabs ? P.tabs : null;
     const act = tabs ? tabs.find((t) => t.id === s.panelTab) || tabs[0] : null;
     const tab = act ? act.id : 'about';
@@ -2146,6 +2487,10 @@ class Component extends DCLogic {
       panelTabs: (tabs || []).map((t) => ({ label: t.label, onClick: () => this.setState({ panelTab: t.id }),
         style: 'padding:11px 14px;cursor:pointer;font:500 10.5px/1 \'IBM Plex Mono\',monospace;letter-spacing:0.1em;text-transform:uppercase;' +
           'border:1px solid ' + (t === act ? '#fff' : 'rgba(255,255,255,0.4)') + ';background:' + (t === act ? '#fff' : 'transparent') + ';color:' + (t === act ? INK : '#fff') + ';' })),
+      // The About page's tabs, in the app's own button style.
+      pageTabs: (tabs || []).map((t) => ({ label: t.label, style: this.btn(t === act), onClick: () => this.setState({ panelTab: t.id }) })),
+      pageTitle: P ? P.title : '',
+      onPageBack: () => this.go('cover'),
       panelLoading: (about || graphics) && !ab,
       panelError: (about || graphics) && !!ab && !ok,
       panelCategory: ok ? ab.categoryLabel : '',
@@ -2209,13 +2554,13 @@ class Component extends DCLogic {
       isReq: screen === 'requirements', isReview: screen === 'review',
       isOptions: screen === 'options', isBuilding: screen === 'building', isCompare: screen === 'compare',
       isCustomise: screen === 'customise', isReport: screen === 'report',
+      isAboutPage: screen === 'about', isGraphicsPage: screen === 'graphics',
       showTeReo: this.props.showTeReo !== false,
       onStart: () => this.go('quiz', { qStep: 0 }),
       navTabs: [
-        { reo: 'Mō tēnei', label: 'About', onClick: () => this.setState({ panel: 'about', panelTab: 'about' }) },
-        { reo: 'Ngā whakaahua', label: 'Graphics', onClick: () => this.setState({ panel: 'graphics' }) },
+        { reo: 'Mō tēnei', label: 'About', onClick: () => this.go('about', { panel: null, panelTab: 'about' }) },
+        { reo: 'Ngā whakaahua', label: 'Graphics', onClick: () => this.go('graphics', { panel: null }) },
         { reo: 'Te Tāhuhu o te Mātauranga', label: 'Ministry of Education', onClick: () => window.open('https://www.education.govt.nz/', '_blank', 'noopener') },
-        { reo: 'Whakapā mai', label: 'Contact', onClick: () => this.setState({ panel: 'contact' }) },
         { reo: 'Hākoritanga', label: 'Animation', onClick: () => { this.setState({ screen: 'replay', panel: null }); setTimeout(() => this.setState({ screen: 'cover' }), 60); } }
       ],
       appBg: whiteBg ? '#FFFFFF' : '#F1F3F2',
@@ -2431,7 +2776,6 @@ class Component extends DCLogic {
           { label: 'Teaching layout', value: req.layout.name.replace('Layout ', '').split(' — ')[0] },
           { label: 'Capacity', value: `${n0(bays.reduce((t, b) => t + (b.moduleKey === 'TS_D_PAIR' ? 2 : b.cat === 'teaching' ? 1 : 0), 0) * req.ratio)} students` },
           { label: 'Roof', value: blk.roof },
-          { label: 'Cladding', value: D.CLADDING[req.cladding].name.replace('Option ', '') },
           { label: 'Services', value: `Zone ${req.climateZone} · default` },
           { label: 'MOE classification', value: blk.moe }
         ],

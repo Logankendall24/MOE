@@ -82,6 +82,24 @@ class CataloguePresenterTest < ActiveSupport::TestCase
     assert_empty building("primary_intermediate", building_type: "L")[:typology]
   end
 
+  test "heating options follow the site's zone group, with their own diagrams" do
+    cold = building("secondary", climate_zone: "5")[:heating]
+    warm = building("secondary", climate_zone: "2")[:heating]
+    assert_equal %w[default alt01 alt02], cold[:options].map { |o| o[:id] }
+    assert_equal "4–6", cold[:zones]
+    assert_match(/mechanical heat recovery/, cold[:options].first[:text])
+    assert_equal "Electric ceiling radiators and natural ventilation.", warm[:options].first[:text]
+    assert_match(%r{crops/secondary/heating-0-1}, cold[:options].first[:src])
+  end
+
+  test "cladding options carry their colour lists and example render" do
+    options = building("primary_intermediate")[:cladding][:options]
+    assert_equal %w[A B C], options.map { |o| o[:id] }
+    assert_equal [15, 6, 0], options.map { |o| o[:colours].size }
+    assert options.last[:free], "painted fibre cement takes any Resene colour"
+    assert options.all? { |o| o[:render] && o[:supplierUrl].start_with?("https://") }
+  end
+
   test "about has the how-it-works figures and the graphics panel's layouts and renders" do
     about = CataloguePresenter.new("secondary").about
     assert_equal ["Introduction", "How our building modules work"], about[:figures].map { |f| f[:title] }
