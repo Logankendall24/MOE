@@ -310,9 +310,18 @@ figures:
   - page: 4
     title: "Introduction"
     crop: [695, 68, 870, 1025]
+  - page: 6
+    title: "Planning for your site"
+    crop: [610, 320, 405, 280]
+  - page: 7
+    title: "Choosing the right building"
+    crop: [590, 195, 950, 875]
   - page: 8
     title: "How our building modules work"
     crop: [570, 238, 1045, 795]
+  - page: 18
+    title: "Examples: Interiors"
+    crop: [618, 86, 650, 302]
 
 # The cover's Graphics panel: example layout pages (shown whole) and the
 # example renders, cropped at the renders' own 150 ppi.
