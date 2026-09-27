@@ -235,6 +235,25 @@
   @keyframes dcSlide{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
   @keyframes dcChev{from{opacity:0;transform:translateY(45%)}to{opacity:1;transform:translateY(0)}}
   @keyframes dcWipe{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
+  /* Question flow: the Next / Back arrow uses the same small chevron nudge as the site's other arrow language */
+  .q-next-arrow:hover:not([disabled]){background:#F1D9E6;border-color:#F1D9E6}
+  .q-next-arrow .q-chev-next{display:inline-block;transition:transform 220ms cubic-bezier(.3,.7,.2,1)}
+  .q-next-arrow:hover:not([disabled]) .q-chev-next{transform:translateX(4px)}
+  .q-next-arrow:active:not([disabled]) .q-chev-next{transform:translateX(10px);transition-duration:120ms}
+  .q-back-arrow{transition:border-color 160ms ease}
+  .q-back-arrow .q-chev-back{display:inline-block;transition:transform 220ms cubic-bezier(.3,.7,.2,1)}
+  .q-back-arrow:hover .q-chev-back{transform:translateX(-4px)}
+  .q-back-arrow:active .q-chev-back{transform:translateX(-10px);transition-duration:120ms}
+  /* About page arrow-field transition: field of chevrons eases upward off screen, resolving to the existing right-side arrow */
+  @keyframes dcAboutArrowsRise{
+    0%{opacity:0;transform:translateY(6vh)}
+    18%{opacity:0.55;transform:translateY(0)}
+    72%{opacity:0.55;transform:translateY(-70vh)}
+    100%{opacity:0;transform:translateY(-105vh)}
+  }
+  .about-arrow-field{animation:dcAboutArrowsRise 2600ms cubic-bezier(.4,.2,.2,1) both;pointer-events:none}
+  /* About page: secondary A|B|C|D scroll-spy nav */
+  .about-subnav-item{transition:color 320ms ease,opacity 320ms ease,border-color 320ms ease}
 </style>
 </helmet>
 
@@ -527,8 +546,8 @@
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.22);padding-top:20px">
         <img src="/design/f5388e0e-54eb-4680-99dd-f9874eb8f26b.png" alt="New Zealand Government" style="width:clamp(130px,11vw,175px);height:auto;display:block">
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button sc-camel-on-click="{{ qOnBack }}" style="background:transparent;border:1px solid rgba(255,255,255,0.45);color:#fff;padding:16px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="border-color:#fff">← Back</button>
-          <button sc-camel-on-click="{{ qOnNext }}" style="background:#fff;border:1px solid #fff;color:#2C112D;padding:16px 26px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1D9E6;border-color:#F1D9E6">{{ qNextLabel }} →</button>
+          <button sc-camel-on-click="{{ qOnBack }}" class="q-back-arrow" style="display:inline-flex;align-items:center;gap:10px;background:transparent;border:1px solid rgba(255,255,255,0.45);color:#fff;padding:16px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="border-color:#fff"><span class="q-chev-back" aria-hidden="true">←</span> Back</button>
+          <button sc-camel-on-click="{{ qOnNext }}" class="q-next-arrow" style="{{ qNextStyle }}"><span>{{ qNextLabel }}</span> <span class="q-chev-next" aria-hidden="true">→</span></button>
         </div>
       </div>
     </div>
@@ -685,7 +704,6 @@
                 <h2 style="margin:14px 0 8px;font-size:clamp(26px,3vw,36px);font-weight:500;letter-spacing:-0.02em">{{ optionCount }} standard design options</h2>
                 <p style="margin:0;font-size:16px;line-height:1.45;color:#5D5360;max-width:44em">{{ optionsIntro }}</p>
               </div>
-              <button sc-camel-on-click="{{ onCompare }}" style="{{ compareBtnStyle }}">Compare selected ({{ compareCount }})</button>
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:22px;margin-top:34px;align-items:start">
@@ -730,8 +748,7 @@
                     </div>
 
                     <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap">
-                      <button sc-camel-on-click="{{ o.onView }}" style="flex:1;min-width:150px;background:#2C112D;border:1px solid #2C112D;color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#46203F">View building →</button>
-                      <button sc-camel-on-click="{{ o.onToggleCompare }}" style="{{ o.compareStyle }}">{{ o.compareLabel }}</button>
+                      <button sc-camel-on-click="{{ o.onView }}" style="width:100%;background:#2C112D;border:1px solid #2C112D;color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#46203F">View building →</button>
                     </div>
                   </div>
                 </div>
@@ -852,8 +869,7 @@
 
                 <button sc-camel-on-click="{{ onCustomise }}" style="margin-top:auto;width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff;border:1px solid #fff;color:#2C112D;padding:18px 20px;font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer" style-hover="background:#F1D9E6;border-color:#F1D9E6"><span>Customise building</span><span>→</span></button>
                 <div style="display:flex;gap:8px;flex-wrap:wrap">
-                  <button sc-camel-on-click="{{ onBackToOptions }}" style="flex:1;min-width:130px;background:transparent;border:1px solid rgba(255,255,255,0.5);color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="border-color:#fff">← Options</button>
-                  <button sc-camel-on-click="{{ onCompare }}" style="flex:1;min-width:130px;background:transparent;border:1px solid rgba(255,255,255,0.5);color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="border-color:#fff">Compare</button>
+                  <button sc-camel-on-click="{{ onBackToOptions }}" style="width:100%;background:transparent;border:1px solid rgba(255,255,255,0.5);color:#fff;padding:14px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="border-color:#fff">← Options</button>
                 </div>
               </div>
             </div>
@@ -1036,127 +1052,64 @@
       </sc-if>
 
       <sc-if value="{{ isAboutPage }}" hint-placeholder-val="{{ false }}">
-        <div data-screen-label="About" style="flex:1;position:relative;z-index:1;padding:clamp(24px,3.4vw,44px) clamp(22px,4vw,56px) clamp(36px,4vw,60px)">
-          <div style="max-width:1320px;margin:0 auto">
-            <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
-              <div style="min-width:0">
+        <div data-screen-label="About" style="flex:1;position:relative;z-index:1">
+          <!-- Page 6 arrow field: rises out of frame on entry, leaving the white About page with just the existing right-side arrow (page 7 language). -->
+          <div class="about-arrow-field" aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden">
+            {{ aboutArrowField }}
+          </div>
+
+          <!-- Sticky secondary section nav: A | B | C | D -->
+          <div data-noprint="" style="position:sticky;top:76px;z-index:20;background:rgba(255,255,255,0.94);backdrop-filter:blur(6px);border-bottom:1px solid #D7DAD7">
+            <div style="max-width:1320px;margin:0 auto;padding:14px clamp(22px,4vw,56px);display:flex;align-items:center;gap:clamp(20px,4vw,60px);flex-wrap:wrap">
+              <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">About · {{ panelCategory }}</div>
+              <div style="display:flex;align-items:center;gap:clamp(12px,2.4vw,32px);flex:1;flex-wrap:wrap">
+                <sc-for list="{{ aboutSubNav }}" as="n" hint-placeholder-count="4">
+                  <button class="about-subnav-item" sc-camel-on-click="{{ n.onClick }}" aria-current="{{ n.ariaCurrent }}" style="{{ n.style }}">
+                    <span style="font:500 12px/1 'IBM Plex Mono',monospace;letter-spacing:0.18em">{{ n.key }}</span>
+                    <span style="font-size:13px;font-weight:500">{{ n.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <button sc-camel-on-click="{{ onPageBack }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:10px 16px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1EEF1">← Start</button>
+            </div>
+          </div>
+
+          <div style="padding:clamp(28px,3.4vw,52px) clamp(22px,4vw,56px) clamp(36px,4vw,80px);position:relative;z-index:1">
+            <div style="max-width:1320px;margin:0 auto">
+              <div style="min-width:0;max-width:920px">
                 <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ panelCategory }}</div>
                 <h2 style="margin:12px 0 0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(30px,3.6vw,50px);font-weight:800;line-height:1.04;letter-spacing:-0.028em">{{ pageTitle }}</h2>
+                <p style="margin:14px 0 0;font-size:16px;line-height:1.5;color:#5D5360;max-width:44em">Scroll through the sections below. The section indicator above tracks your position. Click any graphic to open it at full size.</p>
               </div>
-              <div style="display:flex;gap:6px;flex-wrap:wrap">
-                <sc-for list="{{ pageTabs }}" as="t" hint-placeholder-count="3">
-                  <button sc-camel-on-click="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
-                </sc-for>
-              </div>
-            </div>
-            <sc-if value="{{ panelLoading }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:28px;font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">Loading from the standard designs catalogue…</div>
-            </sc-if>
-            <sc-if value="{{ panelError }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:28px;font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">The standard designs catalogue could not be loaded.</div>
-            </sc-if>
 
-            <sc-if value="{{ showAboutIntro }}" hint-placeholder-val="{{ false }}">
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:28px 44px;margin-top:clamp(26px,3vw,38px);align-items:start">
-                <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
-                  <sc-for list="{{ aboutParas }}" as="ap" hint-placeholder-count="3">
-                    <p style="margin:0;font-size:17px;line-height:1.6;color:#3F3542;max-width:40em;text-wrap:pretty">{{ ap }}</p>
-                  </sc-for>
-                  <div style="margin-top:10px;border-top:1px solid #D7DAD7">
-                    <sc-for list="{{ panelBlocks }}" as="b" hint-placeholder-count="3">
-                      <div style="padding:14px 0;border-bottom:1px solid #D7DAD7">
-                        <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ b.label }}</div>
-                        <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:#3F3542;text-wrap:pretty">{{ b.text }}</p>
+              <div style="display:flex;flex-direction:column;gap:clamp(60px,8vw,120px);margin-top:clamp(48px,6vw,84px)">
+                <sc-for list="{{ aboutSections }}" as="sec" hint-placeholder-count="4">
+                  <section id="{{ sec.anchor }}" data-about-section="{{ sec.key }}" style="scroll-margin-top:160px;min-height:calc(100vh - 240px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:36px 64px;align-items:start">
+                    <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+                      <div style="display:flex;align-items:center;gap:14px">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid #2C112D;font:500 15px/1 'IBM Plex Mono',monospace;letter-spacing:0.06em;color:#2C112D">{{ sec.key }}</span>
+                        <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">Section {{ sec.key }}</span>
                       </div>
-                    </sc-for>
-                  </div>
-                </div>
-                <div style="display:grid;gap:22px;min-width:0">
-                  <sc-for list="{{ aboutFigures }}" as="af" hint-placeholder-count="2">
-                    <div style="background:#fff;border:1px solid #D7DAD7;padding:14px 16px 16px">
-                      <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ af.title }}</div>
-                      <button sc-camel-on-click="{{ af.onOpen }}" aria-label="{{ af.title }}" style="{{ af.tileStyle }}"></button>
-                    </div>
-                  </sc-for>
-                </div>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ showAck }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:clamp(26px,3vw,38px);max-width:880px;display:grid;gap:14px">
-                <sc-for list="{{ panelBlocks }}" as="b" hint-placeholder-count="2">
-                  <div style="padding-bottom:12px;border-bottom:1px solid #D7DAD7">
-                    <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ b.label }}</div>
-                    <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:#3F3542">{{ b.text }}</p>
-                  </div>
-                </sc-for>
-                <sc-for list="{{ ackParas }}" as="ap" hint-placeholder-count="4">
-                  <p style="margin:0;font-size:16px;line-height:1.6;color:#3F3542;text-wrap:pretty">{{ ap }}</p>
-                </sc-for>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px;margin-top:28px">
-                <sc-for list="{{ ackGroups }}" as="ag" hint-placeholder-count="4">
-                  <div style="background:#fff;border:1px solid #D7DAD7;padding:16px 18px 18px">
-                    <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ ag.label }}</div>
-                    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px">
-                      <sc-for list="{{ ag.logos }}" as="lg" hint-placeholder-count="2">
-                        <div role="img" aria-label="{{ lg.name }}" style="{{ lg.tileStyle }}"></div>
+                      <h3 style="margin:8px 0 0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(24px,2.4vw,34px);font-weight:800;letter-spacing:-0.022em;line-height:1.1;color:#2C112D">{{ sec.title }}</h3>
+                      <p style="margin:6px 0 0;font-size:16px;line-height:1.55;color:#3F3542;max-width:40em">{{ sec.supporting }}</p>
+                      <sc-for list="{{ sec.body }}" as="p" hint-placeholder-count="2">
+                        <p style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#3F3542;max-width:40em;text-wrap:pretty">{{ p }}</p>
                       </sc-for>
+                      <div style="margin-top:16px;font:400 11.5px/1.5 'IBM Plex Mono',monospace;letter-spacing:0.03em;color:#8A8189">{{ sec.smallprint }}</div>
                     </div>
-                  </div>
-                </sc-for>
-              </div>
-            </sc-if>
 
-            <sc-if value="{{ showHow }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:clamp(26px,3vw,38px);max-width:880px">
-                <h3 style="margin:0;font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.02em">{{ howTitle }}</h3>
-                <sc-for list="{{ howParas }}" as="hp" hint-placeholder-count="2">
-                  <p style="margin:12px 0 0;font-size:16px;line-height:1.6;color:#3F3542;text-wrap:pretty">{{ hp }}</p>
-                </sc-for>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:24px">
-                <sc-for list="{{ howModules }}" as="hm" hint-placeholder-count="3">
-                  <div style="background:#fff;border:1px solid #D7DAD7;padding:16px;display:flex;gap:16px;align-items:flex-start">
-                    <div role="img" aria-label="{{ hm.name }}" style="{{ hm.tileStyle }}"></div>
-                    <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
-                      <span style="font-size:15px;font-weight:600">{{ hm.name }}</span>
-                      <span style="font-size:14px;line-height:1.45;color:#3F3542">{{ hm.text }}</span>
-                      <span style="font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:#8A8189">{{ hm.area }} · {{ hm.size }}</span>
+                    <div style="min-width:0">
+                      <button sc-camel-on-click="{{ sec.onOpenGraphic }}" aria-label="Open section {{ sec.key }} graphic" style="{{ sec.graphicStyle }}"></button>
+                      <div style="margin-top:10px;font:400 10.5px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.06em;color:#8A8189">{{ sec.graphicCaption }}</div>
                     </div>
-                  </div>
+                  </section>
                 </sc-for>
               </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:20px">
-                <sc-for list="{{ howExamples }}" as="he" hint-placeholder-count="2">
-                  <div style="background:#fff;border:1px solid #D7DAD7;padding:14px 16px 16px">
-                    <div role="img" aria-label="{{ he.caption }}" style="{{ he.tileStyle }}"></div>
-                    <p style="margin:10px 0 0;font-size:14.5px;line-height:1.45;color:#2C112D">{{ he.caption }}</p>
-                    <sc-if value="{{ he.hasNote }}" hint-placeholder-val="{{ false }}">
-                      <p style="margin:6px 0 0;font-size:13px;line-height:1.45;color:#5D5360">{{ he.note }}</p>
-                    </sc-if>
-                  </div>
-                </sc-for>
-              </div>
-              <div style="margin-top:20px;max-width:880px">
-                <sc-for list="{{ howClosing }}" as="hc" hint-placeholder-count="2">
-                  <p style="margin:0 0 9px;font-size:15px;line-height:1.55;color:#3F3542">{{ hc }}</p>
-                </sc-for>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0 32px;margin-top:10px;border-top:1px solid #D7DAD7">
-                <sc-for list="{{ panelAfterBlocks }}" as="b" hint-placeholder-count="2">
-                  <div style="padding:14px 0;border-bottom:1px solid #D7DAD7">
-                    <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">{{ b.label }}</div>
-                    <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:#3F3542">{{ b.text }}</p>
-                  </div>
-                </sc-for>
-              </div>
-            </sc-if>
 
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:clamp(32px,4vw,48px)">
-              <button sc-camel-on-click="{{ onPageBack }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#F1EEF1">← Start</button>
               <sc-if value="{{ panelHasSource }}" hint-placeholder-val="{{ false }}">
-                <a href="{{ panelSourceUrl }}" target="_blank" rel="noopener" style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189;text-decoration:none" style-hover="color:#2C112D">Source · {{ panelSourceLabel }} ↗</a>
+                <div style="margin-top:clamp(40px,4vw,64px);padding-top:20px;border-top:1px solid #D7DAD7">
+                  <a href="{{ panelSourceUrl }}" target="_blank" rel="noopener" style="font:400 10.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:#8A8189;text-decoration:none" style-hover="color:#2C112D">Source · {{ panelSourceLabel }} ↗</a>
+                </div>
               </sc-if>
             </div>
           </div>
@@ -1463,51 +1416,6 @@
         </div>
       </sc-if>
 
-      <sc-if value="{{ isCompare }}" hint-placeholder-val="{{ true }}">
-        <div data-screen-label="Option comparison" style="flex:1;position:relative;z-index:1;padding:clamp(26px,4vw,52px) clamp(22px,4vw,56px)">
-          <div style="max-width:1320px;margin:0 auto">
-            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">Step 04</div>
-            <h2 style="margin:14px 0 8px;font-size:clamp(26px,3vw,36px);font-weight:500;letter-spacing:-0.02em">Option comparison</h2>
-            <p style="margin:0 0 34px;font-size:16px;line-height:1.45;color:#5D5360;max-width:44em">The same requirement met by different standard configurations. Differences are shown against the calculated requirement.</p>
-
-            <div style="{{ compareGridStyle }}">
-              <div style="background:#fff;border:1px solid #D7DAD7">
-                <div style="height:172px;border-bottom:1px solid #D7DAD7;background:#EAEDEA"></div>
-                <sc-for list="{{ compareLabels }}" as="l" hint-placeholder-count="9">
-                  <div style="{{ l.style }}">{{ l.label }}</div>
-                </sc-for>
-              </div>
-              <sc-for list="{{ compareColumns }}" as="c" hint-placeholder-count="2">
-                <div style="{{ c.colStyle }}">
-                  <div ref="{{ cmpBoxRef }}" style="position:relative;height:172px;border-bottom:1px solid #D7DAD7;background:#F7F8F6;overflow:hidden">
-                    <div style="position:absolute;inset:0;perspective:2000px">
-                      <div style="{{ c.stageStyle }}">
-                        <div style="{{ c.sceneStyle }}">
-                          <sc-for list="{{ c.faces }}" as="f" hint-placeholder-count="10">
-                            <div style="{{ f.style }}"></div>
-                          </sc-for>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="position:absolute;top:12px;left:14px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em">OPTION {{ c.id }}</div>
-                  </div>
-                  <sc-for list="{{ c.cells }}" as="cell" hint-placeholder-count="9">
-                    <div style="{{ cell.style }}">{{ cell.text }}</div>
-                  </sc-for>
-                  <div style="padding:14px">
-                    <button sc-camel-on-click="{{ c.onView }}" style="width:100%;background:#2C112D;border:1px solid #2C112D;color:#fff;padding:13px 14px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.12em;text-transform:uppercase" style-hover="background:#46203F">View building →</button>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-
-            <div style="margin-top:28px">
-              <button sc-camel-on-click="{{ onBackToOptions }}" style="background:transparent;border:1px solid #2C112D;color:#2C112D;padding:15px 22px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:#E4E0E2">← All options</button>
-            </div>
-          </div>
-        </div>
-      </sc-if>
-
       <div data-noprint="" style="position:relative;z-index:1;border-top:1px solid #D7DAD7;background:#EAEDEA;padding:18px clamp(22px,4vw,56px);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font:400 11px/1.6 'IBM Plex Mono',monospace;color:#8A8189">
         <span>Standard designs for primary and intermediate schools · V1.0</span>
         <span>Indicative planning tool · confirm all provision with your project team</span>
@@ -1675,9 +1583,10 @@ const EXAMPLE = { ...DEFAULTS, schoolName: 'Kowhai Primary School', roll: 310, r
 class Component extends DCLogic {
   state = {
     ready: false, screen: 'cover', section: 0, input: { ...DEFAULTS }, qStep: 0, wz: { ...WZ_DEFAULT }, panel: null, panelTab: 'about', openInfo: [], cStep: 0, heating: 'default',
-    optionId: null, compare: [], blockId: null,
+    optionId: null, blockId: null,
     rx: 57, rz: -36, zoom: 1, panX: 0, panY: 0, drag: null, vw: 640, vh: 520,
-    bayId: null, zoneId: null, isolate: false, hiddenCats: [], level: 'all'
+    bayId: null, zoneId: null, isolate: false, hiddenCats: [], level: 'all',
+    aboutSection: 'A'
   };
 
   async componentDidMount() {
@@ -1686,13 +1595,42 @@ class Component extends DCLogic {
     window.addEventListener('mousemove', this.onMove);
     window.addEventListener('mouseup', this.endDrag);
     window.addEventListener('keydown', this.onKey);
+    window.addEventListener('scroll', this.onAboutScroll, { passive: true });
     this.setState({ ready: true });
   }
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.onMove);
     window.removeEventListener('mouseup', this.endDrag);
     window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('scroll', this.onAboutScroll);
   }
+
+  // About page scroll-spy: whichever section's midpoint sits closest to the
+  // viewport centre becomes the active one, and the sticky sub-nav highlights
+  // that letter. Debounced with requestAnimationFrame.
+  onAboutScroll = () => {
+    if (this.state.screen !== 'about' || this._aboutScrollScheduled) return;
+    this._aboutScrollScheduled = true;
+    requestAnimationFrame(() => {
+      this._aboutScrollScheduled = false;
+      const nodes = document.querySelectorAll('[data-about-section]');
+      if (!nodes.length) return;
+      const centreY = window.innerHeight * 0.4;
+      let best = null, bestDist = Infinity;
+      nodes.forEach((n) => {
+        const r = n.getBoundingClientRect();
+        const mid = (r.top + r.bottom) / 2;
+        const d = Math.abs(mid - centreY);
+        if (d < bestDist) { bestDist = d; best = n.getAttribute('data-about-section'); }
+      });
+      if (best && best !== this.state.aboutSection) this.setState({ aboutSection: best });
+    });
+  };
+  scrollToAbout = (key) => {
+    const el = document.getElementById('about-' + key.toLowerCase());
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.setState({ aboutSection: key });
+  };
 
   /* ---------- calculation (memoised on input) ---------- */
   calc() {
@@ -2208,7 +2146,7 @@ class Component extends DCLogic {
     const specTypes = this.specOpts().map((o) => o.key).filter((k) => (mix[k] || 0) > 0);
     const specTotal = specTypes.reduce((t, k) => t + mix[k], 0) || (teaching ? Number(w.specCount) || 0 : 0);
     this.setState({
-      screen: 'review', section: 0, optionId: null, bayId: null, zoneId: null, compare: [],
+      screen: 'review', section: 0, optionId: null, bayId: null, zoneId: null,
       input: {
         ...DEFAULTS,
         // The catalogue category drives which Ministry documents are shown.
@@ -2339,7 +2277,20 @@ class Component extends DCLogic {
       qIsCounters: !!q.counters, qCounters: q.counters || [], qAllocated: q.allocated || '',
       qIsText: !!q.text, qText: w.location, qOnText: (e) => this.setW('location', e.target.value),
       qOnBack: () => (id === 'specialist' && w.specStage === 1 ? this.setState((st) => ({ wz: { ...st.wz, specStage: 0 } })) : goStep(step - 1)),
-      qOnNext: () => goStep(step + 1),
+      qOnNext: () => {
+        // On the specialist step: only allow Next when either the count is 0
+        // or all allocations have been made. Otherwise the user must complete
+        // the counters underneath the question first.
+        if (id === 'specialist' && specTarget > 0 && allocated !== specTarget) return;
+        goStep(step + 1);
+      },
+      qNextStyle: (() => {
+        const disabled = id === 'specialist' && specTarget > 0 && allocated !== specTarget;
+        const base = "display:inline-flex;align-items:center;gap:10px;border:1px solid #fff;padding:16px 26px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;transition:background 160ms ease,border-color 160ms ease,opacity 160ms ease;";
+        return disabled
+          ? base + "background:transparent;color:rgba(255,255,255,0.45);border-color:rgba(255,255,255,0.28);cursor:not-allowed;opacity:0.6;"
+          : base + "background:#fff;color:#2C112D;cursor:pointer;";
+      })(),
       qNextLabel: step === flow.length - 1 ? 'Find building options' : 'Next'
     };
   }
@@ -2515,6 +2466,104 @@ class Component extends DCLogic {
     };
   }
 
+  // About page: four scrollable A/B/C/D subsections with a sticky secondary
+  // section nav. Titles and body are intentional placeholders — the exact
+  // words and PDF images will be dropped in later by a separate pass that
+  // reads the Ministry PDFs. The layout, sticky sub-nav, scroll-spy and
+  // click-to-enlarge on the right-side graphic are what this pass locks in.
+  aboutPageVals() {
+    const s = this.state;
+    // Placeholder graphic: a subtle chevron-arrow tile in the site's ink
+    // colour, drawn inline so no image asset is needed until real graphics
+    // land. This uses the same right-facing chevron shape as the arrow
+    // language elsewhere on the site.
+    const placeholderGraphic = (letter) =>
+      `background:#F7F6F7;border:1px solid #D7DAD7;` +
+      `background-image:` +
+        `repeating-linear-gradient(180deg, transparent 0 22px, rgba(44,17,45,0.05) 22px 23px),` +
+        `repeating-linear-gradient(90deg, transparent 0 22px, rgba(44,17,45,0.05) 22px 23px);`;
+    const graphicStyle = (letter) =>
+      'display:block;width:100%;aspect-ratio:1.4142;background:#F7F6F7;border:1px solid #D7DAD7;cursor:zoom-in;' +
+      'background-image:' +
+        'repeating-linear-gradient(180deg, transparent 0 22px, rgba(44,17,45,0.06) 22px 23px),' +
+        'repeating-linear-gradient(90deg, transparent 0 22px, rgba(44,17,45,0.06) 22px 23px);' +
+      'transition:border-color 160ms ease,transform 220ms cubic-bezier(.3,.7,.2,1);';
+    // The four placeholder sections. Names, supporting text and body copy
+    // are labelled "Section title / Supporting text / Body copy" per the
+    // brief so a later PR can drop the real Ministry content in without
+    // rearranging the layout code.
+    const seed = [
+      { key: 'A', title: '[Section title A]', supporting: '[Supporting text A]',
+        body: ['[Body copy — first paragraph. Replace with Ministry of Education content.]',
+               '[Body copy — second paragraph.]'],
+        smallprint: '[Smaller explanatory information · footnote / source line]',
+        graphicCaption: '[Diagram A — click to enlarge]' },
+      { key: 'B', title: '[Section title B]', supporting: '[Supporting text B]',
+        body: ['[Body copy — first paragraph.]', '[Body copy — second paragraph.]'],
+        smallprint: '[Smaller explanatory information · footnote / source line]',
+        graphicCaption: '[Diagram B — click to enlarge]' },
+      { key: 'C', title: '[Section title C]', supporting: '[Supporting text C]',
+        body: ['[Body copy — first paragraph.]', '[Body copy — second paragraph.]'],
+        smallprint: '[Smaller explanatory information · footnote / source line]',
+        graphicCaption: '[Diagram C — click to enlarge]' },
+      { key: 'D', title: '[Section title D]', supporting: '[Supporting text D]',
+        body: ['[Body copy — first paragraph.]', '[Body copy — second paragraph.]'],
+        smallprint: '[Smaller explanatory information · footnote / source line]',
+        graphicCaption: '[Diagram D — click to enlarge]' }
+    ];
+    // Placeholder full-size cards for the lightbox: reuse the same tile
+    // recipe so a later PR only needs to swap `full` for the real image.
+    const lightboxCards = seed.map((se) => ({
+      title: 'Section ' + se.key + ' — ' + se.title, occupancy: '', module: '',
+      pages: [{ page: 1, sheet: null, thumb: '', full: '', aspect: 1.4142 }],
+      source: { title: 'Standard designs catalogue · placeholder', url: '' }
+    }));
+    const aboutSections = seed.map((se, i) => ({
+      key: se.key, anchor: 'about-' + se.key.toLowerCase(),
+      title: se.title, supporting: se.supporting, body: se.body, smallprint: se.smallprint,
+      graphicStyle: graphicStyle(se.key), graphicCaption: se.graphicCaption,
+      onOpenGraphic: () => this.openSheet(lightboxCards, i)
+    }));
+    const active = s.aboutSection || 'A';
+    const subNavStyle = (on) =>
+      'display:flex;align-items:center;gap:10px;background:transparent;border:none;padding:6px 2px 8px;cursor:pointer;' +
+      'color:' + (on ? '#2C112D' : '#8A8189') + ';opacity:' + (on ? '1' : '0.55') + ';' +
+      'border-bottom:2px solid ' + (on ? '#2C112D' : 'transparent') + ';';
+    return {
+      aboutSubNav: seed.map((se) => ({
+        key: se.key, label: se.title.replace(/^\[|\]$/g, ''),
+        ariaCurrent: se.key === active ? 'true' : 'false',
+        style: subNavStyle(se.key === active),
+        onClick: () => this.scrollToAbout(se.key)
+      })),
+      aboutSections,
+      aboutArrowField: this.aboutArrowField()
+    };
+  }
+
+  // Page-6 chevron field, drawn inline as a fixed overlay. The .about-arrow-field
+  // wrapper animates the whole field upward and out of frame on entry, leaving
+  // the white page with just the existing right-side chevron (page 7).
+  aboutArrowField() {
+    const h = React.createElement, INK_LOW = 'rgba(44,17,45,0.28)';
+    const cols = 9, rows = 7;
+    const arrows = [];
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        // Chevron bar stack — same shape used by the site's right-side arrow.
+        const bars = Array.from({ length: 11 }, (_, i) => h('span', { key: i, style: {
+          position: 'absolute', left: (i * 9.1) + '%', top: (Math.abs(i - 5) * 12) + '%',
+          width: '5%', height: '38%', borderRadius: 99, background: INK_LOW } }));
+        // Fade rightward across the page (page-6 gradient) and drop a touch on lower rows.
+        const opacity = Math.max(0.05, 0.9 - (c / (cols - 1)) * 0.9) * (1 - r * 0.05);
+        arrows.push(h('div', { key: r + '-' + c, style: {
+          position: 'absolute', left: (c / cols * 100) + '%', top: (r / rows * 100) + '%',
+          width: (100 / cols) + '%', aspectRatio: '108 / 60', opacity } }, bars));
+      }
+    }
+    return h('div', { 'aria-hidden': true, style: { position: 'absolute', inset: 0, mixBlendMode: 'multiply' } }, arrows);
+  }
+
   // Cropped catalogue images as viewer cards: enlarged on screen, with the
   // viewer's source link opening the PDF page.
   cropCards(list, titleOf) {
@@ -2552,7 +2601,7 @@ class Component extends DCLogic {
       ...this.quizVals(),
       isCover: screen === 'cover', isQuiz: screen === 'quiz', inApp: screen !== 'cover' && screen !== 'quiz' && screen !== 'replay',
       isReq: screen === 'requirements', isReview: screen === 'review',
-      isOptions: screen === 'options', isBuilding: screen === 'building', isCompare: screen === 'compare',
+      isOptions: screen === 'options', isBuilding: screen === 'building',
       isCustomise: screen === 'customise', isReport: screen === 'report',
       isAboutPage: screen === 'about', isGraphicsPage: screen === 'graphics',
       showTeReo: this.props.showTeReo !== false,
@@ -2567,13 +2616,13 @@ class Component extends DCLogic {
       reviewBg: whiteBg ? 'transparent' : "linear-gradient(rgba(249,248,249,0.74),rgba(249,248,249,0.86)),#F7F6F7 url('../ref/moe-pattern-light.png') left top / cover no-repeat",
       moeArrow: whiteBg && screen !== 'cover' && screen !== 'quiz' ? this.arrowEl('moe-arrow-' + screen, this.props.arrowSide === 'Left' ? 'left' : 'right') : null,
       ...this.panelVals(),
+      ...this.aboutPageVals(),
       ...this.lightboxVals(),
       onDemo: () => this.setState({ input: { ...EXAMPLE }, screen: 'review', section: 0, optionId: null, bayId: null }),
       onHome: () => this.go('cover'),
       onBackToReq: () => this.go('requirements'),
       onBackToOptions: () => this.go('options'),
       onCalculate: () => this.go('options'),
-      onCompare: () => this.go('compare'),
       steps: [
         { reo: 'Ngā hiahia', label: 'Requirements', key: 'requirements' },
         { reo: 'Arotake', label: 'Review', key: 'review' },
@@ -2581,7 +2630,7 @@ class Component extends DCLogic {
         { reo: 'Te whare', label: 'Building', key: 'building' },
         { reo: 'Whakarite', label: 'Customise', key: 'customise' }
       ].map((st, i, all) => {
-        const cur = screen === 'compare' ? 2 : screen === 'report' ? 4 : all.findIndex((x) => x.key === screen);
+        const cur = screen === 'report' ? 4 : all.findIndex((x) => x.key === screen);
         const state = i < cur ? 'done' : i === cur ? 'current' : 'next';
         return { ...st, style: this.darkBtn(state),
           chevStyle: this.chev(state === 'done' ? 405 : state === 'current' ? 315 : 225, '#fff', 10) + 'margin:' + (state === 'next' ? '6px' : state === 'done' ? '-6px' : '0') + ' 2px 0 2px;',
@@ -2673,7 +2722,6 @@ class Component extends DCLogic {
       const cb = this.box('card', 320, 210);
       const g = this.geometry(o.blocks, Math.max(160, cb.w - 32), { maxM: 5.6, minM: 1.6, labels: false });
       const gz = this.fitZoom(g, Math.max(140, cb.w - 32), Math.max(110, cb.h - 34), 58, -36);
-      const inCompare = s.compare.includes(o.id);
       return {
         id: o.id, title: o.title, summary: o.summary, characteristics: o.characteristics,
         cardStyle: `background:#fff;border:1px solid ${o.recommended ? INK : '#D7DAD7'};box-shadow:${o.recommended ? '0 0 0 1px ' + INK : 'none'};`,
@@ -2690,10 +2738,7 @@ class Component extends DCLogic {
           { label: 'Gross floor area', value: `${n0(o.totals.gfa)} m²` },
           { label: 'Footprint', value: `${n0(o.totals.footprint)} m²` }
         ],
-        onView: () => this.go('building', { optionId: o.id, blockId: null, bayId: null, zoneId: null, panX: 0, panY: 0, zoom: 1, openInfo: [] }),
-        onToggleCompare: () => this.setState((st) => ({ compare: st.compare.includes(o.id) ? st.compare.filter((x) => x !== o.id) : [...st.compare, o.id] })),
-        compareLabel: inCompare ? 'Selected' : 'Compare',
-        compareStyle: this.btn(inCompare, { pad: '14px 16px' })
+        onView: () => this.go('building', { optionId: o.id, blockId: null, bayId: null, zoneId: null, panX: 0, panY: 0, zoom: 1, openInfo: [] })
       };
     });
 
@@ -2814,42 +2859,9 @@ class Component extends DCLogic {
       };
     }
 
-    /* ---------- comparison ---------- */
-    const cmpOptions = s.compare.length >= 2 ? options.filter((o) => s.compare.includes(o.id)) : options;
-    const rows = [
-      ['Configuration', (o) => o.title],
-      ['Fit against requirement', (o) => `${o.fit.score}% · ${o.fit.met}/${o.fit.total}`],
-      ['Buildings', (o) => String(o.totals.blocks)],
-      ['Storeys', (o) => String(o.totals.storeys)],
-      ['Modules', (o) => String(o.totals.modules)],
-      ['Teaching spaces', (o) => String(o.totals.teachingSpaces)],
-      ['Capacity', (o) => `${n0(o.totals.capacity)} students`],
-      ['Gross floor area', (o) => `${n0(o.totals.gfa)} m²`],
-      ['Net floor area', (o) => `${n0(o.totals.nfa)} m²`],
-      ['Site footprint', (o) => `${n0(o.totals.footprint)} m²`],
-      ['Key characteristic', (o) => o.characteristics[0]]
-    ];
-    const cellStyle = (i, strong) => `padding:13px 14px;border-bottom:1px solid #EDEFEC;font:${strong ? '500' : '400'} 13px/1.4 ${strong ? "'IBM Plex Mono',monospace" : "'Instrument Sans',sans-serif"};background:${i % 2 ? '#FBFBFA' : '#fff'};min-height:46px;`;
-
-    const compare = {
-      compareGridStyle: `display:grid;grid-template-columns:minmax(150px,200px) repeat(${cmpOptions.length}, minmax(0,1fr));gap:12px;align-items:start;overflow-x:auto;`,
-      compareLabels: rows.map((r, i) => ({ label: r[0], style: cellStyle(i, false) + 'color:#5D5360;' })),
-      compareColumns: cmpOptions.map((o) => {
-        const mb = this.box('cmp', 240, 172);
-        const g = this.geometry(o.blocks, Math.max(140, mb.w - 30), { maxM: 4.6, minM: 1.2, labels: false });
-        return {
-          id: o.id,
-          colStyle: `background:#fff;border:1px solid ${o.recommended ? INK : '#D7DAD7'};`,
-          faces: g.faces, stageStyle: this.stage(58, -36, this.fitZoom(g, Math.max(120, mb.w - 30), Math.max(96, mb.h - 42), 58, -36), 0, 10), sceneStyle: this.scene(g),
-          cells: rows.map((r, i) => ({ text: r[1](o), style: cellStyle(i, true) })),
-          onView: () => this.go('building', { optionId: o.id, blockId: null, bayId: null, zoneId: null, openInfo: [] })
-        };
-      })
-    };
-
     return {
       ...base,
-      cardBoxRef: this.boxRef('card'), cmpBoxRef: this.boxRef('cmp'),
+      cardBoxRef: this.boxRef('card'),
       sectionNo: s.section + 1, sectionTitle: sec.title, sectionIntro: sec.intro, fields,
       nextLabel: s.section === SECTIONS.length - 1 ? 'Review requirements' : 'Next section',
       onNextSection: () => (s.section === SECTIONS.length - 1 ? this.go('review') : this.setState({ section: s.section + 1 })),
@@ -2871,9 +2883,7 @@ class Component extends DCLogic {
       optionsIntro: options.length
         ? `${req.tsNew} new general and ${req.specialist} specialist teaching space${req.specialist === 1 ? '' : 's'} for a roll of ${n0(req.roll)}, met by the configurations below.`
         : 'No new standard buildings are required from the requirements entered.',
-      compareCount: s.compare.length,
-      compareBtnStyle: this.btn(s.compare.length >= 2, { pad: '15px 20px' }),
-      ...building, ...compare
+      ...building
     };
   }
 }
