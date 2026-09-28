@@ -39,3 +39,5 @@
 
 # Output of rails design:import, for diffing against the live front end.
 /docs/design-imports/latest/
+
+/.claude/settings.local.json

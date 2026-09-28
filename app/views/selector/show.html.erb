@@ -1173,9 +1173,6 @@
                     </div>
 
                     <div style="min-width:0">
-                      <sc-if value="{{ sec.hasBlocksEl }}" hint-placeholder-val="{{ false }}">
-                        <div style="margin-bottom:20px">{{ sec.blocksEl }}</div>
-                      </sc-if>
                       <button sc-camel-on-click="{{ sec.onOpenGraphic }}" aria-label="Open section {{ sec.key }} graphic" style="{{ sec.graphicStyle }}"></button>
                       <div style="margin-top:10px;font:400 10.5px/1.3 'IBM Plex Mono',monospace;letter-spacing:0.06em;color:#8A8189">{{ sec.graphicCaption }}</div>
                     </div>
@@ -1479,8 +1476,9 @@
             </div>
 
             <div style="padding:28px 36px 36px;display:grid;gap:30px">
+              <sc-if value="{{ reportShowReq }}" hint-placeholder-val="{{ true }}">
               <div style="break-inside:avoid">
-                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">01 · Requirement</div>
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">{{ rReqLabel }}</div>
                 <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin-top:6px">
                   <sc-for list="{{ calcRows }}" as="r" hint-placeholder-count="8">
                     <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #EDEFEC;font-size:12.5px">
@@ -1490,9 +1488,10 @@
                   </sc-for>
                 </div>
               </div>
+              </sc-if>
 
               <div style="break-inside:avoid">
-                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">02 · Selected buildings</div>
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">{{ rBuildLabel }}</div>
                 <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;margin-top:16px;align-items:start">
                   <div>
                     <div style="font-family:'Figtree','Instrument Sans',Helvetica,Arial,sans-serif;font-size:22px;font-weight:800;line-height:1.15;letter-spacing:-0.015em">{{ reportTitle }}</div>
@@ -1527,7 +1526,7 @@
               </div>
 
               <div style="break-inside:avoid">
-                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">03 · Customisation</div>
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">{{ rCustLabel }}</div>
                 <div style="margin-top:6px">
                   <sc-for list="{{ customRows }}" as="r" hint-placeholder-count="4">
                     <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:16px;padding:9px 0;border-bottom:1px solid #EDEFEC;font-size:12.5px">
@@ -1539,7 +1538,7 @@
               </div>
 
               <div style="break-inside:avoid">
-                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">04 · SPG schedule</div>
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">{{ rSpgLabel }}</div>
                 <sc-if value="{{ spgEmpty }}" hint-placeholder-val="{{ false }}">
                   <p style="margin:10px 0 0;font-size:12.5px;line-height:1.5;color:#8A8189">No SPG numbers entered. Add them under Customise · SPG schedule.</p>
                 </sc-if>
@@ -1558,15 +1557,23 @@
               </div>
 
               <div style="break-inside:avoid">
-                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">05 · Supporting documentation</div>
-                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin-top:6px">
-                  <sc-for list="{{ reportDocs }}" as="d" hint-placeholder-count="6">
-                    <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #EDEFEC;font-size:12.5px">
-                      <span>{{ d.title }}</span>
-                      <span style="font:400 11px/1.35 'IBM Plex Mono',monospace;color:#8A8189;text-align:right">{{ d.section }}</span>
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">{{ rDocsLabel }}</div>
+                <sc-if value="{{ reportNoDocs }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin:10px 0 0;font-size:12.5px;line-height:1.5;color:#8A8189">No documents selected.</p>
+                </sc-if>
+                <sc-for list="{{ reportDocGroups }}" as="dg" hint-placeholder-count="3">
+                  <div style="margin-top:14px;break-inside:avoid">
+                    <div style="font-size:13px;font-weight:600;color:#2C112D">{{ dg.title }}</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin-top:2px">
+                      <sc-for list="{{ dg.docs }}" as="d" hint-placeholder-count="2">
+                        <div style="display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid #EDEFEC;font-size:12.5px">
+                          <span>{{ d.title }}</span>
+                          <span style="font:400 11px/1.35 'IBM Plex Mono',monospace;color:#8A8189;text-align:right;white-space:nowrap">{{ d.meta }}</span>
+                        </div>
+                      </sc-for>
                     </div>
-                  </sc-for>
-                </div>
+                  </div>
+                </sc-for>
               </div>
 
               <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;border-top:1px solid #D7DAD7;padding-top:16px;font:400 10.5px/1.6 'IBM Plex Mono',monospace;color:#8A8189">
@@ -1733,6 +1740,16 @@ const CUSTOM_STEPS = [
   { id: 'spg', title: 'SPG schedule', intro: 'The Ministry’s SPG numbers for this school — the area schedule used to work out which building modules can be provided. Enter them, or paste the rows copied from the SPG spreadsheet, so they go in the same PDF as the buildings and customisation.', docs: [] },
   { id: 'summary', title: 'Summary', intro: 'Check the customised buildings, then create the PDF report.', docs: [] }
 ];
+
+// Which part of the building each cladding in options B and C covers: on a
+// multi-storey building the ground floor is the lower storey and every floor
+// above it the upper; a single storey is split into lower and upper wall.
+const cladParts = (blk) => {
+  const n = (blk && blk.storeys) || 1;
+  if (n <= 1) return { upper: 'Upper wall', lower: 'Lower wall' };
+  if (n === 2) return { upper: 'Upper storey (first floor)', lower: 'Lower storey (ground floor)' };
+  return { upper: 'Upper storeys (first and second floors)', lower: 'Lower storey (ground floor)' };
+};
 
 // SPG schedule columns, in the SPG spreadsheet's order.
 const SPG_AREAS = ['class', 'gym', 'library', 'admin', 'resource', 'hall'];
@@ -2022,11 +2039,45 @@ class Component extends DCLogic {
       .then(() => this.setState((st) => ({ mvTick: (st.mvTick || 0) + 1 })))
       .catch((e) => { console.warn('3D model unavailable; showing the massing view.', e); this.setState({ modelFailed: url }); });
   }
+  onModelPick = (info) => this.setState({ modelPick: info, modelIsolate: false });
+  // The piece clicked in the 3D model, in the same side panel the massing's
+  // module selection uses. The model's objects are unnamed, so the piece is
+  // described by its material (mapped to the catalogue legend) and measured.
+  modelSelectionVals(req) {
+    const slot = (this._slots || {}).building;
+    if (!slot || !slot.mv || slot.mv.loadedUrl !== slot.want) return {};
+    const p = this.state.modelPick;
+    if (!p) return { hasSelection: false };
+    const label = this.spaceName('materials', p.material, p.material || 'Model piece');
+    const M = this.D.MODULES;
+    const ts = req.category === 'secondary' ? M.TS_S : M.TS_P;
+    const standard = { 'General teaching space': `${ts.letter} module, ${ts.w} m × ${ts.d} m`, 'WC': 'Resource / admin / toilet bay (half or full)',
+      'Admin & resource space': 'Resource / admin / toilet bay (half or full)' }[label];
+    const on = !!this.state.modelIsolate;
+    return {
+      hasSelection: true, selectionName: label,
+      selectionNote: `Picked in the 3D model — ${p.sameType} piece${p.sameType === 1 ? '' : 's'} of this type. Sizes are measured from the placeholder model, not taken from the Ministry drawings.`,
+      selectionRows: [
+        { label: 'Space type', value: label },
+        ...(standard ? [{ label: 'Standard module', value: standard }] : []),
+        { label: 'Size (model)', value: `${p.width} m × ${p.depth} m` },
+        { label: 'Plan area (model)', value: `≈ ${p.area} m²` },
+        { label: 'Height (model)', value: `${p.height} m` },
+        { label: 'Level', value: p.levels > 1 ? `L${p.level + 1} of ${p.levels}` : 'L1' },
+        { label: 'Model layer', value: p.material || '—' }
+      ],
+      onClearSelection: () => slot.mv.select(null),
+      onToggleIsolate: () => { slot.mv.isolate(!on); this.setState({ modelIsolate: !on }); },
+      isolateLabel: on ? 'Show the whole model' : 'Isolate this piece',
+      isolateStyle: `margin-top:14px;width:100%;background:${on ? '#fff' : 'transparent'};color:${on ? INK : '#fff'};` +
+        `border:1px solid ${on ? '#fff' : 'rgba(255,255,255,0.45)'};padding:12px;font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;`
+    };
+  }
   modelVals(blk, req) {
     const s = this.state;
     const data = this.buildingData(blk, req);
     const m = data && !data.error ? data.model3d : null;
-    const { slot, ready, hasModel, style } = this.modelSlot('building', m && m.glb);
+    const { slot, ready, hasModel, style } = this.modelSlot('building', m && m.glb, { onPick: this.onModelPick });
     const base = { hasModel, showMassing: !ready, modelRef: slot.ref, modelStyle: style };
     if (!ready) return base;
     const mv = slot.mv;
@@ -2247,7 +2298,7 @@ class Component extends DCLogic {
   // Customise steps from the catalogue: the choices on the left, the chosen
   // option's PDF text and diagram on the right. Returns null for a step the
   // catalogue has nothing for (the design's own options are shown instead).
-  customSplit(cs, cat, req, card) {
+  customSplit(cs, cat, req, card, blk) {
     const s = this.state;
     const blank = { groups: [], hasTick: false, hasThumb: false, hasColours: false, hasFree: false, hasLink: false, colours: [], tag: '', note: '',
       tickMark: '', tickStyle: '', thumbStyle: '', colourLabel: '', colourLabelStyle: '', freeValue: '', freePlaceholder: '', inputStyle: '', linkUrl: '', linkLabel: '', linkStyle: '' };
@@ -2302,8 +2353,8 @@ class Component extends DCLogic {
           const on = o === cur;
           const lower = o.id === 'B' ? 'brick' : 'painted fibre cement';
           const groups = o.id === metal.id ? [group(o, on, o, o.id, '')]
-            : [group(o, on, metal, o.id + '.upper', 'Upper storey cladding — profiled metal'),
-              group(o, on, o, o.id, 'Lower storey cladding — ' + lower)];
+            : [group(o, on, metal, o.id + '.upper', cladParts(blk).upper + ' cladding — profiled metal'),
+              group(o, on, o, o.id, cladParts(blk).lower + ' cladding — ' + lower)];
           return { ...blank, tag: o.id === metal.id ? `Colours · ${o.supplier}` : 'Upper and lower storey', label: o.name, note: '', style: card(on),
             onClick: () => this.set('cladding', o.id), groups };
         }),
@@ -2412,7 +2463,7 @@ class Component extends DCLogic {
     // are the fallback until then.
     const cat = ['building', 'customise', 'report'].includes(s.screen) ? this.buildingData(blk, req) : null;
     const catOk = !!(cat && !cat.error);
-    const split = catOk ? this.customSplit(cs, cat, req, card) : null;
+    const split = catOk ? this.customSplit(cs, cat, req, card, blk) : null;
     let options = [];
     if (split) { /* catalogue choices replace the design's option cards */ } else if (cs.id === 'cladding') options = Object.values(D.CLADDING).map((c) => ({ tag: 'Option ' + c.id, label: c.name.replace(/^Option . — /, ''), note: c.notes,
       style: card(req.cladding === c.id), swatchStyle: sw(c.wall), onClick: () => this.set('cladding', c.id) }));
@@ -2432,8 +2483,8 @@ class Component extends DCLogic {
     const customRows = [
       { label: 'Buildings', value: opt.blocks.map((b) => b.code).join(' + '), note: '' },
       cladOpt ? { label: 'Cladding', value: cladOpt.name.replace(/^Option (.): /, '$1 — ') +
-          (twoStorey ? ' · lower storey ' + (cladColour || 'colour to choose') + ' · upper storey profiled metal ' + (upperColour || 'colour to choose') : cladColour ? ' · ' + cladColour : ''),
-        note: twoStorey ? 'Lower storey colour from ' + cladOpt.supplier + ', upper storey from the profiled metal range' : cladOpt.supplier ? 'Colour from ' + cladOpt.supplier : '' }
+          (twoStorey ? ' · ' + cladParts(blk).lower.toLowerCase() + ' ' + (cladColour || 'colour to choose') + ' · ' + cladParts(blk).upper.toLowerCase() + ' profiled metal ' + (upperColour || 'colour to choose') : cladColour ? ' · ' + cladColour : ''),
+        note: twoStorey ? cladParts(blk).lower + ' colour from ' + cladOpt.supplier + ', upper storey from the profiled metal range' : cladOpt.supplier ? 'Colour from ' + cladOpt.supplier : '' }
         : { label: 'Cladding', value: D.CLADDING[req.cladding].name, note: D.CLADDING[req.cladding].notes },
       sheets.length ? { label: 'Teaching layouts', value: sheets.filter((d) => ticked.includes(d.id)).map((d) => d.sheet).join(', ') || 'None ticked', note: '' }
         : { label: 'Teaching layout', value: req.layout.name, note: req.layout.summary },
@@ -2444,14 +2495,24 @@ class Component extends DCLogic {
     // Real PDF pages from the catalogue once they've loaded; the design's
     // placeholder boxes until then (or for a step the catalogue has no pages for).
     const stepDocs = (c) => (catOk && cat.customise[c.id] ? this.pageDocs(cat.customise[c.id]) : c.docs.map((d) => this.docItem(d)));
-    const allDocs = catOk ? [
-      ...cat.diagrams.groups.flatMap((g) => g.layouts.map((l) => ({ title: l.title, section: 'Diagrams' }))),
-      ...cat.sections.flatMap((sc) => sc.docs.map((d) => ({ title: this.pageRef(d), section: sc.title }))),
-      ...CUSTOM_STEPS.flatMap((c) => (cat.customise[c.id] || []).map((d) => ({ title: this.pageRef(d), section: 'Customise · ' + c.title })))
-    ] : [
-      ...INFO_SECTIONS.flatMap((sc) => (sc.docs || []).map((d) => ({ title: d.title, section: sc.title }))),
-      ...CUSTOM_STEPS.flatMap((sc) => sc.docs.map((d) => ({ title: d.title, section: 'Customise · ' + sc.title })))
-    ];
+    // Supporting documentation, grouped by topic: only the layout sheets the
+    // school ticked, then the cladding and heating pages, gym / hall pages and
+    // the other further-information pages, each page listed once.
+    const seen = new Set();
+    const docRows = (list) => list.filter((d) => { const k = d.sourceTitle + '|' + d.page; if (seen.has(k)) return false; seen.add(k); return true; })
+      .map((d) => ({ title: d.title, meta: (d.sheet ? 'Sheet ' + d.sheet + ' · ' : '') + 'p.' + d.page }));
+    const docGroups = !catOk ? [] : [
+      { title: 'Teaching space layouts', docs: docRows(sheets.filter((d) => ticked.includes(d.id))) },
+      { title: 'Cladding', docs: docRows(cat.customise.cladding || []) },
+      { title: 'Heating and ventilation', docs: docRows(cat.customise.heating || []) },
+      { title: 'Gyms and halls', docs: docRows(cat.diagrams.groups.filter((g) => g.key === 'gym' || g.key === 'hall')
+        .flatMap((g) => g.layouts.map((l) => ({ title: l.title, page: l.pages[0].page, sourceTitle: l.source.title })))) },
+      ...cat.sections.map((sc) => ({ title: sc.title, docs: docRows(sc.docs) }))
+    ].filter((g) => g.docs.length);
+    // The two paths: requirements (the Ministry works out the building) or a
+    // building code entered directly (the requirement section is left out).
+    const byCode = !!req.direct;
+    const no = (n) => String(n - (byCode ? 1 : 0)).padStart(2, '0');
     const rb = this.box('report', 380, 250);
     const rg = this.geometry(opt.blocks, Math.max(200, rb.w - 40), { maxM: 7, minM: 1.6, labels: false });
     const w = s.wz || {};
@@ -2485,7 +2546,12 @@ class Component extends DCLogic {
       onPrint: () => window.print(),
       reportDate: new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' }),
       reportSchool: [this.state.input.schoolName, w.region, this.state.input.schoolTypeLabel].filter(Boolean).join(' · ') || 'School not specified',
-      reportDocs: allDocs, reportBoxRef: this.boxRef('report'),
+      reportDocGroups: docGroups, reportHasDocs: docGroups.length > 0, reportNoDocs: docGroups.length === 0,
+      reportShowReq: !byCode,
+      rReqLabel: '01 · Requirement',
+      rBuildLabel: no(2) + ' · ' + (byCode ? 'Building module (entered by code)' : 'Suggested building module for school'),
+      rCustLabel: no(3) + ' · Customisation', rSpgLabel: no(4) + ' · SPG schedule', rDocsLabel: no(5) + ' · Supporting documentation',
+      reportBoxRef: this.boxRef('report'),
       reportFaces: rg.faces, reportSceneStyle: this.scene(rg),
       reportStageStyle: this.stage(58, -36, this.fitZoom(rg, Math.max(180, rb.w - 40), Math.max(150, rb.h - 40), 58, -36), 0, 8)
     };
@@ -2859,8 +2925,12 @@ class Component extends DCLogic {
     const ok = ab && !ab.error;
     const figMap = {};
     if (ok) (ab.figures || []).forEach((f) => { figMap[f.page || 0] = f; });
+    // Sections A–D use the project team's crops of the catalogue pages
+    // (public/about); a section without one falls back to the catalogue figure.
+    const cropOf = (se) => (se.img ? { src: se.img.src, aspect: (se.img.w / se.img.h).toFixed(4), page: se.graphicPage,
+      source: ok ? { title: `${ab.catalogue.title} · p.${se.graphicPage}`, url: String(ab.catalogue.url || '').replace(/#.*$/, '') + '#page=' + se.graphicPage } : null } : figMap[se.graphicPage]);
     const graphicStyle = (se) => {
-      const fig = figMap[se.graphicPage];
+      const fig = cropOf(se);
       if (fig) return `display:block;width:100%;aspect-ratio:${fig.aspect};cursor:zoom-in;` +
         `background:#fff url('${fig.src}') center / contain no-repeat;background-origin:content-box;padding:8px;` +
         'border:1px solid #D7DAD7;transition:border-color 160ms ease,transform 220ms cubic-bezier(.3,.7,.2,1);';
@@ -2884,7 +2954,7 @@ class Component extends DCLogic {
           'Your project team will work through with you the parts that apply to your project. Not every option in this guide will apply to every school or site.'
         ],
         smallprint: 'Great schools, great spaces — Standard designs for primary and intermediate schools · V1.0 · p.4',
-        graphicCaption: 'Click to enlarge', graphicPage: 4 },
+        graphicCaption: 'From planning to delivery — click to enlarge', graphicPage: 4, img: { src: '/about/a-introduction-p4.png', w: 671, h: 777 } },
       { key: 'B', title: 'What this means for your school', supporting: 'Standardisation for clarity, cost, speed and quality',
         body: [
           'Using standard designs means your school can expect:',
@@ -2897,7 +2967,7 @@ class Component extends DCLogic {
           '‘Standard’ does not mean the same. Within these design options, your school has choices — about building placement, how spaces are arranged, what materials best reflect your community and kaupapa, and how your buildings flow and connect with the rest of your environment.'
         ],
         smallprint: 'Great schools, great spaces — Standard designs for primary and intermediate schools · V1.0 · p.5',
-        graphicCaption: 'Interior example — click to enlarge', graphicPage: 18 },
+        graphicCaption: 'Exterior materials & finishes — click to enlarge', graphicPage: 14, img: { src: '/about/b-finishes-p14.png', w: 1172, h: 806 } },
       { key: 'C', title: 'Planning for your site', supporting: 'Every school site is different',
         body: [
           'Every school site is different. During planning, we work with you to look at how a new building will fit into your wider school environment.',
@@ -2911,17 +2981,17 @@ class Component extends DCLogic {
           'Planning also considers how the building can reflect your school’s identity and kaupapa, and support mātauranga Māori where appropriate. The aim is to make the standard design work well in your school and wider community, both now and into the future.'
         ],
         smallprint: 'Great schools, great spaces — Standard designs for primary and intermediate schools · V1.0 · p.6',
-        graphicCaption: 'Example site render — click to enlarge', graphicPage: 6 },
+        graphicCaption: 'Example site — click to enlarge', graphicPage: 6, img: { src: '/about/c-site-p6.png', w: 916, h: 534 } },
       { key: 'D', title: 'Choosing the right building', supporting: 'Standard building types',
         body: [
           'Standard building types give us a reliable and consistent starting point for new school buildings. Choosing the right type of building for your school depends on your student roll, site, existing buildings, and future plans.',
           'For many primary schools, a single-storey teaching block will be suitable if there is enough space. On tighter sites, a two or three-storey option may be more suitable. In some cases, relocatable buildings may be the best fit for the need, site or timeframe.'
         ],
         smallprint: 'Great schools, great spaces — Standard designs for primary and intermediate schools · V1.0 · p.7',
-        graphicCaption: 'Building typologies and typical plan — click to enlarge', graphicPage: 7 }
+        graphicCaption: 'Teaching space layouts A–D — click to enlarge', graphicPage: 9, img: { src: '/about/d-layouts-p9.png', w: 857, h: 722 } }
     ];
     const lightboxCards = seed.map((se) => {
-      const fig = figMap[se.graphicPage];
+      const fig = cropOf(se);
       if (fig) return { title: se.title, occupancy: '', module: '',
         pages: [{ page: fig.page, sheet: null, thumb: fig.src, full: fig.src, aspect: fig.aspect }],
         source: fig.source || { title: 'Standard designs catalogue', url: '' } };
@@ -2929,12 +2999,10 @@ class Component extends DCLogic {
         pages: [{ page: 1, sheet: null, thumb: '', full: '', aspect: 1.4142 }],
         source: { title: 'Standard designs catalogue', url: '' } };
     });
-    const blocksEl = this.introBlocksEl();
     const aboutSections = seed.map((se, i) => ({
       key: se.key, anchor: 'about-' + se.key.toLowerCase(),
       title: se.title, supporting: se.supporting, body: se.body, smallprint: se.smallprint,
       graphicStyle: graphicStyle(se), graphicCaption: se.graphicCaption,
-      hasBlocksEl: se.key === 'A', blocksEl: se.key === 'A' ? blocksEl : null,
       onOpenGraphic: () => this.openSheet(lightboxCards, i)
     }));
     const active = s.aboutSection || 'A';
@@ -2951,43 +3019,6 @@ class Component extends DCLogic {
       })),
       aboutSections
     };
-  }
-
-  // Page-4 block diagram: four stacked blocks (Planning → Standard designs →
-  // Layout options → Finishing choices) under "Delivery". Static: the About
-  // page's only animation is the right-hand arrow.
-  introBlocksEl() {
-    const h = React.createElement;
-    const INK = '#2C112D';
-    const blocks = [
-      { label: 'Planning', desc: 'How we understand your needs, school site, and option preferences.', bg: '#F7F6F7' },
-      { label: 'Standard designs', desc: 'The building types, modules and systems you can choose from with our help.', bg: '#EDE9ED' },
-      { label: 'Layout options', desc: 'The internal classroom and amenity arrangements you can choose from.', bg: '#E3DEE3' },
-      { label: 'Finishing choices', desc: 'The colours, finishes, materials and connections you can choose from.', bg: '#D9D2D9' }
-    ];
-    const items = blocks.map((b, i) => {
-      return h('div', { key: i, style: {
-        padding: '14px 18px', background: b.bg, borderLeft: '3px solid ' + INK
-      } },
-        h('div', { style: { font: "600 13px/1.2 'Figtree','Instrument Sans',Helvetica,sans-serif", color: INK } }, b.label),
-        h('div', { style: { marginTop: 4, font: '400 12px/1.45 Helvetica,Arial,sans-serif', color: '#5D5360' } }, b.desc)
-      );
-    });
-    const delivery = h('div', { key: 'delivery', style: {
-      padding: '12px 18px', background: INK, color: '#fff', textAlign: 'center'
-    } },
-      h('div', { style: { font: "700 14px/1.2 'Figtree','Instrument Sans',Helvetica,sans-serif", letterSpacing: '0.04em' } }, 'Delivery')
-    );
-    const upArrow = (i) => h('div', { key: 'arrow-' + i, style: {
-      display: 'flex', justifyContent: 'center', padding: '4px 0', color: '#8A8189', fontSize: 16
-    } }, '↑');
-    const children = [];
-    children.push(delivery);
-    for (let i = blocks.length - 1; i >= 0; i--) {
-      children.push(upArrow(i));
-      children.push(items[i]);
-    }
-    return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 0 } }, children);
   }
 
   // Cropped catalogue images as viewer cards: enlarged on screen, with the
@@ -3231,7 +3262,7 @@ class Component extends DCLogic {
       const cats = [...new Set(blk.levels.flat().flatMap((bay) => bay.zones.map((z) => z.cat)))];
       const bi = opt.blocks.indexOf(blk), bn = opt.blocks.length;
       const isTeachingBlk = !!(opt.teaching && opt.teaching.blocks.includes(blk));
-      const goBlock = (i) => this.setState({ blockId: opt.blocks[i].id, bayId: null, zoneId: null, level: 'all', rx: 57, rz: -36, zoom: 1, panX: 0, panY: 0, openInfo: [] }, () => window.scrollTo(0, 0));
+      const goBlock = (i) => (((this._slots || {}).building || {}).mv && this._slots.building.mv.select(null), this.setState({ blockId: opt.blocks[i].id, bayId: null, zoneId: null, level: 'all', rx: 57, rz: -36, zoom: 1, panX: 0, panY: 0, openInfo: [] }, () => window.scrollTo(0, 0)));
       const kindLabel = (b) => (/^[SDR]/.test(b.typeId) && b.levels.length ? 'Teaching' : b.typeId === 'L' ? 'Library' : b.typeId === 'C' ? 'Administration' : b.kind === 'gym' ? 'Gym' : 'Hall');
       const bays = blk.levels.flat();
       const byCode = {};
@@ -3344,7 +3375,8 @@ class Component extends DCLogic {
             text: l.text,
             barStyle: `height:3px;width:${pct}%;background:${col};`
           };
-        })
+        }),
+        ...(screen === 'building' ? this.modelSelectionVals(req) : {})
       };
     }
 
