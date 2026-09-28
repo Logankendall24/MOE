@@ -1295,6 +1295,20 @@
               </div>
             </sc-if>
 
+            <sc-if value="{{ cIsLayout }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:14px 24px;flex-wrap:wrap;margin-top:clamp(22px,2.6vw,32px);padding:16px 20px;background:#fff;border:1px solid #D7DAD7">
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <span style="font-size:17px;font-weight:500">Internal layout connection</span>
+                  <span style="font-size:13.5px;line-height:1.45;color:#5D5360">Connect neighbouring teaching spaces internally?</span>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <sc-for list="{{ connOptions }}" as="co" hint-placeholder-count="2">
+                    <button sc-camel-on-click="{{ co.onClick }}" style="{{ co.style }}">{{ co.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
             <sc-if value="{{ cSplit }}" hint-placeholder-val="{{ false }}">
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px 28px;margin-top:clamp(26px,3vw,38px);align-items:start">
                 <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
@@ -1812,7 +1826,7 @@ function parseSpg(text) {
     const above = rows.slice(0, hi).map((r) => r.filter(Boolean)).filter((r) => r.length);
     const note = above.flat().find((c) => /^N\.?\s*B\.?/i.test(c));
     const first = above.find((r) => !r.some((c) => /^N\.?\s*B\.?/i.test(c)));
-    if (first) { out.schoolType = first[0]; if (first[1]) out.schoolName = first[1]; }
+    if (first) out.schoolName = first[1] || first[0];
     if (note) out.note = note;
   }
   return Object.keys(out).length ? out : null;
@@ -2449,7 +2463,6 @@ class Component extends DCLogic {
     return {
       spgHint: `This tool’s own calculation, for reference: a roll of ${n0(req.roll)} and ${req.tsEntitlement} teaching spaces.`,
       spgInfo: [
-        { label: 'School type', value: text('schoolType'), placeholder: 'e.g. Contributing Primary (Y1-6)', onChange: set('schoolType'), style: field },
         { label: 'School', value: text('schoolName'), placeholder: 'School name', onChange: set('schoolName'), style: field },
         { label: 'Note', value: text('note'), placeholder: 'e.g. N.B. this calculation is NOT for Māori Medium', onChange: set('note'), style: field }
       ],
@@ -2463,7 +2476,7 @@ class Component extends DCLogic {
         { label: v.grossClar ? 'Approx. gross class / library / admin / resource (as pasted)' : 'Approx. gross class / library / admin / resource', value: m2(grossClar) }
       ],
       spgFilled: filled, spgEmpty: !filled,
-      spgSchool: [text('schoolType'), text('schoolName')].filter(Boolean).join(' · '),
+      spgSchool: text('schoolName'),
       spgNote: text('note'), spgHasNote: !!text('note'),
       spgHead: ['Target roll', 'Code', 'TS', 'Class', 'Gym', 'Library', 'Admin', 'Resource', 'Hall', 'Net', 'Gross', 'Net class / library / admin / resource', 'Approx. gross class / library / admin / resource'],
       spgRow: [text('roll') || '—', text('code') || '—', text('ts') || '—', ...SPG_AREAS.map((k) => m2(num(k)).replace('—', '0 m²')), m2(net), m2(gross), m2(clar), m2(grossClar)],
@@ -2519,6 +2532,7 @@ class Component extends DCLogic {
         : { label: 'Cladding', value: D.CLADDING[req.cladding].name, note: D.CLADDING[req.cladding].notes },
       sheets.length ? { label: 'Teaching layouts', value: sheets.filter((d) => ticked.includes(d.id)).map((d) => d.sheet).join(', ') || 'None ticked', note: '' }
         : { label: 'Teaching layout', value: req.layout.name, note: req.layout.summary },
+      { label: 'Internal layout connection', value: s.layoutConnection || 'To choose', note: '' },
       heatOpt ? { label: 'Heating and ventilation', value: heatOpt.name + ' · zone ' + req.climateZone, note: heatOpt.text }
         : { label: 'Heating and ventilation', value: heat.name + ' · zone ' + req.climateZone, note: heat[zone] },
       { label: 'Roof', value: blk.roof, note: '' }
@@ -2548,6 +2562,7 @@ class Component extends DCLogic {
         ? { label: 'Teaching space layouts', value: tickedSheets.length ? tickedSheets.map((d) => d.sheet).join(', ') : 'None ticked', lines: [], swatches: [],
           images: tickedSheets.map((d) => img(d.thumb, `${d.title.replace(/^Layouts - /, '')} · ${d.sheet} · p.${d.page}`)) }
         : { label: 'Teaching space layout', value: req.layout.name, lines: [req.layout.summary], swatches: [], images: [] },
+      { label: 'Internal layout connection', value: s.layoutConnection || 'To choose', lines: [], swatches: [], images: [] },
       heatOpt ? { label: 'Heating and ventilation', value: `${heatOpt.name} · NZBC climate zone ${req.climateZone}`, lines: [heatOpt.text], swatches: [],
         images: heatOpt.src ? [img(heatOpt.src, `${heatOpt.name} · zones ${cat.heating.zones} · p.${cat.heating.source.page}`)] : [] }
         : { label: 'Heating and ventilation', value: heat.name + ' · zone ' + req.climateZone, lines: [heat[zone]], swatches: [], images: [] },
@@ -2596,6 +2611,8 @@ class Component extends DCLogic {
       cIsSummary: cs.id === 'summary', customRows, reportCustom,
       reportLogos, reportHasLogos: reportLogos.length > 0,
       cIsSpg: cs.id === 'spg', ...this.spgVals(req),
+      cIsLayout: cs.id === 'layout',
+      connOptions: ['Yes', 'No'].map((v) => ({ label: v, style: this.btn(s.layoutConnection === v, { pad: '11px 22px' }), onClick: () => this.setState({ layoutConnection: v }) })),
       cKicker: 'Customise · ' + opt.blocks.map((b) => b.code).join(' + '),
       reportTitle: opt.blocks.map((b) => b.code).join(' + '),
       reportBuildings: opt.blocks.map((b) => ({ code: b.code, name: b.name,

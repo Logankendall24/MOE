@@ -40,11 +40,19 @@ class SheetRenderer
     "#{File.mtime(pdf).to_i}-#{File.size(pdf)}"
   end
 
+  # One pdftoppm at a time per process: a page of crops requested together
+  # after a deploy would otherwise swamp a small machine and time out.
+  LOCK = Mutex.new
+
   def self.render(name, ext, source_key)
     FileUtils.mkdir_p(CACHE_DIR)
     final = CACHE_DIR.join("#{name}-#{version(source_key)}.#{ext}")
     return final if final.exist?
 
+    LOCK.synchronize { final.exist? ? final : render_now(name, ext, source_key, final) { |prefix| yield(prefix) } }
+  end
+
+  def self.render_now(name, ext, source_key, final)
     # Render under a unique name, then rename, so concurrent requests never
     # serve a half-written file.
     temp_prefix = CACHE_DIR.join("tmp-#{SecureRandom.hex(8)}").to_s
@@ -58,5 +66,5 @@ class SheetRenderer
   ensure
     Dir.glob("#{temp_prefix}*").each { |f| File.delete(f) } if temp_prefix
   end
-  private_class_method :render
+  private_class_method :render, :render_now
 end
