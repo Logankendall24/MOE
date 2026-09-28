@@ -1525,13 +1525,33 @@
                 </div>
               </div>
 
-              <div style="break-inside:avoid">
-                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px">{{ rCustLabel }}</div>
+              <div>
+                <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189;border-bottom:1px solid #2C112D;padding-bottom:10px;break-after:avoid">{{ rCustLabel }}</div>
                 <div style="margin-top:6px">
-                  <sc-for list="{{ customRows }}" as="r" hint-placeholder-count="4">
-                    <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:16px;padding:9px 0;border-bottom:1px solid #EDEFEC;font-size:12.5px">
-                      <span style="color:#5D5360">{{ r.label }}</span>
-                      <span style="line-height:1.45"><span style="font:500 12px/1.35 'IBM Plex Mono',monospace">{{ r.value }}</span><span style="display:block;margin-top:3px;color:#5D5360">{{ r.note }}</span></span>
+                  <sc-for list="{{ reportCustom }}" as="rc" hint-placeholder-count="4">
+                    <div style="padding:11px 0 13px;border-bottom:1px solid #EDEFEC;font-size:12.5px;break-inside:avoid">
+                      <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:16px">
+                        <span style="color:#5D5360">{{ rc.label }}</span>
+                        <span style="line-height:1.45">
+                          <span style="font:500 12px/1.35 'IBM Plex Mono',monospace">{{ rc.value }}</span>
+                          <sc-for list="{{ rc.lines }}" as="ln" hint-placeholder-count="1"><span style="display:block;margin-top:3px;color:#5D5360">{{ ln }}</span></sc-for>
+                          <sc-if value="{{ rc.hasSwatches }}" hint-placeholder-val="{{ false }}">
+                            <span style="display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px">
+                              <sc-for list="{{ rc.swatches }}" as="sw" hint-placeholder-count="2"><span style="display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:#3F3542"><span style="{{ sw.style }}"></span>{{ sw.name }}</span></sc-for>
+                            </span>
+                          </sc-if>
+                        </span>
+                      </div>
+                      <sc-if value="{{ rc.hasImages }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:10px;padding-left:196px">
+                          <sc-for list="{{ rc.images }}" as="im" hint-placeholder-count="1">
+                            <figure style="margin:0;break-inside:avoid">
+                              <img src="{{ im.src }}" alt="{{ im.caption }}" style="display:block;width:100%;height:auto;border:1px solid #EDEFEC;background:#fff">
+                              <figcaption style="margin-top:5px;font:400 10px/1.4 'IBM Plex Mono',monospace;color:#8A8189">{{ im.caption }}</figcaption>
+                            </figure>
+                          </sc-for>
+                        </div>
+                      </sc-if>
                     </div>
                   </sc-for>
                 </div>
@@ -1575,6 +1595,17 @@
                   </div>
                 </sc-for>
               </div>
+
+              <sc-if value="{{ reportHasLogos }}" hint-placeholder-val="{{ true }}">
+                <div style="break-inside:avoid;border-top:1px solid #D7DAD7;padding-top:14px">
+                  <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:#8A8189">Acknowledgements</div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;margin-top:12px">
+                    <sc-for list="{{ reportLogos }}" as="lg" hint-placeholder-count="9">
+                      <img src="{{ lg.src }}" alt="{{ lg.name }}" title="{{ lg.name }}" style="display:block;flex:0 1 auto;min-width:0;height:28px;width:auto;max-width:82px;object-fit:contain">
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
 
               <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;border-top:1px solid #D7DAD7;padding-top:16px;font:400 10.5px/1.6 'IBM Plex Mono',monospace;color:#8A8189">
                 <span style="max-width:36em">Indicative planning report. Provision, site fit and technical requirements must be confirmed with your Ministry property advisor and project team.</span>
@@ -2492,6 +2523,38 @@ class Component extends DCLogic {
         : { label: 'Heating and ventilation', value: heat.name + ' · zone ' + req.climateZone, note: heat[zone] },
       { label: 'Roof', value: blk.roof, note: '' }
     ];
+    // The report's customisation section: each chosen answer with its colour
+    // swatches and the catalogue diagram or render that goes with it.
+    const swatch = (col, name) => ({ name, style: `display:inline-block;flex:none;width:16px;height:16px;border-radius:50%;background:${col ? col.swatch : '#fff'};box-shadow:0 0 0 1px rgba(0,0,0,0.25);` });
+    const metalOpt = catOk && cat.cladding ? cat.cladding.options.find((o) => o.id === 'A') : null;
+    const colourIn = (o, name) => (o && name ? o.colours.find((c) => c.name === name) : null);
+    const cladSwatches = !cladOpt ? [] : twoStorey
+      ? [...(cladColour ? [swatch(colourIn(cladOpt, cladColour), cladColour)] : []),
+        ...(upperColour ? [swatch(colourIn(metalOpt, upperColour), upperColour + ' (profiled metal)')] : [])]
+      : cladColour ? [swatch(colourIn(cladOpt, cladColour), cladColour)] : [];
+    const tickedSheets = sheets.filter((d) => ticked.includes(d.id));
+    const img = (src, caption) => ({ src, caption });
+    const reportCustom = [
+      { label: 'Buildings', value: opt.blocks.map((b) => b.code).join(' + '), lines: [], swatches: [], images: [] },
+      cladOpt ? { label: 'Cladding', value: cladOpt.name.replace(/^Option (.): /, 'Option $1 — '),
+        lines: twoStorey
+          ? [`${cladParts(blk).lower}: ${cladOpt.name.replace(/^Option .: /, '').toLowerCase()} · ${cladColour || 'colour to choose'}`,
+            `${cladParts(blk).upper}: profiled metal · ${upperColour || 'colour to choose'}`]
+          : [cladColour ? `Colour: ${cladColour}${cladOpt.supplier ? ' (' + cladOpt.supplier + ')' : ''}` : 'Colour to choose'],
+        swatches: cladSwatches,
+        images: cladOpt.render ? [img(cladOpt.render.src, `${cladOpt.name} · example render · p.${cladOpt.render.page}`)] : [] }
+        : { label: 'Cladding', value: D.CLADDING[req.cladding].name, lines: [D.CLADDING[req.cladding].notes], swatches: [], images: [] },
+      sheets.length
+        ? { label: 'Teaching space layouts', value: tickedSheets.length ? tickedSheets.map((d) => d.sheet).join(', ') : 'None ticked', lines: [], swatches: [],
+          images: tickedSheets.map((d) => img(d.thumb, `${d.title.replace(/^Layouts - /, '')} · ${d.sheet} · p.${d.page}`)) }
+        : { label: 'Teaching space layout', value: req.layout.name, lines: [req.layout.summary], swatches: [], images: [] },
+      heatOpt ? { label: 'Heating and ventilation', value: `${heatOpt.name} · NZBC climate zone ${req.climateZone}`, lines: [heatOpt.text], swatches: [],
+        images: heatOpt.src ? [img(heatOpt.src, `${heatOpt.name} · zones ${cat.heating.zones} · p.${cat.heating.source.page}`)] : [] }
+        : { label: 'Heating and ventilation', value: heat.name + ' · zone ' + req.climateZone, lines: [heat[zone]], swatches: [], images: [] },
+      { label: 'Roof', value: blk.roof, lines: [], swatches: [], images: [] }
+    ].map((r) => ({ ...r, hasSwatches: r.swatches.length > 0, hasImages: r.images.length > 0 }));
+    const ab = this.aboutData();
+    const reportLogos = ab && !ab.error ? ab.acknowledgements.groups.flatMap((g) => g.logos.map((l) => ({ name: l.name, src: l.src }))) : [];
     // Real PDF pages from the catalogue once they've loaded; the design's
     // placeholder boxes until then (or for a step the catalogue has no pages for).
     const stepDocs = (c) => (catOk && cat.customise[c.id] ? this.pageDocs(cat.customise[c.id]) : c.docs.map((d) => this.docItem(d)));
@@ -2530,7 +2593,8 @@ class Component extends DCLogic {
       cHasOptions: options.length > 0, cOptions: options,
       cSplit: !!split, cChoices: split ? split.choices : [],
       ...(split ? split.detail : { cdKicker: '', cdTitle: '', cdHasImage: false, cdHasText: false, cdParas: [], cdBullets: [], cdHasNote: false, cdHasSource: false }),
-      cIsSummary: cs.id === 'summary', customRows,
+      cIsSummary: cs.id === 'summary', customRows, reportCustom,
+      reportLogos, reportHasLogos: reportLogos.length > 0,
       cIsSpg: cs.id === 'spg', ...this.spgVals(req),
       cKicker: 'Customise · ' + opt.blocks.map((b) => b.code).join(' + '),
       reportTitle: opt.blocks.map((b) => b.code).join(' + '),
