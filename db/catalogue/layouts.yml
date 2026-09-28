@@ -28,7 +28,7 @@
   categories: [primary_intermediate]
   space: teaching
   variant: A
-  module: A
+  module: B
   grid_mm: [7200, 12000]
   occupancy: "32 Students"
 
@@ -40,7 +40,7 @@
   categories: [primary_intermediate]
   space: teaching
   variant: B
-  module: A
+  module: B
   grid_mm: [7200, 12000]
   occupancy: "32 Students"
 
@@ -52,7 +52,7 @@
   categories: [primary_intermediate]
   space: teaching
   variant: C
-  module: A
+  module: B
   grid_mm: [7200, 12000]
   occupancy: "32 Students"
 
@@ -64,7 +64,7 @@
   categories: [primary_intermediate]
   space: teaching
   variant: D
-  module: A
+  module: B
   grid_mm: [7200, 12000]
   occupancy: "32 Students"
 
@@ -85,7 +85,7 @@
   categories: [secondary]
   space: teaching
   variant: A
-  module: B
+  module: A
   grid_mm: [7200, 10500]
   occupancy: "32 Students"
 
@@ -97,7 +97,7 @@
   categories: [secondary]
   space: teaching
   variant: B
-  module: B
+  module: A
   grid_mm: [7200, 10500]
   occupancy: "32 Students"
 
@@ -109,7 +109,7 @@
   categories: [secondary]
   space: teaching
   variant: C
-  module: B
+  module: A
   grid_mm: [7200, 10500]
   occupancy: "32 Students"
 
@@ -121,7 +121,7 @@
   categories: [secondary]
   space: teaching
   variant: A
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students"
 
@@ -133,7 +133,7 @@
   categories: [secondary]
   space: teaching
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students"
 
@@ -145,7 +145,7 @@
   categories: [secondary]
   space: teaching
   variant: C
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students"
 
@@ -157,7 +157,7 @@
   categories: [secondary]
   space: specialist
   variant: A
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students [15 Desktops]"
 
@@ -169,7 +169,7 @@
   categories: [secondary]
   space: specialist
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "31 Students [31 Desktops]"
 
@@ -180,7 +180,7 @@
   sheets: ["A.L.040 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "20 Students [Staggered Formation]"
 
@@ -191,7 +191,7 @@
   sheets: ["A.L.041 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students"
 
@@ -202,7 +202,7 @@
   sheets: ["A.L.042 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students"
 
@@ -213,7 +213,7 @@
   sheets: ["A.L.050 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students"
 
@@ -224,7 +224,7 @@
   sheets: ["A.L.051 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "33 Students"
 
@@ -235,7 +235,7 @@
   sheets: ["A.L.060 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "20 Students"
 
@@ -246,7 +246,7 @@
   sheets: ["A.L.061 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "28 Students [7 Groups of 4]"
 
@@ -257,7 +257,7 @@
   sheets: ["A.L.062 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "24 Students [8 Groups of 3]"
 
@@ -268,7 +268,7 @@
   sheets: ["A.L.063 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "28 Students"
 
@@ -279,7 +279,7 @@
   sheets: ["A.L.064 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   # "Sowing" is as printed on the sheet.
   occupancy: "32 Students [12 Sowing Stations]"
@@ -291,7 +291,7 @@
   sheets: ["A.L.065 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students [6 Desktops]"
 
@@ -302,7 +302,7 @@
   sheets: ["A.L.070 - B"]
   categories: [secondary]
   space: specialist
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "32 Students"
 
@@ -346,7 +346,7 @@
   categories: [secondary]
   space: specialist
   variant: A
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "≤15 Students"
 
@@ -358,7 +358,7 @@
   categories: [secondary]
   space: specialist
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "≤25 Students"
 
@@ -381,7 +381,7 @@
   categories: [secondary]
   space: specialist
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "2-3 Staff Member(s) [Serving 2+ Specialist Labs]"
 
@@ -420,7 +420,7 @@
   categories: [secondary]
   space: specialist
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "≤8 Students"
 
@@ -432,7 +432,7 @@
   categories: [secondary]
   space: specialist
   variant: A
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "[Serving 2-3 Technology Classrooms]"
 
@@ -444,7 +444,7 @@
   categories: [secondary]
   space: specialist
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "[Serving 2-3 Technology Classrooms]"
 
@@ -544,7 +544,7 @@
   categories: [secondary]
   space: admin
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "≤25 Staff"
 
@@ -556,7 +556,7 @@
   categories: [secondary]
   space: admin
   variant: A
-  module: B
+  module: A
   grid_mm: [7200, 10500]
   occupancy: "≤40 Staff"
 
@@ -568,7 +568,7 @@
   categories: [secondary]
   space: admin
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "40 - 80 Staff"
 
@@ -591,7 +591,7 @@
   categories: [secondary]
   space: admin
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "4 Staff"
 
@@ -614,7 +614,7 @@
   categories: [secondary]
   space: admin
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "≤13 Staff"
 
@@ -637,7 +637,7 @@
   categories: [secondary]
   space: admin
   variant: B
-  module: C
+  module: D
   grid_mm: [8400, 8000]
   occupancy: "3 - 4 Staff"
 

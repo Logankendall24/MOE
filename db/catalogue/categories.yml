@@ -1,38 +1,40 @@
-# School categories. A category decides which catalogue a user sees and which
-# teaching-module sizes are relevant to them. Nothing from one category's
-# catalogue is ever shown in the other.
+# School categories [docs/building-coding-guide.md §1]. A category decides
+# which catalogue a user sees and which teaching-module sizes are relevant to
+# them. Nothing from one category's catalogue is ever shown in the other.
 primary_intermediate:
-  label: "Primary and intermediate"
+  label: "Primary"
   catalogue: primary_catalogue
   # General-teaching module for each building type, keyed by the type id's
-  # first letter (R, S1–S3, D1–D3); "*" covers every other type.
+  # first letter (R, S1–S3); "*" covers every other type. Primary schools use
+  # the B module and have no D types [guide §2, §9].
   teaching_modules:
-    "*": [A]
-
-secondary:
-  label: "Secondary school"
-  catalogue: secondary_catalogue
-  # Set by the project team: the 8 m × 8.4 m module (C) is only used in
-  # double-depth D-type buildings (D1–D3), and D types use no other module.
-  # Single-depth S types and relocatables use 10.5 m × 7.2 m (B). The secondary
-  # catalogue p7–8 names the S and D types and their separate teaching modules.
-  teaching_modules:
-    D: [C]
     "*": [B]
 
-# Teaching-module classes. The letters and sizes are the project team's
-# definitions; each is matched to the structural grid printed on the layout
-# sheets (see grid_mm on each sheet in layouts.yml).
+secondary:
+  label: "Secondary / intermediate"
+  catalogue: secondary_catalogue
+  # S types use the A module; D types (D1–D3) use only the D-type module
+  # [guide §2, §9].
+  teaching_modules:
+    D: [D]
+    "*": [A]
+
+# Teaching-module classes, lettered as the coding guide does. Each is matched
+# to the structural grid printed on the layout sheets (grid_mm in layouts.yml).
 modules:
   A:
-    size: "12 m × 7.2 m"
+    size: "7.2 m × 10.3 m"
+    grid_mm: [7200, 10500]
+    note: "Secondary / intermediate teaching-space module. The layout sheets' grid is 10.5 m; the guide and catalogue give 10.3 m."
+  B:
+    size: "7.2 m × 12 m"
     grid_mm: [7200, 12000]
     note: "Primary school teaching-space module."
-  B:
-    size: "10.5 m × 7.2 m"
-    grid_mm: [7200, 10500]
-    note: "Secondary school teaching-space module."
   C:
-    size: "8 m × 8.4 m"
+    size: "8.4 m × 12 m"
+    grid_mm: [8400, 12000]
+    note: "May be added to S types where more area is required; not recommended automatically [guide §7]."
+  D:
+    size: "8.4 m × 8 m"
     grid_mm: [8400, 8000]
-    note: "Secondary school teaching-space module."
+    note: "Double-depth D-type teaching module [guide §9]."

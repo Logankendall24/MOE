@@ -6,7 +6,8 @@ class CataloguePresenter
 
   KINDS = { "R" => "teaching", "S1" => "teaching", "S2" => "teaching", "S3" => "teaching",
             "D1" => "teaching", "D2" => "teaching", "D3" => "teaching",
-            "L" => "library", "C" => "admin" }.freeze
+            "L" => "library", "C" => "admin",
+            "G1" => "gym", "G2" => "gym", "G4" => "gym", "H3" => "hall", "H8" => "hall", "H9" => "hall" }.freeze
 
   def initialize(category)
     @category = category

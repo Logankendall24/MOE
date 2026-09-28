@@ -10,6 +10,19 @@ namespace :catalogue do
     end
   end
 
+  desc "Render every catalogue crop and page thumbnail into the image cache (run at image build)"
+  task prerender: :environment do
+    Catalogue.categories.each_key do |category|
+      content = Catalogue.content(category)
+      CatalogueImagesController.crop_ids(content).each do |id|
+        page, box, opts = CatalogueImagesController.find_crop(content, id)
+        SheetRenderer.crop(content.fetch("catalogue"), page, box, **opts) if box
+      end
+    end
+    Catalogue.renderable_pages.each { |source, page| SheetRenderer.sheet(source, page, "thumb") }
+    puts "Prerendered #{Dir[SheetRenderer::CACHE_DIR.join('*')].size} catalogue images."
+  end
+
   desc "Check every quoted passage in db/catalogue appears on the page it cites"
   task verify: :environment do
     problems = Catalogue::Verifier.new.problems

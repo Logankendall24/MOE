@@ -18,9 +18,10 @@ const PRESETS = {
 
 export class ModelViewer {
   // rotateOnly: no zoom or pan, so the page still scrolls over the window.
-  constructor(el, { onChange, rotateOnly = false } = {}) {
+  constructor(el, { onChange, onPick, rotateOnly = false } = {}) {
     this.el = el;
     this.onChange = onChange || (() => {});
+    this.onPick = onPick || null;
     this.materials = [];
     this.preset = 'axonometric';
 
@@ -45,6 +46,16 @@ export class ModelViewer {
     if (rotateOnly) { this.controls.enableZoom = false; this.controls.enablePan = false; }
     this.controls.addEventListener('start', () => { this.preset = null; this.tween = null; });
     this.controls.addEventListener('change', () => { this.dirty = true; this.onChange(); });
+
+    // A click (a press that barely moves, so not a rotate) picks the piece under it.
+    if (this.onPick) {
+      const dom = this.renderer.domElement;
+      dom.addEventListener('pointerdown', (e) => { this.down = e.button === 0 ? { x: e.clientX, y: e.clientY } : null; });
+      dom.addEventListener('pointerup', (e) => {
+        const d = this.down; this.down = null;
+        if (d && Math.hypot(e.clientX - d.x, e.clientY - d.y) < 5) this.pickAt(e.clientX, e.clientY);
+      });
+    }
 
     this.ro = new ResizeObserver(() => this.resize());
     this.ro.observe(el);
@@ -87,6 +98,7 @@ export class ModelViewer {
       g.meshes.push(o);
     });
     this.materials = [...groups.values()];
+    this.selected = null;
 
     // Sit the model on the ground, centred on the origin.
     const model = gltf.scene;
@@ -95,6 +107,11 @@ export class ModelViewer {
     model.position.sub(new THREE.Vector3(centre.x, box.min.y, centre.z));
     this.scene.add(model);
     this.model = model;
+    model.updateMatrixWorld(true);
+
+    // Floor levels: the distinct heights pieces start at (to the nearest 0.5 m).
+    const bases = this.materials.flatMap((g) => g.meshes.map((m) => Math.round(new THREE.Box3().setFromObject(m).min.y * 2) / 2));
+    this.levels = [...new Set(bases)].sort((a, b) => a - b);
 
     const size = box.getSize(new THREE.Vector3());
     this.target = new THREE.Vector3(0, size.y / 2, 0);
@@ -134,9 +151,60 @@ export class ModelViewer {
   }
 
   setHidden(names) {
-    const hidden = new Set(names);
-    this.materials.forEach((g) => g.meshes.forEach((m) => { m.visible = !hidden.has(g.name); }));
+    this.hiddenNames = new Set(names);
+    this.applyVisibility();
+  }
+
+  applyVisibility() {
+    const hidden = this.hiddenNames || new Set();
+    const only = this.isolated && this.selected;
+    this.materials.forEach((g) => g.meshes.forEach((m) => { m.visible = !hidden.has(g.name) && (!only || m === this.selected.mesh); }));
     this.dirty = true;
+  }
+
+  // The visible piece under a screen point: highlighted, and described to onPick
+  // (its material group, measured size, plan area and floor level), or null.
+  pickAt(clientX, clientY) {
+    if (!this.model) return;
+    const r = this.renderer.domElement.getBoundingClientRect();
+    const ndc = new THREE.Vector2(((clientX - r.left) / r.width) * 2 - 1, -((clientY - r.top) / r.height) * 2 + 1);
+    const ray = new THREE.Raycaster();
+    ray.setFromCamera(ndc, this.camera);
+    const hit = ray.intersectObject(this.model, true).find((h) => h.object.isMesh && h.object.visible);
+    this.select(hit ? hit.object : null);
+  }
+
+  select(mesh) {
+    if (this.selected) { this.selected.mesh.material = this.selected.material; this.selected.highlight.dispose(); }
+    this.selected = null;
+    if (mesh) {
+      const group = this.materials.find((g) => g.meshes.includes(mesh));
+      const highlight = mesh.material.clone();
+      highlight.color.lerp(new THREE.Color(0xa0508f), 0.55);
+      highlight.opacity = 1;
+      highlight.transparent = false;
+      this.selected = { mesh, material: mesh.material, highlight };
+      mesh.material = highlight;
+      const b = new THREE.Box3().setFromObject(mesh);
+      const size = b.getSize(new THREE.Vector3());
+      const r1 = (n) => Math.round(n * 10) / 10;
+      this.onPick({
+        material: group ? group.name : '', color: group ? group.color : '',
+        width: r1(Math.max(size.x, size.z)), depth: r1(Math.min(size.x, size.z)), height: r1(size.y),
+        area: Math.round(size.x * size.z),
+        level: Math.max(0, this.levels.indexOf(Math.round(b.min.y * 2) / 2)), levels: this.levels.length,
+        sameType: group ? group.meshes.length : 1
+      });
+    } else {
+      this.isolated = false;
+      this.onPick(null);
+    }
+    this.applyVisibility();
+  }
+
+  isolate(on) {
+    this.isolated = !!on && !!this.selected;
+    this.applyVisibility();
   }
 
   // Azimuth and elevation in degrees, and zoom relative to the fitted view.

@@ -59,6 +59,10 @@ RUN chmod +x bin/* && \
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
+# Render the catalogue's logos, figures, diagrams and page thumbnails now, so
+# the live site never has to render a page of them on the first request.
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails catalogue:prerender
+
 
 
 

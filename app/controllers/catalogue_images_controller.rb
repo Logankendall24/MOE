@@ -14,18 +14,26 @@ class CatalogueImagesController < ApplicationController
     return head(:not_found) unless Catalogue.category?(category)
 
     content = Catalogue.content(category)
-    page, box, opts = find_crop(content, params[:crop])
+    page, box, opts = self.class.find_crop(content, params[:crop])
     return head(:not_found) unless box
 
     path = SheetRenderer.crop(content.fetch("catalogue"), page, box, **opts)
     send_rendered path, path.extname == ".jpg" ? "image/jpeg" : "image/png"
   end
 
-  private
+  # Every crop id a category's content defines (for catalogue:prerender).
+  def self.crop_ids(content)
+    ack = content.fetch("acknowledgements")["groups"].each_with_index.flat_map { |g, gi| g["logos"].each_index.map { |li| "ack-#{gi}-#{li}" } }
+    how = content.fetch("how_it_works")
+    heating = (content.dig("heating_options", "options") || []).each_index.flat_map { |i| ["heating-#{i}-0", "heating-#{i}-1"] }
+    ack + how["modules"].each_index.map { |i| "module-#{i}" } + how["examples"].each_index.map { |i| "example-#{i}" } +
+      (content["typologies"] || []).each_index.map { |i| "typology-#{i}" } + (content["figures"] || []).each_index.map { |i| "figure-#{i}" } +
+      (content.dig("graphics", "renders") || []).each_index.map { |i| "render-#{i}" } + heating
+  end
 
   # Crop ids are "<kind>-<index>" into the lists in the category's content
   # (acknowledgement logos take a group and logo index).
-  def find_crop(content, id)
+  def self.find_crop(content, id)
     kind, *index = id.to_s.split("-")
     index = index.map { |i| Integer(i, exception: false) }
     return nil if index.empty? || index.any?(&:nil?)
@@ -49,6 +57,8 @@ class CatalogueImagesController < ApplicationController
       zone && [h["page"], zone["crop"], { dpi: 200 }]
     end
   end
+
+  private
 
   def send_rendered(path, type)
     expires_in 1.year # private: the site is behind SiteLock
