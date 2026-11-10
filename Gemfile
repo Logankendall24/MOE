@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3", ">= 8.1.3.1"
+gem "rails", "~> 8.1.4"
 # Pin below 3.0: json 3.0.2 breaks ActiveSupport::JSON.decode (ArgumentError on JSON.parse),
 # which breaks cookie-session serialization and any `serialize coder: JSON` column.
 gem "json", "~> 2.9"
